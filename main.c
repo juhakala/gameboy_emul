@@ -22,6 +22,7 @@
 #define PC *mem->pc
 
 #define PCC(x) mem->rw[16 + x]
+#define PCA mem->pc
 
 #define Aalt *mem->a[1]
 #define Falt *mem->f[1]
@@ -92,7 +93,13 @@ void print_reg_mem(t_mem *mem)
 	printf("%02x %02x\n", IY, *(&IY + 1));
 	printf("%02x %02x\n", SP, *(&SP + 1));
 	printf("%02x %02x\n", PC, *(&PC + 1));
+	
 	printf("%02x %02x\n", PCC(0), PCC(1));
+	printf("%02x %02x\n", *PCA, *(PCA + 1)); // read second PCA byte *(PCA + 1)
+	printf("%02x %02x\n", *++PCA, *(PCA + 1)); // increment PCA address with *++PCA
+	(*PCA) += 2;		// add to PCA value
+	*(PCA + 1) += 2;	// add to second PCA byte value
+	printf("%02x %02x\n", *PCA, *(PCA + 1)); 
 }
 
 void default_addressies(t_mem *mem)
@@ -126,6 +133,7 @@ void default_addressies(t_mem *mem)
 //	*mem->a[0] = '1';
 //	*mem->pc = 'f';
 	mem->rw[17] = 'f';
+	mem->rw[18] = 'a';
 }
 
 int main(void)
