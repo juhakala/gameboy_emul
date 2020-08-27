@@ -7,6 +7,7 @@
 
 #define RW_MEM_SIZE 26
 #define MEM_SIZE 64000
+#define START_POINT 0
 #define RW mem->rw
 #define RAM mem->ram
 
@@ -24,11 +25,14 @@
 #define IX &mem->rw[10]
 #define IY &mem->rw[12]
 #define SP &mem->rw[14]
-#define PC &mem->rw[16]
 
-#define PCV read_16bits(PC)
+#define PCA &mem->rw[16] // address where PC is (in rw memory block [16 -17])
 
-#define PCR read_ram16bits(RAM, PC)
+#define PC read_16bits(PCA) // read value from PC address
+
+#define PCP(x) put_16bits((PC + x) % MEM_SIZE, PCA) // increment value of pc by x
+
+#define PCR read_ram16bits(RAM, PCA) // address value of &mem->ram[0] + PC
 
 #define Aalt &mem->rw[18]
 #define Falt &mem->rw[19]

@@ -1,25 +1,30 @@
 #include "define.h"
 #include "struct.h"
 
-int read_ram16bits(unsigned char *ram_addr, unsigned char *addr)
+void put_16bits(unsigned short x, unsigned char *addr)
 {
-	int val;
-
-	val = *addr << 8;
-	val += *(addr + 1);
-//	val += ram
-	printf("addr = %p\n", ram_addr);
-	ram_addr += val;
-	printf("addr = %p\n", ram_addr);
-	return (val);
+	*addr = x >> 8;
+	*(addr + 1) = x & 0xFF;
 }
 
-short read_16bits(unsigned char *addr)
+unsigned char *read_ram16bits(unsigned char *ram_addr, unsigned char *addr)
 {
-	short val;
+	unsigned short val;
 
 	val = *addr << 8;
 	val += *(addr + 1);
+//	val %= MEM_SIZE; // pc can never be more than 63999 ? so unnecessary ?
+	ram_addr += val;
+	return (ram_addr);
+}
+
+unsigned short read_16bits(unsigned char *addr)
+{
+	unsigned short val;
+
+	val = *addr << 8;
+	val += *(addr + 1);
+//	val %= MEM_SIZE; // pc can never be more than 63999 ? so unnecessary ?
 	return (val);
 }
 
@@ -44,18 +49,22 @@ void print_rw_mem(t_mem *mem)
 
 void print_reg_mem(t_mem *mem)
 {
-	printf("%02x %02x %02x %02x\n", *A, *F, *Aalt, *Aalt);
-	printf("%02x %02x %02x %02x\n", *B, *C, *Balt, *Calt);
-	printf("%02x %02x %02x %02x\n", *D, *E, *Dalt, *Ealt);
-	printf("%02x %02x %02x %02x\n", *H, *L, *Halt, *Lalt);
-	printf("%02x %02x\n", *I, *R);
-	printf("%02x %02x\n", *IX, *(IX + 1));
-	printf("%02x %02x\n", *IY, *(IY + 1));
-	printf("%02x %02x\n", *SP, *(SP + 1));
-	printf("%02x %02x\n", *PC, *(PC + 1));
+	printf("A F %02x %02x\n", *A, *F);
+	printf("B C %02x %02x\n", *B, *C);
+	printf("D E %02x %02x\n", *D, *E);
+	printf("H L %02x %02x\n", *H, *L);
+	printf("I R %02x %02x\n", *I, *R);
+	printf("IX  %02x %02x\n", *IX, *(IX + 1));
+	printf("IY  %02x %02x\n", *IY, *(IY + 1));
+	printf("SP  %02x %02x\n", *SP, *(SP + 1));
+	printf("PC  %02x %02x\n", *PCA, *(PCA + 1));
+	printf("Aalt Falt %02x %02x\n", *Aalt, *Aalt);
+	printf("Balt Calt %02x %02x\n", *Balt, *Calt);
+	printf("Dalt Ealt %02x %02x\n", *Dalt, *Ealt);
+	printf("Halt Lalt %02x %02x\n", *Halt, *Lalt);
 }
 
-void default_ram_rw_testing(t_mem *mem)
+void ram_rw_testing(t_mem *mem)
 {
 	int i = 0;
 
@@ -64,15 +73,8 @@ void default_ram_rw_testing(t_mem *mem)
 		RAM[i] = i;
 		i++;
 	}
-//	mem->rw[16] = 1;
-//	mem->rw[17] = 255;
-//	*PC += 2;
-//	mem->rw[17] = 15;
-//	mem->rw[14] = 10;
-//	*PC += 10;
-//	*(PC + 1) += 17;
-//	*(PCA + 1) += 17;
-//	&PC = 1;
+	RW[16] += 0x01;
+	RW[17] += 7;
 }
 
 int main(void)
@@ -82,12 +84,25 @@ int main(void)
 	mem = (t_mem*)malloc(sizeof(t_mem));
 	bzero(RW, RW_MEM_SIZE);
 	bzero(RAM, MEM_SIZE);
-	default_ram_rw_testing(mem);
-	RW[17]++;
-	print_reg_mem(mem);
+	ram_rw_testing(mem);
+	print_reg_mem(mem); // print register values in %02x
 	printf("\n");
-	print_rw_mem(mem);
-	printf("PC int = '%d'\n", PCV);
-	printf("RAM AD int = '%d'\n", PCR);
+	print_rw_mem(mem); // print all 208 bits from rw memory block
+	printf("\n");
+	printf("PC uint = '%u'\n", PC); // value of pc
+	printf("RAM[0] address = '%p'\n", &RAM[0]); // address of &ram[0] + pc value
+	printf("RAM[PC] address = '%p'\n", PCR); // address of &ram[0] + pc value
+	printf("*RAM[PC] = '%d'\n", *PCR);
+	printf("PC uint = '%u'\n", PC); // 0x0107 =  263
+	printf(" = '%u'\n", mem->ram[263]);
+	PCP(10000);
+	printf("PC uint = '%u'\n", PC);
+	PCP(53736); // to 63999
+	printf("PC uint = '%u'\n", PC);
+	print_reg_mem(mem); // print register values in %02x
+	PCP(2); // (63999 + 2) % MEM_SIZE = 1
+	printf("PC uint = '%u'\n", PC);
+	print_reg_mem(mem); // print register values in %02x
+//	system("leaks a.out");
 	return (0);
 }
