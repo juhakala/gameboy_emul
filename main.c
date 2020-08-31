@@ -1,5 +1,6 @@
-#include "define.h"
-#include "struct.h"
+//#include "define.h"
+//#include "struct.h"
+#include "z80.h"
 
 void put_16bits(unsigned short x, unsigned char *addr)
 {
@@ -56,7 +57,7 @@ void print_reg_mem(t_mem *mem)
 	printf("I R %02x %02x\n", *I, *R);
 	printf("IX  %02x %02x\n", *IX, *(IX + 1));
 	printf("IY  %02x %02x\n", *IY, *(IY + 1));
-	printf("SP  %02x %02x\n", *SP, *(SP + 1));
+	printf("SP  %02x %02x\n", *SPA, *(SPA + 1));
 	printf("PC  %02x %02x\n", *PCA, *(PCA + 1));
 	printf("Aalt Falt %02x %02x\n", *Aalt, *Aalt);
 	printf("Balt Calt %02x %02x\n", *Balt, *Calt);
@@ -77,12 +78,82 @@ void ram_rw_testing(t_mem *mem)
 	RW[17] += 7;
 }
 
-int main(void)
+void	print_ram_mem(t_mem *mem, int size)
+{
+	unsigned int i = 0;
+	unsigned int c = 0;
+	
+	printf("%05x : ", 0);
+	while (i < size)
+	{
+		printf("%02x", RAM[i++]);
+		if (i % 2 == 0)
+		{
+			printf(" ");
+			if (i % 8 == 0)
+				printf(" ");
+		}
+		if (i % 16 == 0)
+		{
+			printf("|");
+			while (c < i)
+			{
+				if (RAM[c] > 31 && RAM[c] < 127)
+					printf("%c", RAM[c]);
+				else
+					printf(".");
+				c++;
+			}
+			printf("|\n%05x : ", i);
+		}
+	}
+	if (i != c)
+	{
+		while (i++ % 16 != 0)
+		{
+			printf("  ");
+			if (i % 2 == 0)
+			{
+				printf(" ");
+				if (i % 8 == 0)
+					printf(" ");
+			}
+		}
+		printf("|");
+		while (c < size)
+		{
+			if (RAM[c] > 31 && RAM[c] < 127)
+				printf("%c", RAM[c]);
+			else
+				printf(".");
+			c++;
+		}
+		printf("|\n");
+	}
+}
+
+int	read_to_mem(char **av, t_mem *mem)
+{
+	FILE *fp;
+	size_t size;
+
+	if (!(fp = fopen(av[1], "r")))
+		return (1);
+	while ((size = fread(PCR, 1, BUF_SIZE, fp)) && PC < MEM_SIZE)
+	{
+		if ((int)PC + size > MEM_SIZE)
+			break ;
+		PC_ADD(size);
+	}
+	return (0);
+}
+
+int main(int ac, char **av)
 {
 	t_mem *mem;
 
 	mem = (t_mem*)malloc(sizeof(t_mem));
-	bzero(RW, RW_MEM_SIZE);
+/*	bzero(RW, RW_MEM_SIZE);
 	bzero(RAM, MEM_SIZE);
 	ram_rw_testing(mem);
 	print_reg_mem(mem); // print register values in %02x
@@ -103,6 +174,40 @@ int main(void)
 	PCP(2); // (63999 + 2) % MEM_SIZE = 1
 	printf("PC uint = '%u'\n", PC);
 	print_reg_mem(mem); // print register values in %02x
+*/	bzero(RW, RW_MEM_SIZE);
+	bzero(RAM, MEM_SIZE);
+
+/*	printf("F = '%hhu'\n", *F);
+
+	SET_Z_FLAG;
+		SET_Z_FLAG;
+	printf("%d\n", CHECK_Z_FLAG);
+	printf("F = '%hhu'\n", *F);
+	CLEAR_Z_FLAG;
+		CLEAR_Z_FLAG;
+		printf("%d\n", CHECK_Z_FLAG);*/
+//	SET_Z_FLAG;
+//	*F = 1;
+	
+//	printf("F = '%hhu'\n", *F);
+//	exit(0);
+	
+	if (ac >= 2 && !read_to_mem(av, mem))
+	{
+		PC_PUT(START_POINT);
+		CYCLE = 0;
+		printf("max op_size = %x, %d\n", OP_TAB_SIZE, g_op_tab[OP_TAB_SIZE - 1].f(mem));
+		int size;
+		while ((size = read_op_byte(mem)) != -1)
+		{
+//			read_mem_bytes(mem, size);
+//			PC_ADD(size);
+		}
+		printf("Did not understand: ");
+		read_mem_bytes(mem, 1);
+	}
+	else
+		printf("	ac != 2 or av[1] : '%s' could not be opened!\n", av[1]);
 //	system("leaks a.out");
 	return (0);
 }

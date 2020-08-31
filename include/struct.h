@@ -18,8 +18,16 @@
 ** pc = program counter
 */
 
+#include "define.h"
+
 typedef struct		s_mem
 {
     unsigned char	rw[RW_MEM_SIZE];
 	unsigned char	ram[MEM_SIZE];
+	unsigned int	cycle;
 }					t_mem;
+
+typedef struct		s_op
+{
+	int				(*f)();
+}					t_op;
