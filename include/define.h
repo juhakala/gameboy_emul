@@ -62,14 +62,14 @@
 
 #define SPA &mem->rw[14]
 #define SP read_16bits(SPA) // read value from SP address
-#define SP_ADD(x) put_16bits(SP + x, SPA) // increment value of pc by x
-#define SP_PUT(x) put_16bits(x, SPA) // increment value of pc by x
+#define SP_ADD(x) put_16bits(SP + x, SPA) // increment value of sp by x
+#define SP_PUT(x) put_16bits(x, SPA) // put value x to sp
 #define SPR read_ram16bits(RAM, SPA) // address value of &mem->ram[0] + SP
 
 #define PCA &mem->rw[16] // address where PC is (in rw memory block [16 -17])
 #define PC read_16bits(PCA) // read value from PC address
 #define PC_ADD(x) put_16bits(PC + x, PCA) // increment value of pc by x
-#define PC_PUT(x) put_16bits(x, PCA) // increment value of pc by x
+#define PC_PUT(x) put_16bits(x, PCA) // put value x to pc 
 #define PCR read_ram16bits(RAM, PCA) // address value of &mem->ram[0] + PC
 //#define PC_ADD(x) put_16bits((PC + x) % MEM_SIZE, PCA) // increment value of pc by x
 
