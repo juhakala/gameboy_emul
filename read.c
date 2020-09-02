@@ -20,7 +20,7 @@ t_op	g_op_tab[OP_TAB_SIZE] =
 	{not_done}, {not_done}, {not_done}, {op_jp_nn}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //c0 -> cf
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //d0 -> df
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //e0 -> ef
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {op_cp_n}, {not_done}, //f0 -> ff
+	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {op_cp_n}, {op_rst_p}, //f0 -> ff
 	{max_not_done}
 };
 
@@ -28,13 +28,8 @@ int	read_op_byte(t_mem *mem)
 {
 	int size = -1;
 
-//	if (RAM[PC] < OP_TAB_SIZE)
-//	{
-//	printf("size = %d\n", size);
 	size = g_op_tab[RAM[PC]].f(mem);
 
-//	}
-//	printf("RAM[PC] = %d'", RAM[PC]);
 	return (size);
 }
 
@@ -42,7 +37,7 @@ void read_mem_bytes(t_mem *mem, int size)
 {
 	int i = 0;
 
-	printf("[%u] (%05hx -> %05hx): ", CYCLE, PC, (unsigned short)(PC + size));
+	printf("[%u] (%05hx -> %05hx): ", CYCLE, PC, (unsigned short)(PC + (size - 1)));
 	while (i < size)
 	{
 		printf("%02hhx ", *(PCR + i++));

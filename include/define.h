@@ -5,48 +5,23 @@
 #include <stdlib.h>
 #include <strings.h>
 
-#define REV_16(x) (unsigned short)(x >> 8 | ((x & 0xFF) << 8))
-#define RW_MEM_SIZE 26
-//#define MEM_SIZE 64000
-#define MEM_SIZE 65535
-#define START_POINT 0x100
-#define BUF_SIZE 8
+
+#define RW_MEM_SIZE 26 // 208 bits
+#define MEM_SIZE 65536 // max unsigned short
+#define START_POINT 0x100 // 0x0100 is normally starting point for rom games
 #define RW mem->rw
+#define RAMI(x) mem->ram[(unsigned short)x]
 #define RAM mem->ram
 #define CYCLE mem->cycle
 #define PRINT 1
-#define OP_TAB_SIZE 0x101
+#define OP_TAB_SIZE 0x101 // max size of op list, change if you add op:s
 
 #define A &mem->rw[0]
 #define F &mem->rw[1]
 
-#define SET_FLAG(n) (*F |= (1 << n))
-#define CLEAR_FLAG(n) (*F &= ~(1 << n))
-#define CHECK_FLAG(n) ((*F >> n) & 0x01)
-
-#define SET_S_FLAG SET_FLAG(7)
-#define CLEAR_S_FLAG CLEAR_FLAG(7)
-#define CHECK_S_FLAG CHECK_FLAG(7)
-
-#define SET_Z_FLAG SET_FLAG(6)
-#define CLEAR_Z_FLAG CLEAR_FLAG(6)
-#define CHECK_Z_FLAG CHECK_FLAG(6)
-
-#define SET_H_FLAG SET_FLAG(4)
-#define CLEAR_H_FLAG CLEAR_FLAG(4)
-#define CHECK_H_FLAG CHECK_FLAG(4)
-
-#define SET_PV_FLAG SET_FLAG(2)
-#define CLEAR_PV_FLAG CLEAR_FLAG(2)
-#define CHECK_PV_FLAG CHECK_FLAG(2)
-
-#define SET_N_FLAG SET_FLAG(1)
-#define CLEAR_N_FLAG CLEAR_FLAG(1)
-#define CHECK_N_FLAG CHECK_FLAG(1)
-
-#define SET_C_FLAG SET_FLAG(0)
-#define CLEAR_C_FLAG CLEAR_FLAG(0)
-#define CHECK_C_FLAG CHECK_FLAG(0)
+#define SET_FLAG(n) (*F |= (1 << n)) // set n:th bit
+#define CLEAR_FLAG(n) (*F &= ~(1 << n)) // clear n:th bit
+#define CHECK_FLAG(n) ((*F >> n) & 0x01) // check n:th bit
 
 #define B &mem->rw[2]
 #define C &mem->rw[3]
@@ -81,5 +56,8 @@
 #define Ealt &mem->rw[23]
 #define Halt &mem->rw[24]
 #define Lalt &mem->rw[25]
+
+#define REV_16(x) (unsigned short)(x >> 8 | ((x & 0xFF) << 8))
+#define BUF_SIZE 8
 
 #endif

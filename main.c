@@ -14,7 +14,6 @@ unsigned char *read_ram16bits(unsigned char *ram_addr, unsigned char *addr)
 
 	val = *addr << 8;
 	val += *(addr + 1);
-//	val %= MEM_SIZE; // pc can never be more than 63999 ? so unnecessary ?
 	ram_addr += val;
 	return (ram_addr);
 }
@@ -25,7 +24,6 @@ unsigned short read_16bits(unsigned char *addr)
 
 	val = *addr << 8;
 	val += *(addr + 1);
-//	val %= MEM_SIZE; // pc can never be more than 63999 ? so unnecessary ?
 	return (val);
 }
 
@@ -139,14 +137,16 @@ int	read_to_mem(char **av, t_mem *mem)
 
 	if (!(fp = fopen(av[1], "r")))
 		return (1);
-	while ((size = fread(PCR, 1, BUF_SIZE, fp)) && PC < MEM_SIZE)
+	while ((size = fread(PCR, 1, BUF_SIZE, fp)))// && PC < MEM_SIZE)
 	{
-		if ((int)PC + size > MEM_SIZE)
+		if (PC + size > MEM_SIZE)
 			break ;
 		PC_ADD(size);
 	}
 	return (0);
 }
+
+#include "op.h"
 
 int main(int ac, char **av)
 {
@@ -177,21 +177,9 @@ int main(int ac, char **av)
 */	bzero(RW, RW_MEM_SIZE);
 	bzero(RAM, MEM_SIZE);
 
-/*	printf("F = '%hhu'\n", *F);
-
-	SET_Z_FLAG;
-		SET_Z_FLAG;
-	printf("%d\n", CHECK_Z_FLAG);
-	printf("F = '%hhu'\n", *F);
-	CLEAR_Z_FLAG;
-		CLEAR_Z_FLAG;
-		printf("%d\n", CHECK_Z_FLAG);*/
-//	SET_Z_FLAG;
-//	*F = 1;
-	
-//	printf("F = '%hhu'\n", *F);
-//	exit(0);
-	
+	op_jp_nn(mem);
+	op_rst_p(mem);
+	print_ram_mem(mem, MEM_SIZE);
 	if (ac >= 2 && !read_to_mem(av, mem))
 	{
 		PC_PUT(START_POINT);
