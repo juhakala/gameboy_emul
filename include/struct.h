@@ -25,6 +25,7 @@ typedef struct		s_mem
     unsigned char	rw[RW_MEM_SIZE];
 	unsigned char	ram[MEM_SIZE];
 	unsigned int	cycle;
+	int	not_done; //temp for checking
 }					t_mem;
 
 typedef struct		s_op

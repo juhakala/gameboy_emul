@@ -7,9 +7,10 @@ int	max_not_done(t_mem *mem)
 }
 int	not_done(t_mem *mem)
 {
-	printf("not done yet : RAM[PC](%x, %d), PC(%hx), ", RAM[PC], RAM[PC], PC);
+	printf("not done yet : RAM[PC](hex = %x, dec = %d), PC(short hex = %hx)\n	", RAM[PC], RAM[PC], PC);
 	read_mem_bytes(mem, 1);
-	exit(0);
+	mem->not_done++;
+//	exit(0);
 //	printf("\n\n");
 	return (-1);
 }

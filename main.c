@@ -139,10 +139,11 @@ int	read_to_mem(char **av, t_mem *mem)
 		return (1);
 	while ((size = fread(PCR, 1, BUF_SIZE, fp)))// && PC < MEM_SIZE)
 	{
-		if (PC + size > MEM_SIZE)
+		if (PC + size >= MEM_SIZE)
 			break ;
 		PC_ADD(size);
 	}
+
 	return (0);
 }
 
@@ -153,35 +154,22 @@ int main(int ac, char **av)
 	t_mem *mem;
 
 	mem = (t_mem*)malloc(sizeof(t_mem));
-/*	bzero(RW, RW_MEM_SIZE);
-	bzero(RAM, MEM_SIZE);
-	ram_rw_testing(mem);
-	print_reg_mem(mem); // print register values in %02x
-	printf("\n");
-	print_rw_mem(mem); // print all 208 bits from rw memory block
-	printf("\n");
-	printf("PC uint = '%u'\n", PC); // value of pc
-	printf("RAM[0] address = '%p'\n", &RAM[0]); // address of &ram[0] + pc value
-	printf("RAM[PC] address = '%p'\n", PCR); // address of &ram[0] + pc value
-	printf("*RAM[PC] = '%d'\n", *PCR);
-	printf("PC uint = '%u'\n", PC); // 0x0107 =  263
-	printf(" = '%u'\n", mem->ram[263]);
-	PCP(10000);
-	printf("PC uint = '%u'\n", PC);
-	PCP(53736); // to 63999
-	printf("PC uint = '%u'\n", PC);
-	print_reg_mem(mem); // print register values in %02x
-	PCP(2); // (63999 + 2) % MEM_SIZE = 1
-	printf("PC uint = '%u'\n", PC);
-	print_reg_mem(mem); // print register values in %02x
-*/	bzero(RW, RW_MEM_SIZE);
+	bzero(RW, RW_MEM_SIZE);
 	bzero(RAM, MEM_SIZE);
 
-	op_jp_nn(mem);
-	op_rst_p(mem);
-	print_ram_mem(mem, MEM_SIZE);
-	if (ac >= 2 && !read_to_mem(av, mem))
+//	print_ram_mem(mem, MEM_SIZE);
+//	exit(0);
+	if (ac == 2 && !strcmp(av[1], "not_done"))
 	{
+		mem->not_done = 0;
+		for (int i = 0; i < OP_TAB_SIZE; i++)
+			g_op_tab[i].f(mem);
+		printf("\nNOT_DONE_COUNT = '%d', '%x'\n", mem->not_done, mem->not_done);
+	}
+	else if (ac >= 2 && !read_to_mem(av, mem))
+	{
+//	print_ram_mem(mem, MEM_SIZE);
+//	exit(0);
 		PC_PUT(START_POINT);
 		CYCLE = 0;
 		printf("max op_size = %x, %d\n", OP_TAB_SIZE, g_op_tab[OP_TAB_SIZE - 1].f(mem));
