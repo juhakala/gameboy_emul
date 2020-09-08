@@ -170,6 +170,9 @@ int main(int ac, char **av)
 	{
 //	print_ram_mem(mem, MEM_SIZE);
 //	exit(0);
+		printf("0x147 = %d, %x\n", RAM[0x147], RAM[0x147]);
+		printf("0x147 = %d, %x\n", RAM[0x148], RAM[0x148]);
+		exit(0);
 		PC_PUT(START_POINT);
 		CYCLE = 0;
 		printf("max op_size = %x, %d\n", OP_TAB_SIZE, g_op_tab[OP_TAB_SIZE - 1].f(mem));
