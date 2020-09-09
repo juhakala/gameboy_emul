@@ -75,7 +75,64 @@ void	print_rom_mem(t_mem *mem, int size)
 		while (c < size)
 		{
 			if (mem->rom[c] > 31 && mem->rom[c] < 127)
-				printf("%c", RAM[c]);
+				printf("%c", mem->rom[c]);
+			else
+				printf(".");
+			c++;
+		}
+		printf("|\n");
+	}
+}
+
+void	print_ram_mem(t_mem *mem, int size)
+{
+	unsigned int i = 0;
+	unsigned int c = 0;
+	
+	printf("%05x : ", 0);
+	while (i < size)
+	{
+		printf("%02x", mem->ram[i++]);
+		if (i % 2 == 0)
+		{
+			printf(" ");
+			if (i % 8 == 0)
+				printf(" ");
+		}
+		if (i % 16 == 0)
+		{
+			printf("|");
+			while (c < i)
+			{
+				if (mem->ram[c] > 31 && mem->ram[c] < 127)
+					printf("%c", mem->ram[c]);
+				else
+					printf(".");
+				c++;
+			}
+			if (i + 1 < size)
+				printf("|\n%05x : ", i);
+			else
+				printf("|\n");
+		}
+	}
+	if (i != c)
+	{
+		while (i++ % 16 != 0)
+		{
+			printf("  ");
+			if (i % 2 == 0)
+			{
+				printf(" ");
+				if (i % 8 == 0)
+					printf(" ");
+			}
+		}
+		printf("|");
+		while (c < size)
+		{
+			if (mem->ram[c] > 31 && mem->ram[c] < 127)
+				printf("%c", mem->ram[c]);
 			else
 				printf(".");
 			c++;
@@ -98,6 +155,7 @@ int	read_to_mem(char **av, t_mem *mem)
 	fread(mem->rom, 1, size, fp);
 	mem->memory->rom_size = size;
 	memcpy(mem->header, &(*(mem->rom + 0x104)), 76);
+	fclose(fp);
 	return (0);
 }
 
@@ -138,7 +196,7 @@ int		check_header_info(t_mem *mem)
 void	power_up(t_mem *mem)
 {
 	mem->reg->pc = 0;
-	int size;;
+	int size;
 	unsigned char boot[256] = {0x31, 0xfe, 0xff, 0xaf, 0x21, 0xff, 0x9f, 0x32, 0xcb, 0x7c, 0x20, 0xfb, 0x21, 0x26, 0xff, 0x0e,
 							   0x11, 0x3e, 0x80, 0x32, 0xe2, 0x0c, 0x3e, 0xf3, 0xe2, 0x32, 0x3e, 0x77, 0x77, 0x3e, 0xfc, 0xe0,
 							   0x47, 0x11, 0x04, 0x01, 0x21, 0x10, 0x80, 0x1a, 0xcd, 0x95, 0x00, 0xcd, 0x96, 0x00, 0x13, 0x7b,
@@ -155,9 +213,34 @@ void	power_up(t_mem *mem)
 							   0xdd, 0xdc, 0x99, 0x9f, 0xbb, 0xb9, 0x33, 0x3e, 0x3c, 0x42, 0xb9, 0xa5, 0xb9, 0xa5, 0x42, 0x3c,
 							   0x21, 0x04, 0x01, 0x11, 0xa8, 0x00, 0x1a, 0x13, 0xbe, 0x20, 0xfe, 0x23, 0x7d, 0xfe, 0x34, 0x20,
 							   0xf5, 0x06, 0x19, 0x78, 0x86, 0x23, 0x05, 0x20, 0xfb, 0x86, 0x20, 0xfe, 0x3e, 0x01, 0xe0, 0x50};
+
 	while ((size = read_op_byte(boot, mem)) != -1 && mem->reg->pc < 256)
 		mem->reg->pc += size;
 		
+}
+
+void	map_io_registers(t_mem *mem)
+{
+	mem->io_reg->ff00 = &mem->ram[0xff00];
+}
+
+int		fetch_save(t_mem *mem)
+{
+//	FILE *fp;
+//	char save[260];
+	
+//	sprintf(save, "pokemone_save_size_%d", mem->memory->ram_size);
+	mem->ram = (unsigned char*)malloc(sizeof(unsigned char) * mem->memory->ram_size);
+//	fp = fopen(save, "r")
+//	if (fp)
+//	{
+//		fread(mem->ram, 1, mem->memory->ram_size, fp);
+//		fclose(fp);
+//	}
+
+	bzero(mem->ram, mem->memory->ram_size); //tmp for testing
+	map_io_registers(mem);
+	return (0);
 }
 
 void	test(t_mem *mem)
@@ -169,7 +252,10 @@ void	test(t_mem *mem)
 //	printf("%x\n", mem->header->ram_size);
 //	printf("%d\n", mem->memory->rom_size);
 //	printf("%d\n", mem->memory->ram_size);
+//	*mem->io_reg->ff00 = 255;
+//	print_ram_mem(mem, 0xff10);
 	printf("GOT TO END OF PROGRAM!!\n");
+	
 }
 
 int		main(int ac, char **av)
@@ -178,11 +264,14 @@ int		main(int ac, char **av)
 
 	mem = (t_mem*)malloc(sizeof(t_mem));
 	mem->reg = (t_reg*)malloc(sizeof(t_reg));
+	mem->io_reg = (t_io_reg*)malloc(sizeof(t_io_reg));
 	mem->header = (t_header*)malloc(sizeof(t_header));
 	mem->memory = (t_mem_control*)malloc(sizeof(t_mem_control));
 	if (ac > 1)
 		read_to_mem(av, mem);
 	if (check_header_info(mem))
+		return (0);
+	if (fetch_save(mem))
 		return (0);
 	power_up(mem);
 	test(mem);

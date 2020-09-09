@@ -34,7 +34,7 @@ typedef struct		s_reg
 	unsigned short	de;
 	unsigned short	hl;
 	unsigned short	pc;
-	unsigned short	sp;	
+	unsigned short	sp;
 }					t_reg;
 
 typedef struct		s_header
@@ -52,7 +52,7 @@ typedef struct		s_header
 	unsigned char	g_check_sum[2]; //14f
 }					t_header;
 
-typedef struct		s_mqem_control
+typedef struct		s_mem_control
 {
 	int				mbc;
 	int				rom_size;
