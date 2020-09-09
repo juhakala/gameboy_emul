@@ -14,7 +14,7 @@ unsigned short read_16bits(unsigned char *addr);
 
 // read.c
 t_op	g_op_tab[OP_TAB_SIZE];
-int		read_op_byte(t_mem *mem);
-void	read_mem_bytes(t_mem *mem, int size);
+int		read_op_byte(unsigned char *memory, t_mem *mem);
+void	read_mem_bytes(unsigned char *memory, t_mem *mem, int size);
 
 #endif

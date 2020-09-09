@@ -6,7 +6,9 @@
 //#include "struct.h"
 
 int		max_not_done(t_mem *mem);
-int		not_done(t_mem *mem);
+int		not_done(unsigned char *memory, t_mem *mem);
+
+int		ld_sp_d16(unsigned char *memory, t_mem *mem);
 
 /*
 ** ops/utils.c

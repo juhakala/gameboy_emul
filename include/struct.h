@@ -20,12 +20,53 @@
 
 #include "define.h"
 
+typedef struct		s_reg
+{
+	unsigned char	a;
+	unsigned char	f;
+	unsigned short	bc;
+	unsigned short	de;
+	unsigned short	hl;
+	unsigned short	pc;
+	unsigned short	sp;
+}					t_reg;
+
+typedef struct		s_header
+{
+	unsigned char	logo[48];
+	unsigned char	title[18]; //145
+	unsigned char	sgb_flag; //146
+	unsigned char	cart_type; //147
+	unsigned char	rom_size; //148
+	unsigned char	ram_size; //149
+	unsigned char	dest_code; //14a
+	unsigned char	license_code; //14b
+	unsigned char	vres_num; //14c
+	unsigned char	h_check_sum; //14d
+	unsigned char	g_check_sum[2]; //14f
+}					t_header;
+
+typedef struct		s_mem_control
+{
+	int				mbc;
+	int				rom_size;
+	int				ram_size;
+	int				rom_banks;
+	int				ram_banks;
+	
+}					t_mem_control;
+
 typedef struct		s_mem
 {
-    unsigned char	rw[RW_MEM_SIZE];
-	unsigned char	ram[MEM_SIZE];
+	unsigned char	*rom;
+	unsigned char	*ram;
+	
 	unsigned int	cycle;
 	int	not_done; //temp for checking
+
+	t_reg			*reg;
+	t_header		*header;
+	t_mem_control	*memory;
 }					t_mem;
 
 typedef struct		s_op
