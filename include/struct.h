@@ -20,6 +20,12 @@
 
 #include "define.h"
 
+typedef struct		s_io_reg
+{
+	unsigned char	*ff00; //p1
+	
+}					t_io_reg;
+
 typedef struct		s_reg
 {
 	unsigned char	a;
@@ -28,7 +34,7 @@ typedef struct		s_reg
 	unsigned short	de;
 	unsigned short	hl;
 	unsigned short	pc;
-	unsigned short	sp;
+	unsigned short	sp;	
 }					t_reg;
 
 typedef struct		s_header
@@ -46,7 +52,7 @@ typedef struct		s_header
 	unsigned char	g_check_sum[2]; //14f
 }					t_header;
 
-typedef struct		s_mem_control
+typedef struct		s_mqem_control
 {
 	int				mbc;
 	int				rom_size;
@@ -65,6 +71,7 @@ typedef struct		s_mem
 	int	not_done; //temp for checking
 
 	t_reg			*reg;
+	t_io_reg		*io_reg;
 	t_header		*header;
 	t_mem_control	*memory;
 }					t_mem;
