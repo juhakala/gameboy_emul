@@ -196,6 +196,9 @@ int		check_header_info(t_mem *mem)
 void	power_up(t_mem *mem)
 {
 	mem->reg->pc = 0;
+//	*mem->i_o_reg->ff26 = 0xf1;
+//	*mem->i_o_reg->ff40 = 0x91;
+
 	int size;
 	unsigned char boot[256] = {0x31, 0xfe, 0xff, 0xaf, 0x21, 0xff, 0x9f, 0x32, 0xcb, 0x7c, 0x20, 0xfb, 0x21, 0x26, 0xff, 0x0e,
 							   0x11, 0x3e, 0x80, 0x32, 0xe2, 0x0c, 0x3e, 0xf3, 0xe2, 0x32, 0x3e, 0x77, 0x77, 0x3e, 0xfc, 0xe0,
@@ -213,15 +216,61 @@ void	power_up(t_mem *mem)
 							   0xdd, 0xdc, 0x99, 0x9f, 0xbb, 0xb9, 0x33, 0x3e, 0x3c, 0x42, 0xb9, 0xa5, 0xb9, 0xa5, 0x42, 0x3c,
 							   0x21, 0x04, 0x01, 0x11, 0xa8, 0x00, 0x1a, 0x13, 0xbe, 0x20, 0xfe, 0x23, 0x7d, 0xfe, 0x34, 0x20,
 							   0xf5, 0x06, 0x19, 0x78, 0x86, 0x23, 0x05, 0x20, 0xfb, 0x86, 0x20, 0xfe, 0x3e, 0x01, 0xe0, 0x50};
-
-	while ((size = read_op_byte(boot, mem)) != -1 && mem->reg->pc < 256)
+	mem->boot = boot;
+	while ((size = read_op_byte(mem)) != -1 && *mem->io_reg->ff50 == 0) //tmp for boot testing
 		mem->reg->pc += size;
-		
+//	print_i_o_registers(mem);
 }
 
 void	map_io_registers(t_mem *mem)
 {
-	mem->io_reg->ff00 = &mem->ram[0xff00];
+	mem->io_reg->ff00 = &mem->i_o_registers[0x0];
+	mem->io_reg->ff01 = &mem->i_o_registers[0x1];
+	mem->io_reg->ff02 = &mem->i_o_registers[0x2];
+	mem->io_reg->ff04 = &mem->i_o_registers[0x4];
+	mem->io_reg->ff05 = &mem->i_o_registers[0x5];
+	mem->io_reg->ff06 = &mem->i_o_registers[0x6];
+	mem->io_reg->ff07 = &mem->i_o_registers[0x7];
+	mem->io_reg->ff0f = &mem->i_o_registers[0xf];
+	mem->io_reg->ff10 = &mem->i_o_registers[0x10];
+	mem->io_reg->ff11 = &mem->i_o_registers[0x11];
+	mem->io_reg->ff12 = &mem->i_o_registers[0x12];
+	mem->io_reg->ff13 = &mem->i_o_registers[0x13];
+	mem->io_reg->ff14 = &mem->i_o_registers[0x14];
+	mem->io_reg->ff16 = &mem->i_o_registers[0x16];
+	mem->io_reg->ff17 = &mem->i_o_registers[0x17];
+	mem->io_reg->ff18 = &mem->i_o_registers[0x18];
+	mem->io_reg->ff19 = &mem->i_o_registers[0x19];
+	mem->io_reg->ff1a = &mem->i_o_registers[0x1a];
+	mem->io_reg->ff1b = &mem->i_o_registers[0x1b];
+	mem->io_reg->ff1c = &mem->i_o_registers[0x1c];
+	mem->io_reg->ff1d = &mem->i_o_registers[0x1d];
+	mem->io_reg->ff1e = &mem->i_o_registers[0x1e];
+	mem->io_reg->ff20 = &mem->i_o_registers[0x20];
+	mem->io_reg->ff21 = &mem->i_o_registers[0x21];
+	mem->io_reg->ff22 = &mem->i_o_registers[0x22];
+	mem->io_reg->ff23 = &mem->i_o_registers[0x23];
+	mem->io_reg->ff24 = &mem->i_o_registers[0x24];
+	mem->io_reg->ff25 = &mem->i_o_registers[0x25];
+	mem->io_reg->ff26 = &mem->i_o_registers[0x26];
+	mem->io_reg->ff30 = &mem->i_o_registers[0x30];
+	mem->io_reg->ff40 = &mem->i_o_registers[0x40];
+	mem->io_reg->ff41 = &mem->i_o_registers[0x41];
+	mem->io_reg->ff42 = &mem->i_o_registers[0x42];
+	mem->io_reg->ff43 = &mem->i_o_registers[0x43];
+	mem->io_reg->ff44 = &mem->i_o_registers[0x44];
+	mem->io_reg->ff45 = &mem->i_o_registers[0x45];
+	mem->io_reg->ff46 = &mem->i_o_registers[0x46];
+	mem->io_reg->ff47 = &mem->i_o_registers[0x47];
+	mem->io_reg->ff48 = &mem->i_o_registers[0x48];
+	mem->io_reg->ff49 = &mem->i_o_registers[0x49];
+	mem->io_reg->ff4a = &mem->i_o_registers[0x4a];
+	mem->io_reg->ff4b = &mem->i_o_registers[0x4b];
+	mem->io_reg->ff50 = &mem->i_o_registers[0x50];
+	
+	//if boot rom is read 0
+	*mem->io_reg->ff50 = 0;
+
 }
 
 int		fetch_save(t_mem *mem)

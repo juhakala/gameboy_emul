@@ -22,8 +22,50 @@
 
 typedef struct		s_io_reg
 {
-	unsigned char	*ff00; //p1
-	
+	unsigned char	*ff00; //p1			r/w
+	unsigned char	*ff01; //sb			r/w
+	unsigned char	*ff02; //sc			r/w
+	unsigned char	*ff04; //div		r/w
+	unsigned char	*ff05; //tima		r/w
+	unsigned char	*ff06; //tma		r/w
+	unsigned char	*ff07; //tac		r/w
+	unsigned char	*ff0f; //if			r/w
+	unsigned char	*ff10; //nr10		r/w
+	unsigned char	*ff11; //nr11		r/w
+	unsigned char	*ff12; //nr12		r/w
+	unsigned char	*ff13; //nr13		w
+	unsigned char	*ff14; //nr14		r/w
+	unsigned char	*ff16; //nr21		r/w
+	unsigned char	*ff17; //nr22		r/w
+	unsigned char	*ff18; //nr23		w
+	unsigned char	*ff19; //nr24		r/w
+	unsigned char	*ff1a; //nr30		r/w
+	unsigned char	*ff1b; //nr31		r/w
+	unsigned char	*ff1c; //nr32		r/w
+	unsigned char	*ff1d; //nr33		w
+	unsigned char	*ff1e; //nr34		r/w
+	unsigned char	*ff20; //nr41		r/w
+	unsigned char	*ff21; //nr42		r/w
+	unsigned char	*ff22; //nr43		r/w
+	unsigned char	*ff23; //nr44		r/w
+	unsigned char	*ff24; //nr50		r/w
+	unsigned char	*ff25; //nr51		r/w
+	unsigned char	*ff26; //nr52		r/w			at reset = 0xf1
+	unsigned char	*ff30; //wave pattern ram 30 -> 3f
+	unsigned char	*ff40; //LCDL		r/w			at reset = 0x91
+	unsigned char	*ff41; //STAT		r/w
+	unsigned char	*ff42; //SCY		r/w
+	unsigned char	*ff43; //SCX		r/w
+	unsigned char	*ff44; //LY			r
+	unsigned char	*ff45; //LYC		r/w
+	unsigned char	*ff46; //DMA		w
+	unsigned char	*ff47; //BGP		r/w
+	unsigned char	*ff48; //OBPO		r/w
+	unsigned char	*ff49; //OBP1		r/w
+	unsigned char	*ff4a; //WY			r/w
+	unsigned char	*ff4b; //WX			r/w
+	unsigned char	*ff50; //boot lock	r/w
+
 }					t_io_reg;
 
 typedef struct		s_reg
@@ -59,13 +101,27 @@ typedef struct		s_mem_control
 	int				ram_size;
 	int				rom_banks;
 	int				ram_banks;
-	
+	// controls
+	unsigned int	ram_enable;
+	unsigned int	rom_ram_mode;
+	unsigned int	rom_bank;
+	unsigned int	ram_bank;
+
+
 }					t_mem_control;
 
 typedef struct		s_mem
 {
-	unsigned char	*rom;
-	unsigned char	*ram;
+	unsigned char	*boot;
+	unsigned char	*rom; // done
+	unsigned char	*ram; // done
+	unsigned char	vram[0x8000]; //done
+	unsigned char	wram[0x8000]; //done
+	unsigned char	eram[0x1e00]; //done
+	unsigned char	oam[0xa0];	//done
+	unsigned char	i_o_registers[0x80]; //done
+	unsigned char	hram[0x80]; //done
+	unsigned char	interrupts; //done
 	
 	unsigned int	cycle;
 	int	not_done; //temp for checking

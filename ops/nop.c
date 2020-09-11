@@ -2,11 +2,19 @@
 //#include "struct.h"
 #include "z80.h"
 
+static void	printing(t_mem *mem)
+{
+	if (PRINT & 1)
+		read_mem_bytes(mem, 1);
+	if (PRINT & 2)
+		printf("	NOP");
+	printf("\n");
+}
+
 int	op_nop(t_mem *mem)
 {
 	if (PRINT)
-		read_mem_bytes(mem, 1);
+		printing(mem);
 	CYCLE += 1;
-	PC_ADD(1);
-	return (0);
+	return (1);
 }
