@@ -3,8 +3,7 @@
 // address of where we are writing,
 // mbc 3
 int		write3(unsigned short addr, unsigned char content, t_mem *mem)
-{
-	
+{	
 	if (addr >= 0x0000 && addr <= 0x1fff)
 	{
 		if (content == 0x0a)

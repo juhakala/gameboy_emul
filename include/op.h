@@ -1,10 +1,6 @@
 #ifndef OP_H
 #define OP_H
 
-//#include "define.h"
-#include "z80.h"
-//#include "struct.h"
-
 int		max_not_done(t_mem *mem);
 int		not_done(t_mem *mem);
 

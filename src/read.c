@@ -1,10 +1,11 @@
 #include "define.h"
 #include "z80.h"
+#include "struct.h"
 #include "op.h"
 
 t_op	g_op_tab[OP_TAB_SIZE] =
 {
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {ld_c_d8}, {not_done}, //0 -> f
+	{op_nop}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {ld_c_d8}, {not_done}, //0 -> f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //10 -> 1f
 	{jr_nz_s8}, {ld_hl_d16}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //20 -> 2f
 	{not_done}, {ld_sp_d16}, {ld_ahln_a}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //30 -> 3f
@@ -28,8 +29,6 @@ int	read_op_byte(t_mem *mem)
 	int size = -1;
 
 	size = g_op_tab[read(mem->reg->pc, mem)].f(mem);
-//	if (PRINT)
-//		read_mem_bytes(mem, size);
 	return (size);
 }
 

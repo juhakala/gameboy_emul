@@ -1,3 +1,6 @@
+#ifndef STRUCT_H
+#define STRUCT_H
+
 /*
 ** GENERAL purpose registers
 ** 8 bit
@@ -136,3 +139,7 @@ typedef struct		s_op
 {
 	int				(*f)();
 }					t_op;
+
+t_op				g_op_tab[OP_TAB_SIZE];
+
+#endif

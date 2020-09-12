@@ -1,4 +1,6 @@
 #include "z80.h"
+#include "struct.h"
+#include "define.h"
 
 static void printing(char *s1, char *s2, int size, t_mem *mem)
 {

@@ -1,6 +1,6 @@
-//#include "op.h"
-//#include "struct.h"
 #include "z80.h"
+#include "struct.h"
+#include "define.h"
 
 static void	printing(t_mem *mem)
 {

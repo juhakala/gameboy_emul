@@ -1,4 +1,7 @@
 #include "z80.h"
+#include "struct.h"
+#include "define.h"
+
 
 int	max_not_done(t_mem *mem)
 {
