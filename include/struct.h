@@ -5,9 +5,9 @@
 ** GENERAL purpose registers
 ** 8 bit
 ** a = accumulator register
-** f = flag's register, [S][Z][X][H][X][P/V][N][C]
-**                       0  1  2  3  4   5   6  7
-**      sign flag, zero flag, halt carry, parity/overflow, add/sub, carry
+** f = flag's register, [Z][N][H][C][x][x][x][x]
+**                       7  6  5  4  3  2  1  0
+**      zero , sub/add , half carry, carry
 ** b to l can be paired bc, de, hl to 16 bit register
 **
 ** SPECIAL purpose registers

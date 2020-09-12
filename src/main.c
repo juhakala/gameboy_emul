@@ -27,12 +27,23 @@ int		main(int ac, char **av)
 		return (0);
 
 //tmp_testing
-	if (ac == 3 && !strcmp(av[2], "count"))
+	if (ac >= 3 && !strcmp(av[2], "count"))
 	{
+		int ret;
 		for (int i = 0; i < OP_TAB_SIZE; i++)
-			g_op_tab[i].f(mem);
+		{
+			mem->cycle = i;
+			ret = g_op_tab[i].f(mem);
+			if (ac >= 4 && !strcmp(av[3], "empty") && ret == -1)
+				printf("%d\n", i);
+		}
 		for (int i = 0; i < OP_TAB_SIZE; i++)
-			g_bit_tab[i].f(mem);
+		{
+			mem->cycle = i + 0xff;
+			ret = g_bit_tab[i].f(mem);
+			if (ac >= 4 && !strcmp(av[3], "empty") && ret == -1)
+				printf("%d\n", i + 0xff);
+		}
 		printf("\n\ndone and to be done %d / %d\n", OP_TAB_SIZE * 2 - mem->not_done, OP_TAB_SIZE * 2 - 12);
 		return (0);
 	}

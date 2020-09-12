@@ -16,6 +16,8 @@ int		op_nop(t_mem *mem); // 0x00
 ** ops/ld.c
 */
 int		ld_c_d8(t_mem *mem);
+int		ld_de_d16(t_mem *mem);
+int		ld_a_ade(t_mem *mem);
 int		ld_hl_d16(t_mem *mem);
 int		ld_sp_d16(t_mem *mem);
 int		ld_ahln_a(t_mem *mem);
@@ -40,5 +42,10 @@ int		op_cb(t_mem *mem); // redirect to bit operations
 ** ops/bit_cb.c
 */
 int		bit_7h(t_mem *mem);
+
+/*
+** ops/inc_dec.c
+*/
+int		inc_c(t_mem *mem);
 
 #endif

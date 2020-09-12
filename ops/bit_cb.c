@@ -16,6 +16,11 @@ int		bit_7h(t_mem *mem)
 {
 	if (PRINT)
         printing("BIT", "7", "H", 2, mem);
-	printf("ops/bit_7h kesken\n");
+	if (((mem->reg->hl >> 15) & 1) == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	SET_FLAG(5);
 	return (2);
 }

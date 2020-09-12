@@ -15,10 +15,31 @@ static void	printing(char *s1, char *s2, int size, t_mem *mem)
 int	ld_c_d8(t_mem *mem)
 {
 	if (PRINT)
-		printing("C", "s8", 2, mem);
+		printing("C", "d8", 2, mem);
 	mem->reg->bc = (mem->reg->bc & 0xff00) + read(mem->reg->pc + 1, mem);
 	mem->cycle += 8;
 	return (2);
+}
+
+// 0x11
+int	ld_de_d16(t_mem *mem)
+{
+	if (PRINT)
+		printing("DE", "d16", 3, mem);
+	mem->reg->de = read(mem->reg->pc + 1, mem);
+	mem->reg->de += read(mem->reg->pc + 2, mem) << 8;
+	mem->cycle += 12;
+	return (3);
+}
+
+// 0x1a
+int	ld_a_ade(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "(DE)", 1, mem);
+	mem->reg->a = read(mem->reg->de, mem);
+	mem->cycle += 8;
+	return (1);
 }
 
 // 0x21
