@@ -2,12 +2,6 @@
 #include "struct.h"
 #include "define.h"
 
-
-int	max_not_done(t_mem *mem)
-{
-	printf("	start_point 0x%05hx ", mem->reg->pc);
-	return (-1);
-}
 int	not_done(t_mem *mem)
 {
 

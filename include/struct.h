@@ -141,5 +141,7 @@ typedef struct		s_op
 }					t_op;
 
 t_op				g_op_tab[OP_TAB_SIZE];
+t_op				g_bit_tab[OP_TAB_SIZE];
+
 
 #endif
