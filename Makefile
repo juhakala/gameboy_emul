@@ -1,5 +1,10 @@
 NAME = gameboy
 
+RED := $(shell tput -Txterm setaf 1)
+GREEN := $(shell tput -Txterm setaf 2)
+
+RESET := $(shell tput -Txterm sgr0)
+
 SRC = main.c initial_setup.c hexdumps.c \
 	read.c mbc_read_write.c
 
@@ -20,7 +25,7 @@ DEP_O = $(OBJ_O:%.o=%.d)
 
 GCC = gcc #-Wall -Wextra -Werror
 
-all: $(NAME)
+all: $(NAME) 
 
 -include $(DEP_S)
 -include $(DEP_O)
@@ -31,8 +36,10 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 $(OBJ_DIR)/%.o : $(OPS_DIR)/%.c
 	$(GCC) -MMD -o $@ -c $< -I $(H_DIR)
 
-$(NAME): $(OBJ_S) $(OBJ_O) 
-	$(GCC) -o $@ $^ -I $(H_DIR)
+$(NAME): $(OBJ_S) $(OBJ_O)
+	@$(GCC) -o $@ $^ -I $(H_DIR)
+	@echo "	${GREEN}$(NAME) compiled!${RESET}"
+	@$(MAKE) logo
 
 $(OBJ_S): | $(OBJ_DIR)
 
@@ -42,3 +49,12 @@ $(OBJ_DIR):
 clean:
 	rm -rf $(NAME)
 	rm -rf $(OBJ_DIR)
+
+logo:
+	@echo "${RED}              ▄               ${RESET}"
+	@echo "${RED}     ‴   █▄░  ██░ ▄█████░  ‴ ${RESET}"
+	@echo "${RED}         ██░  ██░ ██░        ${RESET}"
+	@echo "${RED}        ███████░ █████░      ${RESET}"
+	@echo "${RED}         ██░  ██░ ██░        ${RESET}"
+	@echo "${RED}         ██░  ▀█░ ██░ ▪      ${RESET}"
+	@echo "${RED}         ▀            ▫      ${RESET}"
