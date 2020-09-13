@@ -23,12 +23,13 @@ int		main(int ac, char **av)
 {
 	t_mem *mem = NULL;
 
-	if (!(mem = initial_setup(ac, av)))
+	if (ac < 2 || !(mem = initial_setup(ac, av)))
 		return (0);
 
 //tmp_testing
 	if (ac >= 3 && !strcmp(av[2], "count"))
 	{
+		mem->count = 1;
 		int ret;
 		for (int i = 0; i < OP_TAB_SIZE; i++)
 		{

@@ -128,6 +128,7 @@ typedef struct		s_mem
 	
 	unsigned int	cycle;
 	int	not_done; //temp for checking
+	int	count; //tmp testing
 
 	t_reg			*reg;
 	t_io_reg		*io_reg;

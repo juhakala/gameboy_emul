@@ -21,6 +21,7 @@ unsigned char	read(unsigned short addr, t_mem *mem);
 // hexdumps.c
 void			print_rom_mem(t_mem *mem, int size); //tmp
 void			print_ram_mem(t_mem *mem, int size); //tmp
+void			print_f_flag(unsigned char c, t_mem *mem); //tmp
 	
 
 #endif

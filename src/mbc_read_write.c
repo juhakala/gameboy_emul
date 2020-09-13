@@ -27,7 +27,7 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 			mem->memory->rom_ram_mode = 0;
 		else if (content == 0x01)
 			mem->memory->rom_ram_mode = 1;
-		else
+		else if (mem->count != 1)
 		{
 			printf("we have a problem in write3 addr = '0x%04hx', content = '0x%02hhx'\n", addr, content);
 			exit(0);
@@ -39,7 +39,7 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 		mem->ram[addr - 0xa000 + mem->memory->ram_bank * 0x2000] = content;
 	else if (addr >= 0xc000 && addr <= 0xdfff)
 		mem->wram[addr - 0xc000] = content;
-	else if (addr >= 0xe000 && addr <= 0xefff)
+	else if (addr >= 0xe000 && addr <= 0xefff && mem->count != 1)
 	{
 		printf("echo ram write\n");
 		exit(0);
@@ -52,7 +52,7 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 		mem->hram[addr - 0xff80] = content;
 	else if (addr == 0xffff)
 		mem->interrupts = content;
-	else
+	else if (mem->count != 1)
 	{
 		printf("we have a problem in write3 addr = '0x%04hx', content = '0x%02hhx'\n", addr, content);
 		exit(0);
@@ -74,7 +74,7 @@ unsigned char	read3(unsigned short addr, t_mem *mem)
 		return (mem->ram[addr - 0xa000 + mem->memory->ram_bank * 0x2000]);
 	else if (addr >= 0xc000 && addr <= 0xdfff)
 		return (mem->wram[addr - 0xc000]);
-	else if (addr >= 0xe000 && addr <= 0xefff)
+	else if (addr >= 0xe000 && addr <= 0xefff && mem->count != 1)
 	{
 		printf("echo ram read\n");
 		exit(0);
@@ -87,7 +87,7 @@ unsigned char	read3(unsigned short addr, t_mem *mem)
 		return (mem->hram[addr - 0xff80]);
 	else if (addr == 0xffff)
 		return (mem->interrupts);
-	else
+	else if (mem->count != 1)
 	{
 		printf("we have a problem in read3 addr = '0x%04hx'\n", addr);
 		exit(0);

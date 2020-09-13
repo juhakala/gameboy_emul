@@ -71,6 +71,7 @@ void	get_boot(t_mem *mem)
 	map_io_registers(mem);
 //	if boot rom read 0
     *mem->io_reg->ff50 = 0;
+	mem->count = 0;
 //	print_i_o_registers(mem);
 }
 

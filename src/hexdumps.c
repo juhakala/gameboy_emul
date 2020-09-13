@@ -114,3 +114,10 @@ void	print_ram_mem(t_mem *mem, int size)
 		printf("|\n");
 	}
 }
+
+void	print_f_flag(unsigned char c, t_mem *mem)
+{
+	for (int i = 7; i > -1; i--)
+		printf("%d", (c >> i) & 1);
+	printf("\n");
+}
