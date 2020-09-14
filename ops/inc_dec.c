@@ -21,6 +21,27 @@ int		inc_bc(t_mem *mem)
 	return (1);
 }
 
+// 0x04
+int		inc_b(t_mem *mem)
+{
+	unsigned char val;
+	if (PRINT)
+		printing("INC", "B", 1, mem);
+	val = ((mem->reg->bc & 0xff00) >> 8) + 1;
+	mem->reg->bc = (mem->reg->bc & 0x00ff) + (val << 8);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((val & 0x0f) == 0)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x05
 int		dec_b(t_mem *mem)
 {
@@ -39,6 +60,16 @@ int		dec_b(t_mem *mem)
 	else
 		CLEAR_FLAG(5);
 	mem->cycle += 4;
+	return (1);
+}
+
+// 0x0b
+int		dec_bc(t_mem *mem)
+{
+	if (PRINT)
+		printing("DEC", "BC", 1, mem);
+	mem->reg->bc--;
+	mem->cycle += 8;
 	return (1);
 }
 
@@ -94,6 +125,79 @@ int		inc_de(t_mem *mem)
 	return (1);
 }
 
+// 0x14
+int		inc_d(t_mem *mem)
+{
+	unsigned char val;
+	if (PRINT)
+		printing("INC", "D", 1, mem);
+	val = ((mem->reg->de & 0xff00) >> 8) + 1;
+	mem->reg->de = (mem->reg->de & 0x00ff) + (val << 8);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((val & 0x0f) == 0)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x15
+int		dec_d(t_mem *mem)
+{
+	unsigned char val = (mem->reg->de >> 8) & 0xff;
+
+	if (PRINT)
+		printing("DEC", "D", 1, mem);
+	mem->reg->de = (mem->reg->de & 0x00ff) + (--val << 8);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	SET_FLAG(6);
+	if ((val & 0x0f) == 0x0f)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x1b
+int		dec_de(t_mem *mem)
+{
+	if (PRINT)
+		printing("DEC", "DE", 1, mem);
+	mem->reg->de--;
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x1c
+int		inc_e(t_mem *mem)
+{
+	unsigned char val = mem->reg->de & 0x00ff;
+
+	if (PRINT)
+		printing("INC", "E", 1, mem);
+	mem->reg->de = (mem->reg->de & 0xff00) + ++val;
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((val & 0x0f) == 0)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x23
 int		inc_hl(t_mem *mem)
 {
@@ -104,12 +208,95 @@ int		inc_hl(t_mem *mem)
 	return (1);
 }
 
+// 0x24
+int		inc_h(t_mem *mem)
+{
+	unsigned char val;
+	if (PRINT)
+		printing("INC", "H", 1, mem);
+	val = ((mem->reg->hl & 0xff00) >> 8) + 1;
+	mem->reg->hl = (mem->reg->hl & 0x00ff) + (val << 8);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((val & 0x0f) == 0)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x25
+int		dec_h(t_mem *mem)
+{
+	unsigned char val = (mem->reg->hl >> 8) & 0xff;
+
+	if (PRINT)
+		printing("DEC", "H", 1, mem);
+	mem->reg->hl = (mem->reg->hl & 0x00ff) + (--val << 8);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	SET_FLAG(6);
+	if ((val & 0x0f) == 0x0f)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x2b
+int		dec_hl(t_mem *mem)
+{
+	if (PRINT)
+		printing("DEC", "HL", 1, mem);
+	mem->reg->hl--;
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x2c
+int		inc_l(t_mem *mem)
+{
+	unsigned char val = mem->reg->hl & 0x00ff;
+
+	if (PRINT)
+		printing("INC", "L", 1, mem);
+	mem->reg->hl = (mem->reg->hl & 0xff00) + ++val;
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((val & 0x0f) == 0)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x33
 int		inc_sp(t_mem *mem)
 {
 	if (PRINT)
 		printing("INC", "SP", 1, mem);
 	mem->reg->sp++;
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x3b
+int		dec_sp(t_mem *mem)
+{
+	if (PRINT)
+		printing("DEC", "SP", 1, mem);
+	mem->reg->sp--;
 	mem->cycle += 8;
 	return (1);
 }

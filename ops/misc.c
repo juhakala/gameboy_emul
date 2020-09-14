@@ -11,6 +11,25 @@ static void printing(char *s1, char *s2, int size, t_mem *mem)
 	printf("\n");
 }
 
+// 0x07
+int		rlca(t_mem *mem)
+{
+	int carry;
+
+	if (PRINT)
+		printing("RLCA", "", 1, mem);
+	mem->reg->a = (mem->reg->a << 1) + (mem->reg->a >> 7);
+	CLEAR_FLAG(7);
+    CLEAR_FLAG(6);
+    CLEAR_FLAG(5);
+	if ((mem->reg->a >> 7) == 1)
+		SET_FLAG(4);
+	else
+		CLEAR_FLAG(4);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x11
 int		rla(t_mem *mem)
 {
@@ -29,4 +48,32 @@ int		rla(t_mem *mem)
         CLEAR_FLAG(4);
     mem->cycle += 4;
     return (1);
+}
+
+/*
+// 0x27
+int		daa(t_mem *mem)
+{
+	int carry;
+
+	if (PRINT)
+		printing("DAA", "", 1, mem);
+	
+	mem->cycle += 4;
+	return (1);
+}
+*/
+
+// 0x37
+int		scf(t_mem *mem)
+{
+	int carry;
+
+	if (PRINT)
+		printing("SCF", "", 1, mem);
+	CLEAR_FLAG(6);
+	CLEAR_FLAG(5);
+	SET_FLAG(4);
+	mem->cycle += 4;
+	return (1);
 }

@@ -45,7 +45,7 @@ int		main(int ac, char **av)
 			if (ac >= 4 && !strcmp(av[3], "empty") && ret == -1)
 				printf("%d\n", i + 0xff);
 		}
-		printf("\n\ndone and to be done %d / %d\n", OP_TAB_SIZE * 2 - mem->not_done, OP_TAB_SIZE * 2 - 12);
+		printf("\n\ndone and to be done %d / %d\n", OP_TAB_SIZE * 2 - mem->not_done, OP_TAB_SIZE * 2);
 		return (0);
 	}
 

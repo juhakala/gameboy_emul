@@ -27,7 +27,6 @@ int		push_bc(t_mem *mem)
 // 0xc1
 int		pop_bc(t_mem *mem)
 {
-	unsigned short val;
 	if (PRINT)
 		printing("POP", "BC", 1, mem);
 	mem->reg->bc = read(mem->reg->sp++, mem);
@@ -62,4 +61,37 @@ int		call_a16(t_mem *mem)
 	mem->reg->pc = val;
 	mem->cycle += 12;
 	return (0);
+}
+
+// 0xd1
+int		pop_de(t_mem *mem)
+{
+	if (PRINT)
+		printing("POP", "DE", 1, mem);
+	mem->reg->de = read(mem->reg->sp++, mem);
+	mem->reg->de += read(mem->reg->sp++, mem) << 8;
+	mem->cycle += 12;
+	return (1);
+}
+
+// 0xe1
+int		pop_hl(t_mem *mem)
+{
+	if (PRINT)
+		printing("POP", "HL", 1, mem);
+	mem->reg->hl = read(mem->reg->sp++, mem);
+	mem->reg->hl += read(mem->reg->sp++, mem) << 8;
+	mem->cycle += 12;
+	return (1);
+}
+
+// 0xf1
+int		pop_af(t_mem *mem)
+{
+	if (PRINT)
+		printing("POP", "AF", 1, mem);
+	mem->reg->f = read(mem->reg->sp++, mem);
+	mem->reg->a = read(mem->reg->sp++, mem);
+	mem->cycle += 12;
+	return (1);
 }
