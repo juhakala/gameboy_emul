@@ -25,10 +25,10 @@ t_op	g_op_tab[OP_TAB_SIZE] =
 
 t_op	g_bit_tab[OP_TAB_SIZE] =
 {
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //0 -> f
-	{not_done}, {rl_c}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //10 -> 1f
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //20 -> 2f
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //30 -> 3f
+	{rlc_b}, {rlc_c}, {rlc_d}, {rlc_e}, {rlc_h}, {rlc_l}, {rlc_ahl}, {rlc_a}, {rrc_b}, {rrc_c}, {rrc_d}, {rrc_e}, {rrc_h}, {rrc_l}, {rrc_ahl}, {rrc_a}, //0 -> f
+	{rl_b}, {rl_c}, {rl_d}, {rl_e}, {rl_h}, {rl_l}, {rl_ahl}, {rl_a}, {rr_b}, {rr_c}, {rr_d}, {rr_e}, {rr_h}, {rr_l}, {rr_ahl}, {rr_a}, //10 -> 1f
+	{sla_b}, {sla_c}, {sla_d}, {sla_e}, {sla_h}, {sla_l}, {sla_ahl}, {sla_a}, {sra_b}, {sra_c}, {sra_d}, {sra_e}, {sra_h}, {sra_l}, {sra_ahl}, {sra_a}, //20 -> 2f
+	{swap_b}, {swap_c}, {swap_d}, {swap_e}, {swap_h}, {swap_l}, {swap_ahl}, {swap_a}, {srl_b}, {srl_c}, {srl_d}, {srl_e}, {srl_h}, {srl_l}, {srl_ahl}, {srl_a}, //30 -> 3f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //40 -> 4f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //50 -> 5f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //60 -> 6f
