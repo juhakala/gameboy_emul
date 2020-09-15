@@ -158,7 +158,71 @@ int		op_cb(t_mem *mem); // redirect to bit operations
 /*
 ** ops/bit_cb.c
 */
-int		bit_7h(t_mem *mem);
+int		bit_0_b(t_mem *mem);
+int		bit_0_c(t_mem *mem);
+int		bit_0_d(t_mem *mem);
+int		bit_0_e(t_mem *mem);
+int		bit_0_h(t_mem *mem);
+int		bit_0_l(t_mem *mem);
+int		bit_0_ahl(t_mem *mem);
+int		bit_0_a(t_mem *mem);
+int		bit_1_b(t_mem *mem);
+int		bit_1_c(t_mem *mem);
+int		bit_1_d(t_mem *mem);
+int		bit_1_e(t_mem *mem);
+int		bit_1_h(t_mem *mem);
+int		bit_1_l(t_mem *mem);
+int		bit_1_ahl(t_mem *mem);
+int		bit_1_a(t_mem *mem);
+int		bit_2_b(t_mem *mem);
+int		bit_2_c(t_mem *mem);
+int		bit_2_d(t_mem *mem);
+int		bit_2_e(t_mem *mem);
+int		bit_2_h(t_mem *mem);
+int		bit_2_l(t_mem *mem);
+int		bit_2_ahl(t_mem *mem);
+int		bit_2_a(t_mem *mem);
+int		bit_3_b(t_mem *mem);
+int		bit_3_c(t_mem *mem);
+int		bit_3_d(t_mem *mem);
+int		bit_3_e(t_mem *mem);
+int		bit_3_h(t_mem *mem);
+int		bit_3_l(t_mem *mem);
+int		bit_3_ahl(t_mem *mem);
+int		bit_3_a(t_mem *mem);
+int		bit_4_b(t_mem *mem);
+int		bit_4_c(t_mem *mem);
+int		bit_4_d(t_mem *mem);
+int		bit_4_e(t_mem *mem);
+int		bit_4_h(t_mem *mem);
+int		bit_4_l(t_mem *mem);
+int		bit_4_ahl(t_mem *mem);
+int		bit_4_a(t_mem *mem);
+int		bit_5_b(t_mem *mem);
+int		bit_5_c(t_mem *mem);
+int		bit_5_d(t_mem *mem);
+int		bit_5_e(t_mem *mem);
+int		bit_5_h(t_mem *mem);
+int		bit_5_l(t_mem *mem);
+int		bit_5_ahl(t_mem *mem);
+int		bit_5_a(t_mem *mem);
+int		bit_6_b(t_mem *mem);
+int		bit_6_c(t_mem *mem);
+int		bit_6_d(t_mem *mem);
+int		bit_6_e(t_mem *mem);
+int		bit_6_h(t_mem *mem);
+int		bit_6_l(t_mem *mem);
+int		bit_6_ahl(t_mem *mem);
+int		bit_6_a(t_mem *mem);
+int		bit_7_b(t_mem *mem);
+int		bit_7_c(t_mem *mem);
+int		bit_7_d(t_mem *mem);
+int		bit_7_e(t_mem *mem);
+int		bit_7_h(t_mem *mem);
+int		bit_7_l(t_mem *mem);
+int		bit_7_ahl(t_mem *mem);
+int		bit_7_a(t_mem *mem);
+
 
 /*
 ** ops/rlc_rrc_cb.c

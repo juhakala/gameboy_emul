@@ -29,10 +29,10 @@ t_op	g_bit_tab[OP_TAB_SIZE] =
 	{rl_b}, {rl_c}, {rl_d}, {rl_e}, {rl_h}, {rl_l}, {rl_ahl}, {rl_a}, {rr_b}, {rr_c}, {rr_d}, {rr_e}, {rr_h}, {rr_l}, {rr_ahl}, {rr_a}, //10 -> 1f
 	{sla_b}, {sla_c}, {sla_d}, {sla_e}, {sla_h}, {sla_l}, {sla_ahl}, {sla_a}, {sra_b}, {sra_c}, {sra_d}, {sra_e}, {sra_h}, {sra_l}, {sra_ahl}, {sra_a}, //20 -> 2f
 	{swap_b}, {swap_c}, {swap_d}, {swap_e}, {swap_h}, {swap_l}, {swap_ahl}, {swap_a}, {srl_b}, {srl_c}, {srl_d}, {srl_e}, {srl_h}, {srl_l}, {srl_ahl}, {srl_a}, //30 -> 3f
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //40 -> 4f
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //50 -> 5f
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //60 -> 6f
-	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {bit_7h}, {not_done}, {not_done}, {not_done}, //70 -> 7f
+	{bit_0_b}, {bit_0_c}, {bit_0_d}, {bit_0_e}, {bit_0_h}, {bit_0_l}, {bit_0_ahl}, {bit_0_a}, {bit_1_b}, {bit_1_c}, {bit_1_d}, {bit_1_e}, {bit_1_h}, {bit_1_l}, {bit_1_ahl}, {bit_1_a}, //40 -> 4f
+	{bit_2_b}, {bit_2_c}, {bit_2_d}, {bit_2_e}, {bit_2_h}, {bit_2_l}, {bit_2_ahl}, {bit_2_a}, {bit_3_b}, {bit_3_c}, {bit_3_d}, {bit_3_e}, {bit_3_h}, {bit_3_l}, {bit_3_ahl}, {bit_3_a}, //50 -> 5f
+	{bit_4_b}, {bit_4_c}, {bit_4_d}, {bit_4_e}, {bit_4_h}, {bit_4_l}, {bit_4_ahl}, {bit_4_a}, {bit_5_b}, {bit_5_c}, {bit_5_d}, {bit_5_e}, {bit_5_h}, {bit_5_l}, {bit_5_ahl}, {bit_5_a}, //60 -> 6f
+	{bit_6_b}, {bit_6_c}, {bit_6_d}, {bit_6_e}, {bit_6_h}, {bit_6_l}, {bit_6_ahl}, {bit_6_a}, {bit_7_b}, {bit_7_c}, {bit_7_d}, {bit_7_e}, {bit_7_h}, {bit_7_l}, {bit_7_ahl}, {bit_7_a}, //70 -> 7f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //80 -> 8f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //90 -> 9f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, //a0 -> af
