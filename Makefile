@@ -25,7 +25,7 @@ DEP_O = $(OBJ_O:%.o=%.d)
 
 GCC = gcc #-Wall -Wextra -Werror
 
-all: $(NAME) 
+all: $(NAME)
 
 -include $(DEP_S)
 -include $(DEP_O)
@@ -39,7 +39,7 @@ $(OBJ_DIR)/%.o : $(OPS_DIR)/%.c
 $(NAME): $(OBJ_S) $(OBJ_O)
 	@$(GCC) -o $@ $^ -I $(H_DIR)
 	@echo "	${GREEN}$(NAME) compiled!${RESET}"
-	@$(MAKE) logo
+	@$(MAKE) logo1
 
 $(OBJ_S): | $(OBJ_DIR)
 
@@ -47,14 +47,28 @@ $(OBJ_DIR):
 	mkdir $@
 
 clean:
+ifeq (,$(wildcard $(NAME)))
+else
 	rm -rf $(NAME)
 	rm -rf $(OBJ_DIR)
+	@$(MAKE) logo2
+endif
 
-logo:
+logo1:
 	@echo "${RED}              ▄               ${RESET}"
-	@echo "${RED}     ‴   █▄░  ██░ ▄█████░  ‴ ${RESET}"
-	@echo "${RED}         ██░  ██░ ██░        ${RESET}"
-	@echo "${RED}        ███████░ █████░      ${RESET}"
-	@echo "${RED}         ██░  ██░ ██░        ${RESET}"
-	@echo "${RED}         ██░  ▀█░ ██░ ▪      ${RESET}"
-	@echo "${RED}         ▀            ▫      ${RESET}"
+	@echo "${RED}     ‴   █▄░  ██░ ▄████▄░  ‴  ${RESET}"
+	@echo "${RED}         ██░  ██░ ██░         ${RESET}"
+	@echo "${RED}        ███████░ █████░       ${RESET}"
+	@echo "${RED}         ██░  ██░ ██░         ${RESET}"
+	@echo "${RED}         ██░  ▀█░ █▀░ ▪       ${RESET}"
+	@echo "${RED}         ▀            ▫       ${RESET}"
+
+
+logo2:
+	@echo "${RED}           ▄▄██▄     ░░                     ▄▄██▄               ${RESET}"
+	@echo "${RED}          ███░ ██░    ██▄░▄██░             ███░ ██░ ▄████▄░     ${RESET}"
+	@echo "${RED}          ██░ ▄█▀░   ░█░█▄█ █░             ██░ ▄█▀░ ██░         ${RESET}"
+	@echo "${RED}         ████▄▀      ▄█  █░ █▄      ▄▄▀▀  ████▄▀   █████░       ${RESET}"
+	@echo "${RED}          ██░ ▀█▄░  ▄█▀     ▀█░            ██░ ▀█▄░ ██░         ${RESET}"
+	@echo "${RED}          ██░  ▀█░  ▀░░     ░█             ██░  ▀█░ █▀░ ▪       ${RESET}"
+	@echo "${RED}          ▀                  ░             ▀                    ${RESET}"
