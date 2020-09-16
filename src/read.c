@@ -7,8 +7,8 @@ t_op	g_op_tab[OP_TAB_SIZE] =
 {
 	{op_nop},	{ld_bc_d16},	{ld_abc_a},		{inc_bc},	{inc_b},	{dec_b},	{ld_b_d8},	{rlca},		{ld_a16_sp},	{add_hl_bc},	{ld_a_abc},	{dec_bc},	{inc_c},	{dec_c},	{ld_c_d8},	{not_done}, //0 -> f
 	{not_done},	{ld_de_d16},	{ld_ade_a},		{inc_de},	{inc_d},	{dec_d},	{ld_d_d8},	{rla},		{jr_s8},		{add_hl_de},	{ld_a_ade},	{dec_de},	{inc_e},	{not_done},	{ld_e_d8},	{not_done}, //10 -> 1f
-	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},	{not_done},	{jr_z_s8},		{add_hl_hl},	{not_done}, {dec_hl},	{inc_l},	{not_done},	{ld_l_d8},	{not_done}, //20 -> 2f
-	{jr_nc_s8},	{ld_sp_d16},	{ld_ahln_a}, 	{inc_sp}, 	{not_done}, {not_done}, {not_done}, {scf},		{jr_c_s8},		{add_hl_sp},	{not_done}, {dec_sp},	{not_done},	{dec_a},	{ld_a_d8},	{not_done}, //30 -> 3f
+	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},	{not_done},	{jr_z_s8},		{add_hl_hl},	{ld_a_ahlp}, {dec_hl},	{inc_l},	{not_done},	{ld_l_d8},	{not_done}, //20 -> 2f
+	{jr_nc_s8},	{ld_sp_d16},	{ld_ahln_a}, 	{inc_sp}, 	{inc_ahl},	{dec_ahl},	{ld_ahl_d8}, {scf},		{jr_c_s8},		{add_hl_sp},	{not_done}, {dec_sp},	{not_done},	{dec_a},	{ld_a_d8},	{not_done}, //30 -> 3f
 	{ld_b_b},	{ld_b_c},	{ld_b_d},	{ld_b_e},	{ld_b_h},	{ld_b_l},	{ld_b_ahl},	{ld_b_a},	{ld_c_b},	{ld_c_c},	{ld_c_d},	{ld_c_e},	{ld_c_h},	{ld_c_l},	{ld_c_ahl},	{ld_c_a}, //40 -> 4f
 	{ld_d_b},	{ld_d_c},	{ld_d_d},	{ld_d_e},	{ld_d_h},	{ld_d_l},	{ld_d_ahl},	{ld_d_a},	{ld_e_b},	{ld_e_c},	{ld_e_d},	{ld_e_e},	{ld_e_h},	{ld_e_l},	{ld_e_ahl},	{ld_e_a}, //50 -> 5f
 	{ld_h_b},	{ld_h_c},	{ld_h_d},	{ld_h_e},	{ld_h_h},	{ld_h_l},	{ld_h_ahl},	{ld_h_a},	{ld_h_b},	{ld_h_c},	{ld_h_d},	{ld_h_e},	{ld_h_h},	{ld_h_l},	{ld_h_ahl},	{ld_h_a}, //60 -> 6f

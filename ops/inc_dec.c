@@ -291,6 +291,46 @@ int		inc_sp(t_mem *mem)
 	return (1);
 }
 
+// 0x34
+int		inc_ahl(t_mem *mem)
+{
+	unsigned short val = read(mem->reg->hl, mem) + 1;
+	if (PRINT)
+		printing("INC", "(HL)", 1, mem);
+	write(mem->reg->hl, val & 0x00ff, mem);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((val & 0x0f) == 0x00)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 12;
+	return (1);
+}
+
+// 0x35
+int		dec_ahl(t_mem *mem)
+{
+	unsigned short val = read(mem->reg->hl, mem) - 1;
+	if (PRINT)
+		printing("DEC", "(HL)", 1, mem);
+	write(mem->reg->hl, val, mem);
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	SET_FLAG(6);
+	if ((val & 0x0f) == 0x00)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 12;
+	return (1);
+}
+
 // 0x3b
 int		dec_sp(t_mem *mem)
 {
