@@ -115,6 +115,16 @@ int	ld_a_ade(t_mem *mem)
 	return (1);
 }
 
+// 0x1e
+int	ld_e_d8(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "d8", 2, mem);
+	mem->reg->de = (mem->reg->de & 0xff00) + read(mem->reg->pc + 1, mem);
+	mem->cycle += 8;
+	return (2);
+}
+
 // 0x21
 int	ld_hl_d16(t_mem *mem)
 {
@@ -266,7 +276,6 @@ int	ld_b_a(t_mem *mem)
 	mem->cycle += 4;
 	return (1);
 }
-////
 
 // 0x48
 int	ld_c_b(t_mem *mem)
@@ -348,6 +357,386 @@ int	ld_c_a(t_mem *mem)
 	return (1);
 }
 
+// 0x50
+int	ld_d_b(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "B", 1, mem);
+	mem->reg->de = (mem->reg->bc & 0xff00) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x51
+int	ld_d_c(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "C", 1, mem);
+	mem->reg->de = ((mem->reg->bc & 0x00ff) << 8) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x52
+int	ld_d_d(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "D", 1, mem);
+	mem->reg->de = (mem->reg->de & 0xff00) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x53
+int	ld_d_e(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "E", 1, mem);
+	mem->reg->de = ((mem->reg->de & 0x00ff) << 8) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x54
+int	ld_d_h(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "H", 1, mem);
+	mem->reg->de = (mem->reg->hl & 0xff00) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x55
+int	ld_d_l(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "L", 1, mem);
+	mem->reg->de = ((mem->reg->hl & 0x00ff) << 8) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x56
+int	ld_d_ahl(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "(HL)", 1, mem);
+	mem->reg->de = (read(mem->reg->hl, mem) << 8) + (mem->reg->de & 0x00ff);
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x57
+int	ld_d_a(t_mem *mem)
+{
+	if (PRINT)
+		printing("D", "A", 1, mem);
+	mem->reg->de = (mem->reg->a << 8) + (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x58
+int	ld_e_b(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "B", 1, mem);
+	mem->reg->de = (mem->reg->de & 0xff00) + ((mem->reg->de & 0xff00) >> 8);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x59
+int	ld_e_c(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "C", 1, mem);
+	mem->reg->de = (mem->reg->de & 0xff00) + (mem->reg->bc & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x5a
+int	ld_e_d(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "D", 1, mem);
+	mem->reg->de = ((mem->reg->de & 0xff00) >> 8) + (mem->reg->de & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x5b
+int	ld_e_e(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "E", 1, mem);
+	mem->reg->de = (mem->reg->de & 0x00ff) + (mem->reg->de & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x5c
+int	ld_e_h(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "H", 1, mem);
+	mem->reg->de = ((mem->reg->hl & 0xff00) >> 8) + (mem->reg->de & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x5d
+int	ld_e_l(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "L", 1, mem);
+	mem->reg->de = (mem->reg->hl & 0x00ff) + (mem->reg->de & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x5e
+int	ld_e_ahl(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "(HL)", 1, mem);
+	mem->reg->de = read(mem->reg->hl, mem) + (mem->reg->de & 0xff00);
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x5f
+int	ld_e_a(t_mem *mem)
+{
+	if (PRINT)
+		printing("E", "A", 1, mem);
+	mem->reg->de = mem->reg->a + (mem->reg->de & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x60
+int	ld_h_b(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "B", 1, mem);
+	mem->reg->hl = (mem->reg->bc & 0xff00) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x61
+int	ld_h_c(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "C", 1, mem);
+	mem->reg->hl = ((mem->reg->bc & 0x00ff) << 8) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x62
+int	ld_h_d(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "D", 1, mem);
+	mem->reg->hl = (mem->reg->de & 0xff00) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x63
+int	ld_h_e(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "E", 1, mem);
+	mem->reg->hl = ((mem->reg->de & 0x00ff) << 8) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x64
+int	ld_h_h(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "H", 1, mem);
+	mem->reg->hl = (mem->reg->hl & 0xff00) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x65
+int	ld_h_l(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "L", 1, mem);
+	mem->reg->hl = ((mem->reg->hl & 0x00ff) << 8) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x66
+int	ld_h_ahl(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "(HL)", 1, mem);
+	mem->reg->hl = (read(mem->reg->hl, mem) << 8) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x67
+int	ld_h_a(t_mem *mem)
+{
+	if (PRINT)
+		printing("H", "A", 1, mem);
+	mem->reg->hl = (mem->reg->a << 8) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x68
+int	ld_l_b(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "B", 1, mem);
+	mem->reg->hl = (mem->reg->bc & 0xff00) + ((mem->reg->hl & 0xff00) >> 8);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x69
+int	ld_l_c(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "C", 1, mem);
+	mem->reg->hl = (mem->reg->bc & 0xff00) + (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x6a
+int	ld_l_d(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "D", 1, mem);
+	mem->reg->hl = ((mem->reg->de & 0xff00) >> 8) + (mem->reg->hl & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x6b
+int	ld_l_e(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "E", 1, mem);
+	mem->reg->hl = (mem->reg->de & 0x00ff) + (mem->reg->hl & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x6c
+int	ld_l_h(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "H", 1, mem);
+	mem->reg->hl = ((mem->reg->hl & 0xff00) >> 8) + (mem->reg->hl & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x6d
+int	ld_l_l(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "L", 1, mem);
+	mem->reg->hl = (mem->reg->hl & 0x00ff) + (mem->reg->hl & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x6e
+int	ld_l_ahl(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "(HL)", 1, mem);
+	mem->reg->hl = read(mem->reg->hl, mem) + (mem->reg->hl & 0xff00);
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x6f
+int	ld_l_a(t_mem *mem)
+{
+	if (PRINT)
+		printing("L", "A", 1, mem);
+	mem->reg->hl = mem->reg->a + (mem->reg->hl & 0xff00);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x70
+int	ld_ahl_b(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "B", 1, mem);
+	write(mem->reg->hl, (mem->reg->bc & 0xff00) >> 8, mem);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x71
+int	ld_ahl_c(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "C", 1, mem);
+	write(mem->reg->hl, (mem->reg->bc & 0x00ff), mem);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x72
+int	ld_ahl_d(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "D", 1, mem);
+	write(mem->reg->hl, (mem->reg->de & 0xff00) >> 8, mem);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x73
+int	ld_ahl_e(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "E", 1, mem);
+	write(mem->reg->hl, (mem->reg->de & 0x00ff), mem);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x74
+int	ld_ahl_h(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "H", 1, mem);
+	write(mem->reg->hl, (mem->reg->hl & 0xff00) >> 8, mem);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x75
+int	ld_ahl_l(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "L", 1, mem);
+	write(mem->reg->hl, (mem->reg->hl & 0x00ff), mem);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x77
 int	ld_ahl_a(t_mem *mem)
 {
@@ -358,12 +747,82 @@ int	ld_ahl_a(t_mem *mem)
 	return (1);
 }
 
+// 0x78
+int	ld_a_b(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "B", 1, mem);
+	mem->reg->a = (mem->reg->bc & 0xff00) >> 8;
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x79
+int	ld_a_c(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "C", 1, mem);
+	mem->reg->a = (mem->reg->bc & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x7a
+int	ld_a_d(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "D", 1, mem);
+	mem->reg->a = ((mem->reg->de & 0xff00) >> 8);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x7b
 int	ld_a_e(t_mem *mem)
 {
 	if (PRINT)
 		printing("A", "E", 1, mem);
-	mem->reg->a = mem->reg->de & 0x00ff;
+	mem->reg->a = (mem->reg->de & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x7c
+int	ld_a_h(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "H", 1, mem);
+	mem->reg->a = ((mem->reg->hl & 0xff00) >> 8);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x7d
+int	ld_a_l(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "L", 1, mem);
+	mem->reg->a = (mem->reg->hl & 0x00ff);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x7e
+int	ld_a_ahl(t_mem *mem)
+{
+	if (PRINT)
+		printing("C", "(HL)", 1, mem);
+	mem->reg->a = read(mem->reg->hl, mem);
+	mem->cycle += 8;
+	return (1);
+}
+
+// 0x7f
+int	ld_a_a(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "A", 1, mem);
+	mem->reg->a = mem->reg->a;
 	mem->cycle += 4;
 	return (1);
 }

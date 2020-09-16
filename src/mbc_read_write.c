@@ -14,12 +14,30 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 	else if (addr >= 0x2000 && addr <= 0x3fff)
 	{
 		mem->memory->rom_bank = content & 127;
+		if (mem->memory->rom_bank >= mem->memory->rom_banks)
+		{
+			if (mem->count != 1)
+			{
+				printf("rom bank too big\n");
+				exit(0);
+			}
+			mem->memory->rom_bank = mem->memory->rom_banks - 1; //tmp for counting
+		}
 		if (mem->memory->rom_bank == 0)
 			mem->memory->rom_bank = 1;
 	}
 	else if (addr >= 0x4000 && addr <= 0x5fff)
 	{
 		mem->memory->ram_bank = content;
+		if (mem->memory->ram_bank >= mem->memory->ram_banks)
+		{
+			if (mem->count != 1)
+			{
+				printf("ram bank too big\n");
+				exit(0);
+			}
+			mem->memory->ram_bank = mem->memory->ram_banks - 1; //tmp for counting
+		}
 	}
 	else if (addr >= 0x6000 && addr <= 0x7fff)
 	{
@@ -47,7 +65,12 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 	else if (addr >= 0xfe00 && addr <= 0xfe9f)
 		mem->oam[addr - 0xfe00] = content;
 	else if (addr >= 0xff00 && addr <= 0xff7f)
-		mem->i_o_registers[addr - 0xff] = content;
+	{
+		if (addr == 0xff44)
+			*mem->io_reg->ff44 = 0;
+		else
+			mem->i_o_registers[addr - 0xff] = content;
+	}
 	else if (addr >= 0xff80 && addr <= 0xfffe)
 		mem->hram[addr - 0xff80] = content;
 	else if (addr == 0xffff)
