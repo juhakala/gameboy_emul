@@ -27,6 +27,10 @@
 #define CLEAR_FLAG(n) (mem->reg->f &= ~(1 << n)) // clear n:th bit
 #define CHECK_FLAG(n) ((mem->reg->f >> n) & 0x01) // check n:th bit
 
+#define SET_BIT(n, x) (x |= (1 << n))
+#define CLEAR_BIT(n, x) (x &= ~(1 << n))
+#define CHECK_BIT(n, x) ((x >> n) & 0x01)
+
 #define REV_16(x) (unsigned short)(x >> 8 | ((x & 0xFF) << 8))
 
 #endif

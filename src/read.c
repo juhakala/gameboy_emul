@@ -56,7 +56,9 @@ int	read_op_byte(t_mem *mem)
 {
 	int size = -1;
 
+	mem->last_cycle = mem->cycle;
 	size = g_op_tab[read(mem->reg->pc, mem)].f(mem);
+	mem->last_cycle = mem->cycle - mem->last_cycle;
 	return (size);
 }
 

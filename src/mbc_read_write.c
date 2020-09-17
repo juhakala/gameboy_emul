@@ -66,10 +66,18 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 		mem->oam[addr - 0xfe00] = content;
 	else if (addr >= 0xff00 && addr <= 0xff7f)
 	{
-		if (addr == 0xff44)
+		if (addr == 0xff04)
+			*mem->io_reg->ff04 = 0;
+		else if (addr == 0xff07)
+		{
+			if ((*mem->io_reg->ff07 & 3) != (content & 3))
+				set_timer_counter(mem);
+			mem->i_o_registers[addr - 0xff00] = content;
+		}
+		else if (addr == 0xff44)
 			*mem->io_reg->ff44 = 0;
 		else
-			mem->i_o_registers[addr - 0xff] = content;
+			mem->i_o_registers[addr - 0xff00] = content;
 	}
 	else if (addr >= 0xff80 && addr <= 0xfffe)
 		mem->hram[addr - 0xff80] = content;
@@ -105,7 +113,10 @@ unsigned char	read3(unsigned short addr, t_mem *mem)
 	else if (addr >= 0xfe00 && addr <= 0xfe9f)
 		return (mem->oam[addr - 0xfe00]);
 	else if (addr >= 0xff00 && addr <= 0xff7f)
-		return (mem->i_o_registers[addr - 0xff]);
+	{
+//		printf("addr = %04hx\n", addr);
+		return (mem->i_o_registers[addr - 0xff00]); //right
+	}
 	else if (addr >= 0xff80 && addr <= 0xfffe)
 		return (mem->hram[addr - 0xff80]);
 	else if (addr == 0xffff)
@@ -132,8 +143,12 @@ int		write(unsigned short addr, unsigned char content, t_mem *mem)
 
 unsigned char	read(unsigned short addr, t_mem *mem)
 {
+	if (addr == 0x0070)
+		exit(0);
 	if (mem->memory->mbc == 3)
+	{
 		return (read3(addr, mem));
+	}
 	else
 	{
 		printf("only mbc3 now\n");

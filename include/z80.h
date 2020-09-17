@@ -23,5 +23,15 @@ void			print_rom_mem(t_mem *mem, int size); //tmp
 void			print_ram_mem(t_mem *mem, int size); //tmp
 void			print_f_flag(unsigned char c, t_mem *mem); //tmp
 	
+// timer.c
+void			set_timer_counter(t_mem *mem);
+void			update_timer(t_mem *mem);
+
+// interrupts.c
+void			reguest_interrupt(int bit, t_mem *mem);
+void			handle_interrupts(t_mem *mem);
+
+// lcd.c
+void			update_graphics(t_mem *mem);
 
 #endif

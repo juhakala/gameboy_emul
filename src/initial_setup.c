@@ -45,6 +45,7 @@ void	map_io_registers(t_mem *mem)
 	mem->io_reg->ff4a = &mem->i_o_registers[0x4a];
 	mem->io_reg->ff4b = &mem->i_o_registers[0x4b];
 	mem->io_reg->ff50 = &mem->i_o_registers[0x50];
+	mem->io_reg->ff50 = &mem->interrupts;
 }
 
 void	get_boot(t_mem *mem)
@@ -143,6 +144,12 @@ int		read_to_mem(char **av, t_mem *mem)
 	return (0);
 }
 
+void	timer_default(t_mem *mem)
+{
+	mem->timer->clock_freq = 4096;
+	mem->timer->timer_counter = 1024;
+}
+
 t_mem	*initial_setup(int ac, char **av)
 {
 	t_mem *mem;
@@ -152,12 +159,14 @@ t_mem	*initial_setup(int ac, char **av)
 	mem->io_reg = (t_io_reg*)malloc(sizeof(t_io_reg));
 	mem->header = (t_header*)malloc(sizeof(t_header));
 	mem->memory = (t_mem_control*)malloc(sizeof(t_mem_control));
+	mem->timer = (t_timer*)malloc(sizeof(t_timer));
 	if (ac > 1 && read_to_mem(av, mem))
 		return (NULL);	//add free routine
 	if (get_header_info(mem))
 		return (NULL);	//add free routine
 	if (fetch_save(mem))
 		return (NULL);	//add free routine
+	timer_default(mem);
 	get_boot(mem);
 	return (mem);
 }

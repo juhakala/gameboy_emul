@@ -68,6 +68,7 @@ typedef struct		s_io_reg
 	unsigned char	*ff4a; //WY			r/w
 	unsigned char	*ff4b; //WX			r/w
 	unsigned char	*ff50; //boot lock	r/w
+	unsigned char	*ffff; //IE			interrupt enable flag
 
 }					t_io_reg;
 
@@ -109,9 +110,14 @@ typedef struct		s_mem_control
 	unsigned int	rom_ram_mode;
 	unsigned int	rom_bank;
 	unsigned int	ram_bank;
-
-
 }					t_mem_control;
+
+typedef struct		s_timer
+{
+	int				clock_freq;
+	int				timer_counter;
+	int				scanline_counter;
+}					t_timer;
 
 typedef struct		s_mem
 {
@@ -125,8 +131,10 @@ typedef struct		s_mem
 	unsigned char	i_o_registers[0x80]; //done
 	unsigned char	hram[0x80]; //done
 	unsigned char	interrupts; //done
+	unsigned char	master_interrupt; //done
 	
 	unsigned int	cycle;
+	unsigned int	last_cycle;
 	int	not_done; //temp for checking
 	int	count; //tmp testing
 
@@ -134,6 +142,7 @@ typedef struct		s_mem
 	t_io_reg		*io_reg;
 	t_header		*header;
 	t_mem_control	*memory;
+	t_timer			*timer;
 }					t_mem;
 
 typedef struct		s_op

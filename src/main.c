@@ -19,6 +19,32 @@ void	test(t_mem *mem)
 	
 }
 
+void	update_gameboy(t_mem *mem)
+{
+	int max_cycles = 69905;
+	int size;
+
+	mem->cycle = 0;
+	while (mem->cycle < max_cycles)
+	{
+		size = read_op_byte(mem);
+//
+		if (size == -1 || *mem->io_reg->ff50 != 0) // -1 if not implemented yet ff50 = 0 boot rom
+		{
+			read_mem_bytes(mem, 1);
+			printf(" <- not done yet\n");
+			exit(0);
+		}
+//
+		mem->reg->pc += size;
+		update_timer(mem);
+		update_graphics(mem);
+		handle_interrupts(mem);
+	}
+//	render_lcd(t_mem *mem);
+}
+
+
 int		main(int ac, char **av)
 {
 	t_mem *mem = NULL;
@@ -48,17 +74,9 @@ int		main(int ac, char **av)
 		printf("\n\ndone and to be done %d / %d\n", OP_TAB_SIZE * 2 - mem->not_done, OP_TAB_SIZE * 2);
 		return (0);
 	}
-
-	int size;
-	while ((size = read_op_byte(mem)) != -1 && *mem->io_reg->ff50 == 0)
-	{
-		mem->reg->pc += size;
-//		printf("here\n %d, %d, %d\n", *mem->io_reg->ff50, size, mem->reg->pc);
-	}
-	test(mem);
+//	test(mem);
 //tmp_testing end here
-
-//	run_gameboy(mem);
-	
+	while (1)
+		update_gameboy(mem);
 	return (0);
 }
