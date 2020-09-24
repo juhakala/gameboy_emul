@@ -12,7 +12,7 @@ and to learn more about coding virtual machines.
       - [ ] lcd screen (play area)
       - [ ] debug lcd screen (whole video memory are)
       - [ ] debug window for registers
-  - [ ] all ops (21.9 461 / 512)
+  - [ ] all ops (24.9 490 / 512)
   - [ ] memory bank controllers (mbc)
     - [ ] 1
     - [ ] 2
