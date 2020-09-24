@@ -32,12 +32,34 @@ int	jp_a16(t_mem *mem)
 	return (0);
 }
 
+// 0xca
+int	jp_z_a16(t_mem *mem)
+{
+	if (PRINT)
+		printing("Z", "a16", 3, CHECK_FLAG(7) == 1 ? 1 : 0, mem);
+	if (CHECK_FLAG(7) == 1)
+		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
+	mem->cycle += 12;
+	return (3);
+}
+
 // 0xd2
 int	jp_nc_a16(t_mem *mem)
 {
 	if (PRINT)
 		printing("NC", "a16", 3, CHECK_FLAG(4) == 0 ? 1 : 0, mem);
 	if (CHECK_FLAG(4) == 0)
+		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
+	mem->cycle += 12;
+	return (3);
+}
+
+// 0xda
+int	jp_c_a16(t_mem *mem)
+{
+	if (PRINT)
+		printing("C", "a16", 3, CHECK_FLAG(4) == 1 ? 1 : 0, mem);
+	if (CHECK_FLAG(4) == 1)
 		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
 	mem->cycle += 12;
 	return (3);

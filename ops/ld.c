@@ -156,7 +156,7 @@ int	ld_h_d8(t_mem *mem)
 	return (2);
 }
 
-// 0x26
+// 0x2a
 int	ld_a_ahlp(t_mem *mem)
 {
 	if (PRINT)
@@ -205,6 +205,16 @@ int	ld_ahl_d8(t_mem *mem)
 	write(mem->reg->hl, read(mem->reg->pc + 1, mem), mem);
 	mem->cycle += 8;
 	return (2);
+}
+
+// 0x3a
+int	ld_a_ahln(t_mem *mem)
+{
+	if (PRINT)
+		printing("A", "(HL-)", 1, mem);
+	mem->reg->a = read(mem->reg->hl--, mem);
+	mem->cycle += 8;
+	return (1);
 }
 
 // 0x3e

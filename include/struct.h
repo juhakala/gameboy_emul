@@ -132,6 +132,7 @@ typedef struct		s_mem
 	unsigned char	hram[0x80]; //done
 	unsigned char	interrupts; //done
 	unsigned char	master_interrupt; //done
+	unsigned char	halt;
 	
 	unsigned int	cycle;
 	unsigned int	last_cycle;

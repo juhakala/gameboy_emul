@@ -5,8 +5,6 @@ int		max_not_done(t_mem *mem);
 int		not_done(t_mem *mem);
 
 
-
-
 /*
 ** ops*.c
 */
@@ -35,6 +33,7 @@ int		ld_l_d8(t_mem *mem);
 int		ld_sp_d16(t_mem *mem);
 int		ld_ahln_a(t_mem *mem);
 int		ld_ahl_d8(t_mem *mem);
+int		ld_a_ahln(t_mem *mem);
 int		ld_a_d8(t_mem *mem);
 int		ld_b_b(t_mem *mem);
 int		ld_b_c(t_mem *mem);
@@ -128,11 +127,13 @@ int		jr_nc_s8(t_mem *mem);
 int		jr_c_s8(t_mem *mem);
 
 /*
-** ops/jr.c
+** ops/jp.c
 */
 int		jp_nz_a16(t_mem *mem);
 int		jp_a16(t_mem *mem);
+int		jp_z_a16(t_mem *mem);
 int		jp_nc_a16(t_mem *mem);
+int		jp_c_a16(t_mem *mem);
 
 /*
 ** ops/inc_dec.c
@@ -154,22 +155,35 @@ int		inc_h(t_mem *mem);
 int		dec_h(t_mem *mem);
 int		dec_hl(t_mem *mem);
 int		inc_l(t_mem *mem);
+int		dec_l(t_mem *mem);
 int		inc_sp(t_mem *mem);
 int		inc_ahl(t_mem *mem);
 int		dec_ahl(t_mem *mem);
 int		dec_sp(t_mem *mem);
+int		inc_a(t_mem *mem);
 int		dec_a(t_mem *mem);
 
 /*
 ** ops/call_push_pop_ret.c
 */
-int		push_bc(t_mem *mem);
+int		ret_nz(t_mem *mem);
 int		pop_bc(t_mem *mem);
+int		call_nz(t_mem *mem);
+int		push_bc(t_mem *mem);
+int		call_z(t_mem *mem);
+int		call_nc(t_mem *mem);
+int		ret_z(t_mem *mem);
 int		ret(t_mem *mem);
 int		call_a16(t_mem *mem);
 int		pop_de(t_mem *mem);
+int		ret_nc(t_mem *mem);
+int		push_de(t_mem *mem);
+int		ret_c(t_mem *mem);
+int		call_c(t_mem *mem);
 int		pop_hl(t_mem *mem);
+int		push_hl(t_mem *mem);
 int		pop_af(t_mem *mem);
+int		push_af(t_mem *mem);
 
 /*
 ** ops/cp_and_or.c
@@ -216,6 +230,7 @@ int		sub_h(t_mem *mem);
 int		sub_l(t_mem *mem);
 int		sub_ahl(t_mem *mem);
 int		sub_a(t_mem *mem);
+int		add_a_d8(t_mem *mem);
 
 /*
 ** ops/adc_sbc.c
@@ -243,8 +258,19 @@ int		sdc_a_d8(t_mem *mem);
 ** ops/misc.c
 */
 int		rlca(t_mem *mem);
+int		stop(t_mem *mem);
 int		rla(t_mem *mem);
 int		scf(t_mem *mem);
+int		halt(t_mem *mem);
+int		rst_00(t_mem *mem);
+int		rst_08(t_mem *mem);
+int		rst_10(t_mem *mem);
+int		rst_18(t_mem *mem);
+int		rst_20(t_mem *mem);
+int		rst_28(t_mem *mem);
+int		di(t_mem *mem);
+int		rst_30(t_mem *mem);
+int		rst_38(t_mem *mem);
 
 
 //
@@ -318,7 +344,6 @@ int		bit_7_h(t_mem *mem);
 int		bit_7_l(t_mem *mem);
 int		bit_7_ahl(t_mem *mem);
 int		bit_7_a(t_mem *mem);
-
 
 /*
 ** ops/rlc_rrc_cb.c

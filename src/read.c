@@ -5,22 +5,22 @@
 
 t_op	g_op_tab[OP_TAB_SIZE] =
 {
-	{op_nop},	{ld_bc_d16},	{ld_abc_a},		{inc_bc},	{inc_b},	{dec_b},	{ld_b_d8},	{rlca},		{ld_a16_sp},	{add_hl_bc},	{ld_a_abc},	{dec_bc},	{inc_c},	{dec_c},	{ld_c_d8},	{not_done}, //0 -> f
-	{not_done},	{ld_de_d16},	{ld_ade_a},		{inc_de},	{inc_d},	{dec_d},	{ld_d_d8},	{rla},		{jr_s8},		{add_hl_de},	{ld_a_ade},	{dec_de},	{inc_e},	{dec_e},	{ld_e_d8},	{not_done}, //10 -> 1f
-	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},	{not_done},	{jr_z_s8},		{add_hl_hl},	{ld_a_ahlp}, {dec_hl},	{inc_l},	{not_done},	{ld_l_d8},	{not_done}, //20 -> 2f
-	{jr_nc_s8},	{ld_sp_d16},	{ld_ahln_a}, 	{inc_sp}, 	{inc_ahl},	{dec_ahl},	{ld_ahl_d8}, {scf},		{jr_c_s8},		{add_hl_sp},	{not_done}, {dec_sp},	{not_done},	{dec_a},	{ld_a_d8},	{not_done}, //30 -> 3f
-	{ld_b_b},	{ld_b_c},	{ld_b_d},	{ld_b_e},	{ld_b_h},	{ld_b_l},	{ld_b_ahl},	{ld_b_a},	{ld_c_b},	{ld_c_c},	{ld_c_d},	{ld_c_e},	{ld_c_h},	{ld_c_l},	{ld_c_ahl},	{ld_c_a}, //40 -> 4f
-	{ld_d_b},	{ld_d_c},	{ld_d_d},	{ld_d_e},	{ld_d_h},	{ld_d_l},	{ld_d_ahl},	{ld_d_a},	{ld_e_b},	{ld_e_c},	{ld_e_d},	{ld_e_e},	{ld_e_h},	{ld_e_l},	{ld_e_ahl},	{ld_e_a}, //50 -> 5f
-	{ld_h_b},	{ld_h_c},	{ld_h_d},	{ld_h_e},	{ld_h_h},	{ld_h_l},	{ld_h_ahl},	{ld_h_a},	{ld_h_b},	{ld_h_c},	{ld_h_d},	{ld_h_e},	{ld_h_h},	{ld_h_l},	{ld_h_ahl},	{ld_h_a}, //60 -> 6f
-	{ld_ahl_b},	{ld_ahl_c},	{ld_ahl_d},	{ld_ahl_e},	{ld_ahl_h},	{ld_ahl_l},	{not_done},	{ld_ahl_a}, {ld_a_b},	{ld_a_c},	{ld_a_d},	{ld_a_e},	{ld_a_h},	{ld_a_l},	{ld_a_ahl},	{ld_a_a}, //70 -> 7f
-	{add_a_b},	{add_a_c},	{add_a_d},	{add_a_e},	{add_a_h},	{add_a_l},	{add_a_ahl},	{add_a_a},	{adc_a_b},	{adc_a_c},	{adc_a_d},	{adc_a_e},	{adc_a_h},	{adc_a_l},	{adc_a_ahl},	{adc_a_a}, //80 -> 8f
-	{sub_b},	{sub_c},	{sub_d},	{sub_e},	{sub_h},	{sub_l},	{sub_ahl},		{sub_a},	{sdc_a_b},	{sdc_a_c},	{sdc_a_d},	{sdc_a_e},	{sdc_a_h},	{sdc_a_l},	{sdc_a_ahl},	{sdc_a_a}, //90 -> 9f
+	{op_nop},	{ld_bc_d16},	{ld_abc_a},		{inc_bc},	{inc_b},	{dec_b},	{ld_b_d8},		{rlca},		{ld_a16_sp},	{add_hl_bc},	{ld_a_abc},		{dec_bc},	{inc_c},	{dec_c},	{ld_c_d8},		{not_done}, //0 -> f
+	{stop},		{ld_de_d16},	{ld_ade_a},		{inc_de},	{inc_d},	{dec_d},	{ld_d_d8},		{rla},		{jr_s8},		{add_hl_de},	{ld_a_ade},		{dec_de},	{inc_e},	{dec_e},	{ld_e_d8},		{not_done}, //10 -> 1f
+	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},		{not_done},	{jr_z_s8},		{add_hl_hl},	{ld_a_ahlp},	{dec_hl},	{inc_l},	{dec_l},	{ld_l_d8},		{not_done}, //20 -> 2f
+	{jr_nc_s8},	{ld_sp_d16},	{ld_ahln_a}, 	{inc_sp}, 	{inc_ahl},	{dec_ahl},	{ld_ahl_d8},	{scf},		{jr_c_s8},		{add_hl_sp},	{ld_a_ahln},	{dec_sp},	{inc_a},	{dec_a},	{ld_a_d8},		{not_done}, //30 -> 3f
+	{ld_b_b},	{ld_b_c},		{ld_b_d},		{ld_b_e},	{ld_b_h},	{ld_b_l},	{ld_b_ahl},		{ld_b_a},	{ld_c_b},		{ld_c_c},		{ld_c_d},		{ld_c_e},	{ld_c_h},	{ld_c_l},	{ld_c_ahl},		{ld_c_a}, //40 -> 4f
+	{ld_d_b},	{ld_d_c},		{ld_d_d},		{ld_d_e},	{ld_d_h},	{ld_d_l},	{ld_d_ahl},		{ld_d_a},	{ld_e_b},		{ld_e_c},		{ld_e_d},		{ld_e_e},	{ld_e_h},	{ld_e_l},	{ld_e_ahl},		{ld_e_a}, //50 -> 5f
+	{ld_h_b},	{ld_h_c},		{ld_h_d},		{ld_h_e},	{ld_h_h},	{ld_h_l},	{ld_h_ahl},		{ld_h_a},	{ld_h_b},		{ld_h_c},		{ld_h_d},		{ld_h_e},	{ld_h_h},	{ld_h_l},	{ld_h_ahl},		{ld_h_a}, //60 -> 6f
+	{ld_ahl_b},	{ld_ahl_c},		{ld_ahl_d},		{ld_ahl_e},	{ld_ahl_h},	{ld_ahl_l},	{halt},			{ld_ahl_a}, {ld_a_b},		{ld_a_c},		{ld_a_d},		{ld_a_e},	{ld_a_h},	{ld_a_l},	{ld_a_ahl},		{ld_a_a}, //70 -> 7f
+	{add_a_b},	{add_a_c},		{add_a_d},		{add_a_e},	{add_a_h},	{add_a_l},	{add_a_ahl},	{add_a_a},	{adc_a_b},		{adc_a_c},		{adc_a_d},		{adc_a_e},	{adc_a_h},	{adc_a_l},	{adc_a_ahl},	{adc_a_a}, //80 -> 8f
+	{sub_b},	{sub_c},		{sub_d},		{sub_e},	{sub_h},	{sub_l},	{sub_ahl},		{sub_a},	{sdc_a_b},		{sdc_a_c},		{sdc_a_d},		{sdc_a_e},	{sdc_a_h},	{sdc_a_l},	{sdc_a_ahl},	{sdc_a_a}, //90 -> 9f
 	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {xor_b}, {xor_c}, {xor_d}, {xor_e}, {xor_h}, {xor_l}, {xor_ahl}, {xor_a}, //a0 -> af
-	{or_b}, {or_c}, {or_d}, {or_e}, {or_h}, {or_l}, {or_ahl}, {or_a}, {cp_b}, {cp_c}, {cp_d}, {cp_e}, {cp_h}, {cp_l}, {cp_ahl}, {cp_a}, //b0 -> bf
-	{not_done}, {pop_bc}, {jp_nz_a16},	{jp_a16},	{not_done},	{push_bc},	{not_done},	{not_done},	{not_done},	{ret},	{not_done},	{op_cb},	{not_done},	{call_a16},	{adc_a_d8},	{not_done}, //c0 -> cf
-	{not_done}, {pop_de}, {jp_nc_a16},	{empty},	{not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {empty}, {not_done},	{empty},	{sdc_a_d8},	{not_done}, //d0 -> df
-	{ld_ad8_a}, {pop_hl}, {ld_ac_a},	{empty},	{empty}, {not_done}, {not_done}, {not_done}, {not_done}, {not_done}, {ld_ad16_a},	{empty},	{empty},	{empty},	{xor_d8},	{not_done}, //e0 -> ef
-	{ld_a_ad8}, {pop_af}, {ld_a_ac},	{not_done},	{empty}, {not_done}, {or_d8}, {not_done}, {not_done}, {not_done}, {not_done},	{not_done},	{empty},	{empty},	{cp_d8},	{not_done} //f0 -> ff
+	{or_b}, 	{or_c},			{or_d},			{or_e},		{or_h},		{or_l},		{or_ahl},		{or_a},		{cp_b},			{cp_c},			{cp_d},			{cp_e},		{cp_h},		{cp_l},		{cp_ahl},		{cp_a}, //b0 -> bf
+	{ret_nz},	{pop_bc},		{jp_nz_a16},	{jp_a16},	{call_nz},	{push_bc},	{add_a_d8},		{rst_00},	{ret_z},		{ret},			{jp_z_a16},		{op_cb},	{call_z},	{call_a16},	{adc_a_d8},		{rst_08}, //c0 -> cf
+	{ret_nc},	{pop_de},		{jp_nc_a16},	{empty},	{call_nc},	{push_de},	{not_done},		{rst_10},	{ret_c},		{not_done},		{jp_c_a16},		{empty},	{call_c},	{empty},	{sdc_a_d8},		{rst_18}, //d0 -> df
+	{ld_ad8_a},	{pop_hl},		{ld_ac_a},		{empty},	{empty},	{push_hl},	{not_done},		{rst_20},	{not_done},		{not_done},		{ld_ad16_a},	{empty},	{empty},	{empty},	{xor_d8},		{rst_28}, //e0 -> ef
+	{ld_a_ad8},	{pop_af},		{ld_a_ac},		{di},		{empty},	{push_af},	{or_d8},		{rst_30},	{not_done},		{not_done},		{not_done},		{not_done},	{empty},	{empty},	{cp_d8},		{rst_38} //f0 -> ff
 };
 
 t_op	g_bit_tab[OP_TAB_SIZE] =

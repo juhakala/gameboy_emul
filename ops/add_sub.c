@@ -502,3 +502,29 @@ int	sub_a(t_mem *mem)
 	mem->cycle += 4;
 	return (1);
 }
+
+// 0x80
+int	add_a_d8(t_mem *mem)
+{
+	char a = mem->reg->a;
+	char b = read(mem->reg->pc + 1, mem);
+
+	if (PRINT)
+		printing("ADD A,", "B", 1, mem);
+	if ((a + b) == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if (((a + b) ^ a ^ b) & 0x10)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	if ((unsigned short)(a + b) > 0x00ff)
+		SET_FLAG(4);
+	else
+		CLEAR_FLAG(4);
+	mem->reg->a = a + b;
+	mem->cycle += 8;
+	return (2);
+}

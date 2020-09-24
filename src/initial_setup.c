@@ -144,8 +144,9 @@ int		read_to_mem(char **av, t_mem *mem)
 	return (0);
 }
 
-void	timer_default(t_mem *mem)
+void	defaults(t_mem *mem)
 {
+	mem->halt = 0;
 	mem->timer->clock_freq = 4096;
 	mem->timer->timer_counter = 1024;
 }
@@ -166,7 +167,7 @@ t_mem	*initial_setup(int ac, char **av)
 		return (NULL);	//add free routine
 	if (fetch_save(mem))
 		return (NULL);	//add free routine
-	timer_default(mem);
+	defaults(mem);
 	get_boot(mem);
 	return (mem);
 }

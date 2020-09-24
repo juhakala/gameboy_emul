@@ -27,22 +27,28 @@ void	update_gameboy(t_mem *mem)
 	mem->cycle = 0;
 	while (mem->cycle < max_cycles)
 	{
-		size = read_op_byte(mem);
+		if (mem->halt == 1)//while (mem->halt == 1)
+		{
+			size = 0;//tmp for now
+			//wait for interrupt function here
+		}
+		else
+			size = read_op_byte(mem);
 //
-		printf("%d ", *mem->io_reg->ff50);
 		if (size == -1)// -1 if not implemented yet
 		{
 			read_mem_bytes(mem, 1);
 			printf(" <- not done yet\n");
 			exit(0);
 		}
+/*
 		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
 		{
 			mem->reg->pc += size;
 			read_mem_bytes(mem, 1);
 			printf(" <- boot rom done\n");
 			exit(0);
-		}
+			}*/
 //
 		mem->reg->pc += size;
 		update_timer(mem);
