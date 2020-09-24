@@ -27,12 +27,15 @@ void	update_gameboy(t_mem *mem)
 	mem->cycle = 0;
 	while (mem->cycle < max_cycles)
 	{
-		if (mem->halt == 1)//while (mem->halt == 1)
+		while (mem->halt == 1)
 		{
-			size = 0;//tmp for now
+//			size = 0;//tmp for now
 			//wait for interrupt function here
+			printf("at this pont it would wait interrupts, so exit now\n");
+			printf("halt = %d\n", mem->halt);
+			exit(0);
 		}
-		else
+//		else
 			size = read_op_byte(mem);
 //
 		if (size == -1)// -1 if not implemented yet
