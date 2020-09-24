@@ -45,7 +45,7 @@ void	map_io_registers(t_mem *mem)
 	mem->io_reg->ff4a = &mem->i_o_registers[0x4a];
 	mem->io_reg->ff4b = &mem->i_o_registers[0x4b];
 	mem->io_reg->ff50 = &mem->i_o_registers[0x50];
-	mem->io_reg->ff50 = &mem->interrupts;
+	mem->io_reg->ffff = &mem->interrupts;
 }
 
 void	get_boot(t_mem *mem)

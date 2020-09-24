@@ -49,7 +49,11 @@ int		dec_b(t_mem *mem)
 
 	if (PRINT)
 		printing("DEC", "B", 1, mem);
+//	printf("%04x\n", mem->reg->bc);
+//	printf("%02x\n", (mem->reg->bc >> 8) & 0xff);
 	mem->reg->bc = (mem->reg->bc & 0x00ff) + (--val << 8);
+//	printf("%02x\n", (mem->reg->bc >> 8) & 0xff);
+//	printf("%04x\n", mem->reg->hl);
 	if (val == 0)
 		SET_FLAG(7);
 	else
@@ -101,7 +105,7 @@ int		dec_c(t_mem *mem)
 
 	if (PRINT)
 		printing("DEC", "C", 1, mem);
-	mem->reg->bc = (mem->reg->bc & 0xff) + --val;
+	mem->reg->bc = (mem->reg->bc & 0xff00) + --val;
 	if (val == 0)
 		SET_FLAG(7);
 	else
@@ -191,6 +195,27 @@ int		inc_e(t_mem *mem)
 		CLEAR_FLAG(7);
 	CLEAR_FLAG(6);
 	if ((val & 0x0f) == 0)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x1d
+int		dec_e(t_mem *mem)
+{
+	unsigned char val = mem->reg->de & 0xff;
+
+	if (PRINT)
+		printing("DEC", "E", 1, mem);
+	mem->reg->de = (mem->reg->de & 0xff00) + --val;
+	if (val == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	SET_FLAG(6);
+	if ((val & 0x0f) == 0x0f)
 		SET_FLAG(5);
 	else
 		CLEAR_FLAG(5);
@@ -344,8 +369,6 @@ int		dec_sp(t_mem *mem)
 // 0x3d
 int		dec_a(t_mem *mem)
 {
-	unsigned char val = (mem->reg->bc >> 8) & 0xff;
-
 	if (PRINT)
 		printing("DEC", "A", 1, mem);
 	mem->reg->a--;

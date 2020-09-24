@@ -29,10 +29,18 @@ void	update_gameboy(t_mem *mem)
 	{
 		size = read_op_byte(mem);
 //
-		if (size == -1 || *mem->io_reg->ff50 != 0) // -1 if not implemented yet ff50 = 0 boot rom
+		printf("%d ", *mem->io_reg->ff50);
+		if (size == -1)// -1 if not implemented yet
 		{
 			read_mem_bytes(mem, 1);
 			printf(" <- not done yet\n");
+			exit(0);
+		}
+		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
+		{
+			mem->reg->pc += size;
+			read_mem_bytes(mem, 1);
+			printf(" <- boot rom done\n");
 			exit(0);
 		}
 //

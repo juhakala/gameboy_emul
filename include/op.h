@@ -148,6 +148,7 @@ int		inc_de(t_mem *mem);
 int		inc_d(t_mem *mem);
 int		dec_de(t_mem *mem);
 int		inc_e(t_mem *mem);
+int		dec_e(t_mem *mem);
 int		inc_hl(t_mem *mem);
 int		inc_h(t_mem *mem);
 int		dec_h(t_mem *mem);

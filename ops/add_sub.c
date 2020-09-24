@@ -90,8 +90,8 @@ int	add_hl_sp(t_mem *mem)
 // 0x80
 int	add_a_b(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = (mem->reg->bc >> 8) & 0xff;
+	char a = mem->reg->a;
+	char b = (mem->reg->bc >> 8) & 0xff;
 
 	if (PRINT)
 		printing("ADD A,", "B", 1, mem);
@@ -116,8 +116,8 @@ int	add_a_b(t_mem *mem)
 // 0x81
 int	add_a_c(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->bc & 0xff;
+	char a = mem->reg->a;
+	char b = mem->reg->bc & 0xff;
 
 	if (PRINT)
 		printing("ADD A,", "C", 1, mem);
@@ -142,8 +142,8 @@ int	add_a_c(t_mem *mem)
 // 0x82
 int	add_a_d(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = (mem->reg->de >> 8) & 0xff;
+	char a = mem->reg->a;
+	char b = (mem->reg->de >> 8) & 0xff;
 
 	if (PRINT)
 		printing("ADD A,", "D", 1, mem);
@@ -168,8 +168,8 @@ int	add_a_d(t_mem *mem)
 // 0x83
 int	add_a_e(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->de & 0xff;
+	char a = mem->reg->a;
+	char b = mem->reg->de & 0xff;
 
 	if (PRINT)
 		printing("ADD A,", "E", 1, mem);
@@ -194,8 +194,8 @@ int	add_a_e(t_mem *mem)
 // 0x84
 int	add_a_h(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = (mem->reg->hl >> 8) & 0xff;
+	char a = mem->reg->a;
+	char b = (mem->reg->hl >> 8) & 0xff;
 
 	if (PRINT)
 		printing("ADD A,", "H", 1, mem);
@@ -220,8 +220,8 @@ int	add_a_h(t_mem *mem)
 // 0x85
 int	add_a_l(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->hl & 0xff;
+	char a = mem->reg->a;
+	char b = mem->reg->hl & 0xff;
 
 	if (PRINT)
 		printing("ADD A,", "L", 1, mem);
@@ -246,11 +246,11 @@ int	add_a_l(t_mem *mem)
 // 0x86
 int	add_a_ahl(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = read(mem->reg->hl, mem);
+	char a = mem->reg->a;
+	char b = read(mem->reg->hl, mem);
 
 	if (PRINT)
-		printing("ADD A,", "B", 1, mem);
+		printing("ADD A,", "(HL)", 1, mem);
 	if ((a + b) == 0)
 		SET_FLAG(7);
 	else
@@ -265,15 +265,15 @@ int	add_a_ahl(t_mem *mem)
 	else
 		CLEAR_FLAG(4);
 	mem->reg->a = a + b;
-	mem->cycle += 4;
+	mem->cycle += 8;
 	return (1);
 }
 
 // 0x87
 int	add_a_a(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->a;
+	char a = mem->reg->a;
+	char b = mem->reg->a;
 
 	if (PRINT)
 		printing("ADD A,", "A", 1, mem);
@@ -298,8 +298,8 @@ int	add_a_a(t_mem *mem)
 // 0x90
 int	sub_b(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = (mem->reg->bc >> 8) & 0xff;
+	char a = mem->reg->a;
+	char b = (mem->reg->bc >> 8) & 0xff;
 
 	if (PRINT)
 		printing("SUB B", "", 1, mem);
@@ -324,8 +324,8 @@ int	sub_b(t_mem *mem)
 // 0x91
 int	sub_c(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->bc & 0xff;
+	char a = mem->reg->a;
+	char b = mem->reg->bc & 0xff;
 
 	if (PRINT)
 		printing("SUB C", "", 1, mem);
@@ -350,8 +350,8 @@ int	sub_c(t_mem *mem)
 // 0x92
 int	sub_d(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = (mem->reg->de >> 8) & 0xff;
+	char a = mem->reg->a;
+	char b = (mem->reg->de >> 8) & 0xff;
 
 	if (PRINT)
 		printing("SUB D", "", 1, mem);
@@ -376,8 +376,8 @@ int	sub_d(t_mem *mem)
 // 0x93
 int	sub_e(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->de & 0xff;
+	char a = mem->reg->a;
+	char b = mem->reg->de & 0xff;
 
 	if (PRINT)
 		printing("SUB E", "", 1, mem);
@@ -402,8 +402,8 @@ int	sub_e(t_mem *mem)
 // 0x94
 int	sub_h(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = (mem->reg->hl >> 8) & 0xff;
+	char a = mem->reg->a;
+	char b = (mem->reg->hl >> 8) & 0xff;
 
 	if (PRINT)
 		printing("SUB H", "", 1, mem);
@@ -428,8 +428,8 @@ int	sub_h(t_mem *mem)
 // 0x95
 int	sub_l(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->hl & 0xff;
+	char a = mem->reg->a;
+	char b = mem->reg->hl & 0xff;
 
 	if (PRINT)
 		printing("SUB L", "", 1, mem);
@@ -454,8 +454,8 @@ int	sub_l(t_mem *mem)
 // 0x90
 int	sub_ahl(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = read(mem->reg->hl, mem);
+	char a = mem->reg->a;
+	char b = read(mem->reg->hl, mem);
 
 	if (PRINT)
 		printing("SUB (HL)", "", 1, mem);
@@ -473,15 +473,15 @@ int	sub_ahl(t_mem *mem)
 	else
 		CLEAR_FLAG(4);
 	mem->reg->a = a - b;
-	mem->cycle += 4;
+	mem->cycle += 8;
 	return (1);
 }
 
 // 0x91
 int	sub_a(t_mem *mem)
 {
-	unsigned char a = mem->reg->a;
-	unsigned char b = mem->reg->a;
+	char a = mem->reg->a;
+	char b = mem->reg->a;
 
 	if (PRINT)
 		printing("SUB A", "", 1, mem);

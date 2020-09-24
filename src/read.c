@@ -6,7 +6,7 @@
 t_op	g_op_tab[OP_TAB_SIZE] =
 {
 	{op_nop},	{ld_bc_d16},	{ld_abc_a},		{inc_bc},	{inc_b},	{dec_b},	{ld_b_d8},	{rlca},		{ld_a16_sp},	{add_hl_bc},	{ld_a_abc},	{dec_bc},	{inc_c},	{dec_c},	{ld_c_d8},	{not_done}, //0 -> f
-	{not_done},	{ld_de_d16},	{ld_ade_a},		{inc_de},	{inc_d},	{dec_d},	{ld_d_d8},	{rla},		{jr_s8},		{add_hl_de},	{ld_a_ade},	{dec_de},	{inc_e},	{not_done},	{ld_e_d8},	{not_done}, //10 -> 1f
+	{not_done},	{ld_de_d16},	{ld_ade_a},		{inc_de},	{inc_d},	{dec_d},	{ld_d_d8},	{rla},		{jr_s8},		{add_hl_de},	{ld_a_ade},	{dec_de},	{inc_e},	{dec_e},	{ld_e_d8},	{not_done}, //10 -> 1f
 	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},	{not_done},	{jr_z_s8},		{add_hl_hl},	{ld_a_ahlp}, {dec_hl},	{inc_l},	{not_done},	{ld_l_d8},	{not_done}, //20 -> 2f
 	{jr_nc_s8},	{ld_sp_d16},	{ld_ahln_a}, 	{inc_sp}, 	{inc_ahl},	{dec_ahl},	{ld_ahl_d8}, {scf},		{jr_c_s8},		{add_hl_sp},	{not_done}, {dec_sp},	{not_done},	{dec_a},	{ld_a_d8},	{not_done}, //30 -> 3f
 	{ld_b_b},	{ld_b_c},	{ld_b_d},	{ld_b_e},	{ld_b_h},	{ld_b_l},	{ld_b_ahl},	{ld_b_a},	{ld_c_b},	{ld_c_c},	{ld_c_d},	{ld_c_e},	{ld_c_h},	{ld_c_l},	{ld_c_ahl},	{ld_c_a}, //40 -> 4f
@@ -59,6 +59,11 @@ int	read_op_byte(t_mem *mem)
 	mem->last_cycle = mem->cycle;
 	size = g_op_tab[read(mem->reg->pc, mem)].f(mem);
 	mem->last_cycle = mem->cycle - mem->last_cycle;
+/*	if (mem->reg->pc == 0x00fe)
+	{
+		printf("%d, %d\n", mem->reg->a, *mem->io_reg->ff50);
+		exit(0);
+		}*/
 	return (size);
 }
 

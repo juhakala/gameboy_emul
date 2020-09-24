@@ -76,6 +76,12 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 		}
 		else if (addr == 0xff44)
 			*mem->io_reg->ff44 = 0;
+		else if (addr == 0xff46) //strt DMA transfer
+		{
+			unsigned short new_addr = content << 8; //source = content * 100
+			for (int i = 0; i < 0xa0; i++)
+				write(0xfe00 + i, read(new_addr + i, mem), mem); //sprite RAM 0xfe00 - 0xfe9f
+		}
 		else
 			mem->i_o_registers[addr - 0xff00] = content;
 	}
@@ -143,8 +149,6 @@ int		write(unsigned short addr, unsigned char content, t_mem *mem)
 
 unsigned char	read(unsigned short addr, t_mem *mem)
 {
-	if (addr == 0x0070)
-		exit(0);
 	if (mem->memory->mbc == 3)
 	{
 		return (read3(addr, mem));
