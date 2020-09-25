@@ -20,7 +20,7 @@ t_op	g_op_tab[OP_TAB_SIZE] =
 	{ret_nz},	{pop_bc},		{jp_nz_a16},	{jp_a16},	{call_nz},	{push_bc},	{add_a_d8},		{rst_00},	{ret_z},		{ret},			{jp_z_a16},		{op_cb},	{call_z},	{call_a16},	{adc_a_d8},		{rst_08}, //c0 -> cf
 	{ret_nc},	{pop_de},		{jp_nc_a16},	{empty},	{call_nc},	{push_de},	{sub_d8},		{rst_10},	{ret_c},		{reti},			{jp_c_a16},		{empty},	{call_c},	{empty},	{sdc_a_d8},		{rst_18}, //d0 -> df
 	{ld_ad8_a},	{pop_hl},		{ld_ac_a},		{empty},	{empty},	{push_hl},	{and_d8},		{rst_20},	{add_sp_s8},	{jp_ahl},		{ld_ad16_a},	{empty},	{empty},	{empty},	{xor_d8},		{rst_28}, //e0 -> ef
-	{ld_a_ad8},	{pop_af},		{ld_a_ac},		{di},		{empty},	{push_af},	{or_d8},		{rst_30},	{ld_hl_sp_s8},	{ld_sp_hl},		{ld_a_ad16},	{ime},		{empty},	{empty},	{cp_d8},		{rst_38} //f0 -> ff
+	{ld_a_ad8},	{pop_af},		{ld_a_ac},		{di},		{empty},	{push_af},	{or_d8},		{rst_30},	{ld_hl_sp_s8},	{ld_sp_hl},		{ld_a_ad16},	{ei},		{empty},	{empty},	{cp_d8},		{rst_38} //f0 -> ff
 };
 
 t_op	g_bit_tab[OP_TAB_SIZE] =
@@ -59,7 +59,7 @@ int	read_op_byte(t_mem *mem)
 	mem->last_cycle = mem->cycle;
 	size = g_op_tab[read(mem->reg->pc, mem)].f(mem);
 	mem->last_cycle = mem->cycle - mem->last_cycle;
-/*	if (mem->reg->pc == 0x00fe)
+/*	if (mem->reg->pc >= 0x0214)
 	{
 		printf("%d, %d\n", mem->reg->a, *mem->io_reg->ff50);
 		exit(0);

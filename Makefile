@@ -23,6 +23,11 @@ H_DIR = include
 DEP_S = $(OBJ_S:%.o=%.d)
 DEP_O = $(OBJ_O:%.o=%.d)
 
+L_SDL = `$(SDL_DIR)/sdl2-config --cflags --libs`
+SDL_DIR = SDL2-2.0.12
+SDL_INC_DIR = SDL2-2.0.12/include
+SDL_TAR = SDL2-2.0.12.tar.gz
+
 GCC = gcc #-Wall -Wextra -Werror
 
 all: $(NAME)
@@ -37,14 +42,20 @@ $(OBJ_DIR)/%.o : $(OPS_DIR)/%.c
 	$(GCC) -MMD -o $@ -c $< -I $(H_DIR)
 
 $(NAME): $(OBJ_S) $(OBJ_O)
-	@$(GCC) -o $@ $^ -I $(H_DIR)
+	@$(GCC) -o $@ $^ -I $(H_DIR) -I $(SDL_INC_DIR) $(L_SDL)
 	@echo "	${GREEN}$(NAME) compiled!${RESET}"
 	@$(MAKE) logo1
 
 $(OBJ_S): | $(OBJ_DIR)
 
-$(OBJ_DIR):
+$(OBJ_DIR): | $(SDL_DIR)
 	mkdir $@
+
+$(SDL_DIR):
+	tar -xvf $(SDL_TAR)
+	cd $(SDL_DIR) && ./configure --prefix=`pwd`/lib
+	make -C $(SDL_DIR)
+	make -C $(SDL_DIR) install
 
 clean:
 ifeq (,$(wildcard $(NAME)))
@@ -53,6 +64,14 @@ else
 	rm -rf $(OBJ_DIR)
 	@$(MAKE) logo2
 endif
+
+fclean: clean
+	bash del.sh
+
+delete:
+	rm -rf $(SDL_DIR)
+
+re: fclean all
 
 logo1:
 	@echo "${RED}              ▄               ${RESET}"

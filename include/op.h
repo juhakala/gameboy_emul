@@ -290,7 +290,7 @@ int		rst_20(t_mem *mem);
 int		rst_28(t_mem *mem);
 int		di(t_mem *mem);
 int		rst_30(t_mem *mem);
-int		ime(t_mem *mem);
+int		ei(t_mem *mem);
 int		rst_38(t_mem *mem);
 
 

@@ -1,6 +1,7 @@
 #ifndef Z80_H
 #define Z80_H
- 
+
+#include "../SDL2-2.0.12/include/SDL.h" 
 #include "struct.h"
 
 /*

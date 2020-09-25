@@ -9,7 +9,7 @@
 #define RAM mem->ram
 
 #define CYCLE mem->cycle
-#define PRINT 3 // 0 = no, 1 = hex, 2 = op_name, 3 = 1 + 2
+#define PRINT 0 // 0 = no, 1 = hex, 2 = op_name, 3 = 1 + 2
 #define OP_TAB_SIZE 0x100 // max size of op list, change if you add op:s
 
 #define PRI(x) print_f_flag(x, mem)

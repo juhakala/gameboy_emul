@@ -45,13 +45,13 @@ void	update_gameboy(t_mem *mem)
 			exit(0);
 		}
 
-		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
+/*		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
 		{
 			mem->reg->pc += size;
 			read_mem_bytes(mem, 1);
 			printf(" <- boot rom done\n");
 			exit(0);
-			}
+			}*/
 //
 		mem->reg->pc += size;
 		update_timer(mem);
@@ -68,8 +68,19 @@ int		main(int ac, char **av)
 
 	if (ac < 2 || !(mem = initial_setup(ac, av)))
 		return (0);
-
 //tmp_testing
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		printf("%s\n", SDL_GetError());
+		return (0);
+	}
+	printf("here\n");
+
+	if (ac == 3 && !strcmp(av[2], "dump"))
+	{
+		print_rom_mem(mem, 0xfffff);
+		exit(0);
+	}
 	if (ac >= 3 && !strcmp(av[2], "count"))
 	{
 		mem->count = 1;

@@ -48,6 +48,50 @@ void	map_io_registers(t_mem *mem)
 	mem->io_reg->ffff = &mem->interrupts;
 }
 
+void	no_boot(t_mem *mem)
+{
+	map_io_registers(mem);
+	mem->reg->a = 0x1;
+	mem->reg->f = 0xb0;
+	mem->reg->bc = 0x0013;
+	mem->reg->de = 0x00d8;
+	mem->reg->hl = 0x014d;
+	mem->reg->sp = 0xfffe;
+	*mem->io_reg->ff05 = 0x0; //tima
+	*mem->io_reg->ff06 = 0x0; //tma
+	*mem->io_reg->ff07 = 0x0; //tac
+	*mem->io_reg->ff10 = 0x80; //nr10
+	*mem->io_reg->ff11 = 0xbf; //nr11
+	*mem->io_reg->ff12 = 0xf3; //nr12
+	*mem->io_reg->ff14 = 0xbf; //nr14
+	*mem->io_reg->ff16 = 0x3f; //nr21
+	*mem->io_reg->ff17 = 0x0; //nr22
+	*mem->io_reg->ff19 = 0xbf; //nr24
+	*mem->io_reg->ff1a = 0x7f; //nr30
+	*mem->io_reg->ff1b = 0xff; //nr31
+	*mem->io_reg->ff1c = 0x9f; //nr32
+	*mem->io_reg->ff1e = 0xbf; //nr33
+	*mem->io_reg->ff20 = 0xff; //nr41
+	*mem->io_reg->ff21 = 0x00; //nr42
+	*mem->io_reg->ff22 = 0x0; //nr43
+	*mem->io_reg->ff23 = 0xbf; //nr44
+	*mem->io_reg->ff24 = 0x77; //nr50
+	*mem->io_reg->ff25 = 0xf3; //nr51
+	*mem->io_reg->ff26 = 0xf1; //nr52
+	*mem->io_reg->ff40 = 0x91; //LCDC
+	*mem->io_reg->ff42 = 0x0; //SCY
+	*mem->io_reg->ff43 = 0x0; //SCX
+	*mem->io_reg->ff45 = 0x0; //LYC
+	*mem->io_reg->ff47 = 0xfc; //BGP
+	*mem->io_reg->ff48 = 0xff; //OBP0
+	*mem->io_reg->ff49 = 0xff; //OBP1
+	*mem->io_reg->ff4a = 0x0; //WY
+	*mem->io_reg->ff4b = 0x0; //WX
+	*mem->io_reg->ffff = 0x0; //IE
+	*mem->io_reg->ff50 = 1; //no boot
+	mem->reg->pc = 0x100;
+}
+
 void	get_boot(t_mem *mem)
 {
 	unsigned char boot[256] = {0x31, 0xfe, 0xff, 0xaf, 0x21, 0xff, 0x9f, 0x32, 0xcb, 0x7c, 0x20, 0xfb, 0x21, 0x26, 0xff, 0x0e,
@@ -168,6 +212,9 @@ t_mem	*initial_setup(int ac, char **av)
 	if (fetch_save(mem))
 		return (NULL);	//add free routine
 	defaults(mem);
-	get_boot(mem);
+	if (ac == 3 && !strcmp(av[2], "no_boot"))
+		no_boot(mem);
+	else
+		get_boot(mem);
 	return (mem);
 }

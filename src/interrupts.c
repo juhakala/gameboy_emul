@@ -16,7 +16,7 @@ void	do_interrupt(int interrupt, t_mem *mem)
 	else if (interrupt == 2)
 		mem->reg->pc = 0x50;
 	else if (interrupt == 4)
-		mem->reg->pc = 0x60;
+	mem->reg->pc = 0x60;
 }
 
 void	handle_interrupts(t_mem *mem)

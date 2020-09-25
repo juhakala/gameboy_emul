@@ -262,13 +262,13 @@ int		rst_30(t_mem *mem)
 }
 
 // 0xfb
-int		ime(t_mem *mem)
+int		ei(t_mem *mem)
 {
 	if (PRINT)
-		printing("IME", "", 1, mem);
+		printing("EI", "", 1, mem);
 	mem->master_interrupt = 1;
 	mem->cycle += 4;
-	return (0);
+	return (1);
 }
 
 // 0xff
