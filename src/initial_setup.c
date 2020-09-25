@@ -190,9 +190,27 @@ int		read_to_mem(char **av, t_mem *mem)
 
 void	defaults(t_mem *mem)
 {
+	mem->memory->rom_bank = 1;
+	mem->memory->ram_bank = 1;
+	mem->memory->rom_ram_mode = 0;
+	mem->memory->ram_enable = 0;
+	mem->reg->f = 0;
 	mem->halt = 0;
 	mem->timer->clock_freq = 4096;
 	mem->timer->timer_counter = 1024;
+	int i;
+	for (i = 0; i < 0x8000; i++)
+		mem->vram[i] = 0;
+	for (i = 0; i < 0x8000; i++)
+		mem->wram[i] = 0;
+	for (i = 0; i < 0x1e00; i++)
+		mem->eram[i] = 0;
+	for (i = 0; i < 0xa0; i++)
+		mem->oam[i] = 0;
+	for (i = 0; i < 0x80; i++)
+		mem->i_o_registers[i] = 0;
+	for (i = 0; i < 0x80; i++)
+		mem->hram[i] = 0;
 }
 
 t_mem	*initial_setup(int ac, char **av)
