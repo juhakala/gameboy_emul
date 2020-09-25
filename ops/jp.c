@@ -64,3 +64,13 @@ int	jp_c_a16(t_mem *mem)
 	mem->cycle += 12;
 	return (3);
 }
+
+// 0xe9
+int	jp_ahl(t_mem *mem)
+{
+	if (PRINT)
+		printing("(HL)", "", 1, 1, mem);
+	mem->reg->pc = mem->reg->hl;
+	mem->cycle += 4;
+	return (0);
+}

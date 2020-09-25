@@ -30,7 +30,27 @@ int		rlca(t_mem *mem)
 	return (1);
 }
 
-// 0x07
+// 0x1f
+int		rrca(t_mem *mem)
+{
+	if (PRINT)
+		printing("RRCA", "", 1, mem);
+	mem->reg->a = (mem->reg->a >> 1) + ((mem->reg->a & 1) << 7);
+	if (mem->reg->a == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	CLEAR_FLAG(5);
+	if ((mem->reg->a >> 7 & 1) == 1)
+		SET_FLAG(4);
+	else
+		CLEAR_FLAG(4);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x10
 int		stop(t_mem *mem)
 {
 	if (PRINT)
@@ -61,6 +81,27 @@ int		rla(t_mem *mem)
     return (1);
 }
 
+// 0x1f
+int		rra(t_mem *mem)
+{
+	int carry = mem->reg->a & 1;
+	if (PRINT)
+		printing("RRA", "", 1, mem);
+	mem->reg->a = (mem->reg->a >> 1) + ((CHECK_FLAG(4) & 1) << 7);
+	if (mem->reg->a == 0)
+		SET_FLAG(7);
+	else
+		CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	CLEAR_FLAG(5);
+	if (carry)
+		SET_FLAG(4);
+	else
+		CLEAR_FLAG(4);
+	mem->cycle += 4;
+	return (1);
+}
+
 /*
 // 0x27
 int		daa(t_mem *mem)
@@ -75,6 +116,18 @@ int		daa(t_mem *mem)
 }
 */
 
+// 0x2f
+int		cpf(t_mem *mem)
+{
+	if (PRINT)
+		printing("CPL", "", 1, mem);
+	mem->reg->a = mem->reg->a ^ 0xff;
+	SET_FLAG(6);
+	SET_FLAG(5);
+	mem->cycle += 4;
+	return (1);
+}
+
 // 0x37
 int		scf(t_mem *mem)
 {
@@ -85,6 +138,21 @@ int		scf(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	SET_FLAG(4);
+	mem->cycle += 4;
+	return (1);
+}
+
+// 0x3f
+int		ccf(t_mem *mem)
+{
+	if (PRINT)
+		printing("CCF", "", 1, mem);
+	CLEAR_FLAG(6);
+	CLEAR_FLAG(5);
+	if (CHECK_FLAG(4))
+		CLEAR_FLAG(4);
+	else
+		SET_FLAG(4);
 	mem->cycle += 4;
 	return (1);
 }
@@ -190,6 +258,16 @@ int		rst_30(t_mem *mem)
 	write(--mem->reg->sp, mem->reg->pc & 0xff, mem);
 	mem->reg->pc = 0x30;
 	mem->cycle += 32;
+	return (0);
+}
+
+// 0xfb
+int		ime(t_mem *mem)
+{
+	if (PRINT)
+		printing("IME", "", 1, mem);
+	mem->master_interrupt = 1;
+	mem->cycle += 4;
 	return (0);
 }
 

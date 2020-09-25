@@ -44,14 +44,14 @@ void	update_gameboy(t_mem *mem)
 			printf(" <- not done yet\n");
 			exit(0);
 		}
-/*
+
 		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
 		{
 			mem->reg->pc += size;
 			read_mem_bytes(mem, 1);
 			printf(" <- boot rom done\n");
 			exit(0);
-			}*/
+			}
 //
 		mem->reg->pc += size;
 		update_timer(mem);

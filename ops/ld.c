@@ -912,7 +912,7 @@ int	ld_a_ad8(t_mem *mem)
 	return (2);
 }
 
-// 0xf0
+// 0xf2
 int	ld_a_ac(t_mem *mem)
 {
 	if (PRINT)
@@ -920,4 +920,46 @@ int	ld_a_ac(t_mem *mem)
 	mem->reg->a = read((mem->reg->bc & 0x00ff) + 0xff00, mem);
 	mem->cycle += 12;
 	return (2);
+}
+
+// 0xf8
+int	ld_hl_sp_s8(t_mem *mem)
+{
+	char val = read(mem->reg->pc + 1, mem);
+	if (PRINT)
+		printing("HL", "SP+s8", 2, mem);
+	mem->reg->hl = mem->reg->sp + val;
+	CLEAR_FLAG(7);
+	CLEAR_FLAG(6);
+	if ((mem->reg->sp ^ val^ mem->reg->hl) & 0x1000)
+		SET_FLAG(5);
+	else
+		CLEAR_FLAG(5);
+	if (val >= 0)
+		mem->reg->sp > mem->reg->hl ? SET_FLAG(4) : CLEAR_FLAG(4);
+	else
+		mem->reg->sp < mem->reg->hl ? SET_FLAG(4) : CLEAR_FLAG(4);
+	mem->cycle += 12;
+	return (2);
+}
+
+// 0xf9
+int	ld_sp_hl(t_mem *mem)
+{
+	if (PRINT)
+		printing("SP", "HL", 1, mem);
+	mem->reg->sp = mem->reg->hl;
+	mem->cycle += 8;
+	return (2);
+}
+
+// 0xfa
+int	ld_a_ad16(t_mem *mem)
+{
+	unsigned short addr = read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8);
+	if (PRINT)
+		printing("A", "(a16)", 3, mem);
+	mem->reg->a = read(addr, mem);
+	mem->cycle += 16;
+	return (3);
 }

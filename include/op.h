@@ -103,10 +103,21 @@ int		ld_ac_a(t_mem *mem);
 int		ld_ad16_a(t_mem *mem);
 int		ld_a_ad8(t_mem *mem);
 int		ld_a_ac(t_mem *mem);
+int		ld_hl_sp_s8(t_mem *mem);
+int		ld_sp_hl(t_mem *mem);
+int		ld_a_ad16(t_mem *mem);
 
 /*
 ** ops/and_xor.c
 */
+int		and_b(t_mem *mem);
+int		and_c(t_mem *mem);
+int		and_d(t_mem *mem);
+int		and_e(t_mem *mem);
+int		and_h(t_mem *mem);
+int		and_l(t_mem *mem);
+int		and_ahl(t_mem *mem);
+int		and_a(t_mem *mem);
 int		xor_b(t_mem *mem);
 int		xor_c(t_mem *mem);
 int		xor_d(t_mem *mem);
@@ -115,6 +126,7 @@ int		xor_h(t_mem *mem);
 int		xor_l(t_mem *mem);
 int		xor_ahl(t_mem *mem);
 int		xor_a(t_mem *mem);
+int		and_d8(t_mem *mem);
 int		xor_d8(t_mem *mem);
 
 /*
@@ -134,6 +146,7 @@ int		jp_a16(t_mem *mem);
 int		jp_z_a16(t_mem *mem);
 int		jp_nc_a16(t_mem *mem);
 int		jp_c_a16(t_mem *mem);
+int		jp_ahl(t_mem *mem);
 
 /*
 ** ops/inc_dec.c
@@ -179,6 +192,7 @@ int		pop_de(t_mem *mem);
 int		ret_nc(t_mem *mem);
 int		push_de(t_mem *mem);
 int		ret_c(t_mem *mem);
+int		reti(t_mem *mem);
 int		call_c(t_mem *mem);
 int		pop_hl(t_mem *mem);
 int		push_hl(t_mem *mem);
@@ -231,6 +245,8 @@ int		sub_l(t_mem *mem);
 int		sub_ahl(t_mem *mem);
 int		sub_a(t_mem *mem);
 int		add_a_d8(t_mem *mem);
+int		sub_d8(t_mem *mem);
+int		add_sp_s8(t_mem *mem);
 
 /*
 ** ops/adc_sbc.c
@@ -258,9 +274,13 @@ int		sdc_a_d8(t_mem *mem);
 ** ops/misc.c
 */
 int		rlca(t_mem *mem);
+int		rrca(t_mem *mem);
 int		stop(t_mem *mem);
 int		rla(t_mem *mem);
+int		rra(t_mem *mem);
+int		cpf(t_mem *mem);
 int		scf(t_mem *mem);
+int		ccf(t_mem *mem);
 int		halt(t_mem *mem);
 int		rst_00(t_mem *mem);
 int		rst_08(t_mem *mem);
@@ -270,6 +290,7 @@ int		rst_20(t_mem *mem);
 int		rst_28(t_mem *mem);
 int		di(t_mem *mem);
 int		rst_30(t_mem *mem);
+int		ime(t_mem *mem);
 int		rst_38(t_mem *mem);
 
 

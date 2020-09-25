@@ -207,6 +207,18 @@ int		ret_c(t_mem *mem)
 	return (1);
 }
 
+// 0xd9
+int		reti(t_mem *mem)
+{
+	if (PRINT)
+		printing("RETI", "", 1, mem);
+	mem->reg->pc = read(mem->reg->sp++, mem);
+	mem->reg->pc += (read(mem->reg->sp++, mem) << 8);
+	mem->master_interrupt = 1;
+	mem->cycle += 8;
+	return (1);
+}
+
 // 0xdc
 int		call_c(t_mem *mem)
 {
