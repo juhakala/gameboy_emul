@@ -35,4 +35,8 @@ void			handle_interrupts(t_mem *mem);
 // lcd.c
 void			update_graphics(t_mem *mem);
 
+// sdl.c
+void			render_sdl(t_mem *mem);
+int				init_sdl(t_mem *mem);
+
 #endif

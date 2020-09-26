@@ -123,7 +123,7 @@ void	update_gameboy(t_mem *mem)
 		update_graphics(mem);
 		handle_interrupts(mem);
 	}
-//	render_lcd(t_mem *mem);
+	render_sdl(mem);
 }
 
 
@@ -134,11 +134,6 @@ int		main(int ac, char **av)
 	if (ac < 2 || !(mem = initial_setup(ac, av)))
 		return (0);
 //tmp_testing
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
-	{
-		printf("%s\n", SDL_GetError());
-		return (0);
-	}
 	if (ac == 3 && !strcmp(av[2], "dump"))
 	{
 		print_rom_mem(mem, 0xfffff);
@@ -167,6 +162,14 @@ int		main(int ac, char **av)
 	}
 //tmp_testing end here
 	while (1)
+	{
+		unsigned val;
+		mem->time_old = SDL_GetTicks();
 		update_gameboy(mem);
+		mem->time_new = SDL_GetTicks();
+		SDL_Delay((val = 16 - ((val = mem->time_new - mem->time_old) < 16 ? val : 16)));
+		mem->time_new = SDL_GetTicks();
+		mem->fps = 1000 /(mem->time_new - mem->time_old != 0 ? mem->time_new - mem->time_old : 1);
+	}
 	return (0);
 }

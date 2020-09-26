@@ -23,6 +23,15 @@
 
 #include "define.h"
 
+typedef struct		s_sdl
+{
+	SDL_Window		*win;
+	SDL_Renderer	*ren;
+	SDL_Texture		*text_lcd;
+	int				*pixel_lcd;
+	SDL_Rect		rect_lcd;
+}					t_sdl;
+
 typedef struct		s_io_reg
 {
 	unsigned char	*ff00; //p1			r/w
@@ -144,6 +153,10 @@ typedef struct		s_mem
 	t_header		*header;
 	t_mem_control	*memory;
 	t_timer			*timer;
+	t_sdl			*sdl;
+	unsigned int	time_old;
+	unsigned int	time_new;
+	unsigned int	fps;
 }					t_mem;
 
 typedef struct		s_op

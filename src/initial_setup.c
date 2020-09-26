@@ -223,11 +223,14 @@ t_mem	*initial_setup(int ac, char **av)
 	mem->header = (t_header*)malloc(sizeof(t_header));
 	mem->memory = (t_mem_control*)malloc(sizeof(t_mem_control));
 	mem->timer = (t_timer*)malloc(sizeof(t_timer));
+	mem->sdl = (t_sdl*)malloc(sizeof(t_sdl));
 	if (ac > 1 && read_to_mem(av, mem))
 		return (NULL);	//add free routine
 	if (get_header_info(mem))
 		return (NULL);	//add free routine
 	if (fetch_save(mem))
+		return (NULL);	//add free routine
+	if (init_sdl(mem))
 		return (NULL);	//add free routine
 	defaults(mem);
 	if (ac == 3 && !strcmp(av[2], "no_boot"))
