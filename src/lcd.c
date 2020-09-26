@@ -2,6 +2,15 @@
 #include "struct.h"
 #include "define.h"
 
+void	draw_scanline(t_mem *mem)
+{
+/*	if (CHECK_BIT(0, *mem->io_reg->ff40))
+		render_tiles(mem);
+	if (CHECK_BIT(1, *mem->io_reg->ff40))
+		render_sprites(mem);
+*/
+}
+
 void	set_lcd_status(t_mem *mem)
 {
 	unsigned char mode;
@@ -78,7 +87,7 @@ void	update_graphics(t_mem *mem)
 				*mem->io_reg->ff44 = 0;
 			else if (*mem->io_reg->ff44 < 143)
 			{
-//				draw_scanline(mem);
+				draw_scanline(mem);
 			}
 		}
 	}
