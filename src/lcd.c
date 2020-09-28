@@ -4,7 +4,7 @@
 
 unsigned int	get_color(int color_bit, t_mem *mem)
 {
-	unsigned char palette = read(*mem->io_reg->ff47, mem);
+	unsigned char palette = *mem->io_reg->ff47;
 	unsigned int color = (((palette >> (color_bit + 1)) & 1) << 1) + ((palette >> color_bit) & 1);
 	if (color == 0)
 		color = WHITE;
@@ -60,7 +60,6 @@ void	render_tiles(t_mem *mem)
 		ypos = *mem->io_reg->ff44 + *mem->io_reg->ff42;
 	tile_row = ((unsigned char)(ypos / 8)) * 32;
 	ypos %= 8;
-//	printf("here\n");
 	for (int i = 0; i < 160; i++)
 	{
 		if (win && i >= windowx)
@@ -71,16 +70,22 @@ void	render_tiles(t_mem *mem)
 		tile_id_addr = memory + tile_row + tile_col;
 		tile_id = read(tile_id_addr, mem);
 		if (sign)
-			tile_location = ((char)(tile_id) + 128) * 16;
+			tile_location = ((char)(tile_id) + 128) * 16 + tile_data;
 		else
-			tile_location = tile_id * 16;
+			tile_location = tile_id * 16 + tile_data;
 		b1 = read(tile_location + ypos * 2, mem);
 		b2 = read(tile_location + ypos * 2 + 1, mem);
+//		if (i % 8 == 0)
+//			printf("%02x, %02x, i = %d, addr = %04x, ", b2, b1, i + y * 256, tile_location + ypos * 2);
 		color_bit = ((xpos % 8) - 7) * -1;
-		color_id = (CHECK_BIT(color_bit, b2) << 1) + CHECK_BIT(color_bit, b1);;
-		
-		mem->sdl->pixel_lcd[i + (y * 256)] = get_color(color_id * 2, mem);
+		color_id = (CHECK_BIT(color_bit, b2) << 1) + CHECK_BIT(color_bit, b1);
+//		printf("%d, ", color_id);
+		unsigned int color = get_color(color_id * 2, mem);
+		mem->sdl->pixel_lcd[i + (y * 256)] = color;
+//		if (i % 8 == 7)
+//			printf("\n");
 	}
+//	exit(0);
 }
 
 void	draw_scanline(t_mem *mem)
@@ -160,7 +165,6 @@ void	update_graphics(t_mem *mem)
 		mem->timer->scanline_counter -= mem->last_cycle;
 		if (mem->timer->scanline_counter <= 0)
 		{
-			*mem->io_reg->ff44 += 1;
 			mem->timer->scanline_counter = 456;
 			if (*mem->io_reg->ff44 == 144)
 				SET_BIT(0, *mem->io_reg->ff0f);
@@ -170,6 +174,7 @@ void	update_graphics(t_mem *mem)
 			{
 				draw_scanline(mem);
 			}
+			*mem->io_reg->ff44 += 1;
 		}
 	}
 }

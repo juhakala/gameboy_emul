@@ -109,14 +109,14 @@ void	update_gameboy(t_mem *mem)
 			exit(0);
 		}
 
-		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
+/*		if (*mem->io_reg->ff50 != 0) //ff50 = 0 boot rom
 		{
 			mem->reg->pc += size;
 			read_mem_bytes(mem, 1);
 			printf(" <- boot rom done\n");
 			check_boot_values(mem);
 			exit(0);
-		}
+			}*/
 //
 		mem->reg->pc += size;
 		update_timer(mem);
@@ -163,6 +163,7 @@ int		main(int ac, char **av)
 //tmp_testing end here
 	while (1)
 	{
+//		*mem->io_reg->ff50 = 1;
 		unsigned val;
 		mem->time_old = SDL_GetTicks();
 		update_gameboy(mem);

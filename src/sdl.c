@@ -55,6 +55,7 @@ int		init_sdl(t_mem *mem)
 	else if (!(mem->sdl->text_lcd = SDL_CreateTexture(mem->sdl->ren, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, 256, 256)))
 		return (sdl_init_error(SDL_GetError()));
 	mem->sdl->pixel_lcd = (int*)malloc(sizeof(int) * (256 * 256));
+	memset(mem->sdl->pixel_lcd, 125, 256 * 256 * sizeof(int));
 	mem->sdl->rect_lcd.x = 172;
 	mem->sdl->rect_lcd.y = 172;
 	mem->sdl->rect_lcd.w = 256;

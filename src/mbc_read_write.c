@@ -326,7 +326,9 @@ int		write3(unsigned short addr, unsigned char content, t_mem *mem)
 				write(0xfe00 + i, read(new_addr + i, mem), mem); //sprite RAM 0xfe00 - 0xfe9f
 		}
 		else
+		{
 			mem->i_o_registers[addr - 0xff00] = content;
+		}
 	}
 	else if (addr >= 0xff80 && addr <= 0xfffe)
 		mem->hram[addr - 0xff80] = content;
