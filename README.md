@@ -14,7 +14,8 @@ and to learn more about coding virtual machines.
       - [ ] debug window for registers
   - [ ] all ops (25.9 511 / 512)
   - [ ] memory bank controllers (mbc)
-    - [ ] 1
+    - [ ] 0 started
+    - [ ] 1 started
     - [ ] 2
     - [x] 3 (because of pokemon red uses mbc3)
     - [ ] 5
