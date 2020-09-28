@@ -33,4 +33,9 @@
 
 #define REV_16(x) (unsigned short)(x >> 8 | ((x & 0xFF) << 8))
 
+#define WHITE 0xffffff00
+#define LIGHT_GREY 0xcccccc00
+#define DARK_GREY 0x77777700
+#define BLACK 0x0
+	
 #endif
