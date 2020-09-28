@@ -6,10 +6,12 @@ and to learn more about coding virtual machines.
   - [ ] main update loop
     - [x] read op byte
     - [x] update timer
-    - [ ] update graphics (ATM: updates values correctly, does not draw anything to memory)
+    - [ ] update graphics
+      - [x] tiles
+      - [ ] sprites
     - [x] handle interrupts
     - [ ] render wit SDL
-      - [ ] lcd screen (play area)
+      - [x] lcd screen (play area, just make it nice)
       - [ ] debug lcd screen (whole video memory are)
       - [ ] debug window for registers
   - [ ] all ops (25.9 511 / 512)
