@@ -55,10 +55,15 @@ int	op_cb(t_mem *mem)
 int	read_op_byte(t_mem *mem)
 {
 	int size = -1;
+	unsigned short val = read(mem->reg->pc, mem);
 
 	mem->last_cycle = mem->cycle;
-	size = g_op_tab[read(mem->reg->pc, mem)].f(mem);
+	size = g_op_tab[val].f(mem);
+//	if (val == 0x20)
+//		mem->cycle += 4;
 	mem->last_cycle = mem->cycle - mem->last_cycle;
+	mem->over_all_cycle += mem->last_cycle;
+	printf("%d[%d]\n", mem->last_cycle, mem->over_all_cycle);
 /*	if (mem->reg->pc == 0x42ba)
 	{
 		printf("%d, %d\n", mem->reg->a, *mem->io_reg->ff50);
@@ -72,7 +77,7 @@ void read_mem_bytes(t_mem *mem, int size)
 {
 	int i = 0;
 
-	printf("[%u]		(0x%05hx -> 0x%05hx): ", mem->cycle, mem->reg->pc, (unsigned short)(mem->reg->pc + (size - 1)));
+	printf("[%u]		(0x%05hx -> 0x%05hx): ", mem->over_all_cycle, mem->reg->pc, (unsigned short)(mem->reg->pc + (size - 1)));
 	while (i < size)
 	{
 		printf("%02hhx ", read(mem->reg->pc + i++, mem));

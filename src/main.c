@@ -83,6 +83,26 @@ void	check_boot_values(t_mem *mem)
 		printf("39 %04x\n", mem->reg->pc);
 }
 
+void	debug_print(t_mem *mem)
+{
+/*	printf("last cycles = %d\n", mem->last_cycle);
+	printf("total cycles = %d\n", mem->over_all_cycle);
+	printf("op in pc = %d, %02x\n", read(mem->reg->pc, mem), read(mem->reg->pc, mem));
+	printf("re pc = %d, %04hx\n", mem->reg->pc, mem->reg->pc);
+	printf("re sp = %d, %04hx\n", mem->reg->sp, mem->reg->sp);
+	printf("reg A = %d, %02hhx\n", mem->reg->a, mem->reg->a);
+	printf("reg F = %d, %02hhx\n", mem->reg->f, mem->reg->f);
+	printf("reg B = %d, %02x\n", (mem->reg->bc >> 8) & 0xff, (mem->reg->bc >> 8) & 0xff);
+	printf("reg C = %d, %02x\n", mem->reg->bc & 0xff, mem->reg->bc & 0xff);
+	printf("reg D = %d, %02x\n", (mem->reg->de >> 8) & 0xff, (mem->reg->de >> 8) & 0xff);
+	printf("reg C = %d, %02x\n", mem->reg->de & 0xff, mem->reg->de & 0xff);
+	printf("reg H = %d, %02x\n", (mem->reg->hl >> 8) & 0xff, (mem->reg->hl >> 8) & 0xff);
+	printf("reg L = %d, %02x\n", mem->reg->hl & 0xff, mem->reg->hl & 0xff);*/
+	printf("SP: %04hx PC: %04hx ", mem->reg->sp, mem->reg->pc);
+	printf("AF:%02hhx%02hhx BC:%04hx DE:%04hx HL:%04hx\n", mem->reg->a, mem->reg->f, mem->reg->bc, mem->reg->de, mem->reg->hl);
+}
+
+
 void	update_gameboy(t_mem *mem)
 {
 	int max_cycles = 69905;
@@ -100,7 +120,12 @@ void	update_gameboy(t_mem *mem)
 			exit(0);
 		}
 //		else
-			size = read_op_byte(mem);
+//		system("clear");//
+//		debug_print(mem);//;
+//		printf("\n\n");
+		debug_print(mem);//;
+		getchar();
+		size = read_op_byte(mem);
 //
 		if (size == -1)// -1 if not implemented yet
 		{
@@ -119,6 +144,10 @@ void	update_gameboy(t_mem *mem)
 			}*/
 //
 		mem->reg->pc += size;
+//		if (mem->scan-- <= 1)// && mem->reg->pc == 0xf9)
+//		{
+//			scanf("%d", &mem->scan);//
+//		}
 		update_timer(mem);
 		update_graphics(mem);
 		handle_interrupts(mem);
@@ -161,6 +190,14 @@ int		main(int ac, char **av)
 		return (0);
 	}
 //tmp_testing end here
+/*	mem->reg->a = 0;
+	mem->reg->f = 0;
+	mem->reg->bc = 0;
+	mem->reg->de = 0;
+	mem->reg->hl = 0;
+	mem->reg->sp = 0;
+//	mem->reg->pc = 0;*/
+	mem->scan = 1;
 	while (1)
 	{
 //		*mem->io_reg->ff50 = 1;

@@ -142,9 +142,12 @@ typedef struct		s_mem
 	unsigned char	interrupts; //done
 	unsigned char	master_interrupt; //done
 	unsigned char	halt;
+
+	int scan;
 	
 	unsigned int	cycle;
 	unsigned int	last_cycle;
+	unsigned int	over_all_cycle;
 	int	not_done; //temp for checking
 	int	count; //tmp testing
 
