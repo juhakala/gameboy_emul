@@ -59,9 +59,10 @@ int	read_op_byte(t_mem *mem)
 	mem->last_cycle = mem->cycle;
 	size = g_op_tab[read(mem->reg->pc, mem)].f(mem);
 	mem->last_cycle = mem->cycle - mem->last_cycle;
-/*	if (mem->reg->pc >= 0x0214)
+/*	if (mem->reg->pc == 0x42ba)
 	{
 		printf("%d, %d\n", mem->reg->a, *mem->io_reg->ff50);
+		read_mem_bytes(mem, 3);
 		exit(0);
 		}*/
 	return (size);

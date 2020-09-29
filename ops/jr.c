@@ -26,9 +26,9 @@ int	jr_nz_s8(t_mem *mem)
 {
 	if (PRINT)
 		printing("NZ", "s8", 2, CHECK_FLAG(7) == 0 ? 1 : 0, mem);
+	mem->cycle += 8;
 	if (CHECK_FLAG(7) == 0)
 		mem->reg->pc += (char)read(mem->reg->pc + 1, mem);
-	mem->cycle += 8;
 	return (2);
 }
 

@@ -29,6 +29,8 @@ int	jp_a16(t_mem *mem)
 		printing("a16", "", 3, 1, mem);
 	mem->reg->pc = read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8);
 	mem->cycle += 12;
+//	printf("mem->reg->pc = %04x\n", mem->reg->pc);
+//	exit(0);
 	return (0);
 }
 

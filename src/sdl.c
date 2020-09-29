@@ -13,10 +13,10 @@ void	render_sdl(t_mem *mem)
 {
 	SDL_Event event;
 
-	//memset(mem->sdl->pixel_lcd, 125, 256 * 256 * sizeof(int));
-	SDL_SetRenderDrawColor(mem->sdl->ren, 0, 0, 0, 0);
-	SDL_RenderClear(mem->sdl->ren);
-	SDL_UpdateTexture(mem->sdl->text_lcd, NULL, mem->sdl->pixel_lcd, 256 * sizeof(int));
+//	memset(mem->sdl->pixel_lcd, 125, 160 * 144 * sizeof(int));
+//	SDL_SetRenderDrawColor(mem->sdl->ren, 0, 0, 0, 0);
+//	SDL_RenderClear(mem->sdl->ren);
+	SDL_UpdateTexture(mem->sdl->text_lcd, NULL, mem->sdl->pixel_lcd, 160 * sizeof(int));
 	SDL_RenderCopy(mem->sdl->ren, mem->sdl->text_lcd, NULL, &mem->sdl->rect_lcd);
 	SDL_RenderPresent(mem->sdl->ren);
 	if (SDL_PollEvent(&event))
@@ -47,18 +47,18 @@ int		init_sdl(t_mem *mem)
 	else if (!(mem->sdl->win = SDL_CreateWindow("Gameboy emulator",
 												SDL_WINDOWPOS_CENTERED,
 												SDL_WINDOWPOS_CENTERED,
-												600, 600,
+												640, 576,
 												SDL_WINDOW_RESIZABLE)))
 		return (sdl_init_error(SDL_GetError()));
 	else if (!(mem->sdl->ren = SDL_CreateRenderer(mem->sdl->win, -1, SDL_RENDERER_ACCELERATED)))
 		return (sdl_init_error(SDL_GetError()));
-	else if (!(mem->sdl->text_lcd = SDL_CreateTexture(mem->sdl->ren, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, 256, 256)))
+	else if (!(mem->sdl->text_lcd = SDL_CreateTexture(mem->sdl->ren, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, 160, 144)))
 		return (sdl_init_error(SDL_GetError()));
-	mem->sdl->pixel_lcd = (int*)malloc(sizeof(int) * (256 * 256));
-	memset(mem->sdl->pixel_lcd, 125, 256 * 256 * sizeof(int));
-	mem->sdl->rect_lcd.x = 172;
-	mem->sdl->rect_lcd.y = 172;
-	mem->sdl->rect_lcd.w = 256;
-	mem->sdl->rect_lcd.h = 256;
+	mem->sdl->pixel_lcd = (int*)malloc(sizeof(int) * (144 * 160));
+	memset(mem->sdl->pixel_lcd, 125, 144 * 160 * sizeof(int));
+	mem->sdl->rect_lcd.w = 160 * 4;
+	mem->sdl->rect_lcd.h = 144 * 4;
+	mem->sdl->rect_lcd.x = 640 / 2 - mem->sdl->rect_lcd.w / 2;
+	mem->sdl->rect_lcd.y = 576 / 2 - mem->sdl->rect_lcd.h / 2;
 	return (0);
 }
