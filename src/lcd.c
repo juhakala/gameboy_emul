@@ -177,6 +177,7 @@ void	update_graphics(t_mem *mem)
 			{
 				draw_scanline(mem);
 			}
+//			printf("here\n");
 			*mem->io_reg->ff44 += 1;
 		}
 	}

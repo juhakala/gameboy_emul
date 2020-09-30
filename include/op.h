@@ -1,15 +1,29 @@
 #ifndef OP_H
 #define OP_H
 
-int		max_not_done(t_mem *mem);
-int		not_done(t_mem *mem);
-
+void	opcodes_inc(unsigned char *reg, t_mem *mem);
+void	opcodes_dec(unsigned char *reg, t_mem *mem);
+void	opcodes_rlc(unsigned char *reg, t_mem *mem);
+void	opcodes_rrc(unsigned char *reg, t_mem *mem);
+void	opcodes_rl(unsigned char *reg, t_mem *mem);
+void	opcodes_rr(unsigned char *reg, t_mem *mem);
+void	opcodes_add_hl(unsigned short reg, t_mem *mem);
+void	opcodes_add_sp(unsigned char reg, t_mem *mem);
+void	opcodes_add(unsigned char reg, t_mem *mem);
+void	opcodes_adc(unsigned char reg, t_mem *mem);
+void	opcodes_sub(unsigned char reg, t_mem *mem);
+void	opcodes_sbc(unsigned char reg, t_mem *mem);
+void	and_x(unsigned char x, t_mem *mem);
+void	xor_x(unsigned char x, t_mem *mem);
+void	or_x(unsigned char x, t_mem *mem);
+void	cp_x(unsigned char x, t_mem *mem);
 
 /*
 ** ops*.c
 */
 int		op_nop(t_mem *mem); // 0x00
 int		empty(t_mem *mem);
+int		daa(t_mem *mem);
 
 /*
 ** ops/ld.c
@@ -278,7 +292,7 @@ int		rrca(t_mem *mem);
 int		stop(t_mem *mem);
 int		rla(t_mem *mem);
 int		rra(t_mem *mem);
-int		cpf(t_mem *mem);
+int		cpl(t_mem *mem);
 int		scf(t_mem *mem);
 int		ccf(t_mem *mem);
 int		halt(t_mem *mem);

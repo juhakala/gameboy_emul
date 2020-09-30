@@ -142,14 +142,9 @@ typedef struct		s_mem
 	unsigned char	interrupts; //done
 	unsigned char	master_interrupt; //done
 	unsigned char	halt;
-
-	int scan;
 	
 	unsigned int	cycle;
 	unsigned int	last_cycle;
-	unsigned int	over_all_cycle;
-	int	not_done; //temp for checking
-	int	count; //tmp testing
 
 	t_reg			*reg;
 	t_io_reg		*io_reg;
@@ -169,6 +164,10 @@ typedef struct		s_op
 
 t_op				g_op_tab[OP_TAB_SIZE];
 t_op				g_bit_tab[OP_TAB_SIZE];
+
+int					g_op_size[OP_TAB_SIZE];
+int					g_op_cycle[OP_TAB_SIZE];
+char				*g_op_str[OP_TAB_SIZE];
 
 
 #endif

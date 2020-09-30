@@ -7,7 +7,7 @@ t_op	g_op_tab[OP_TAB_SIZE] =
 {
 	{op_nop},	{ld_bc_d16},	{ld_abc_a},		{inc_bc},	{inc_b},	{dec_b},	{ld_b_d8},		{rlca},		{ld_a16_sp},	{add_hl_bc},	{ld_a_abc},		{dec_bc},	{inc_c},	{dec_c},	{ld_c_d8},		{rrca}, //0 -> f
 	{stop},		{ld_de_d16},	{ld_ade_a},		{inc_de},	{inc_d},	{dec_d},	{ld_d_d8},		{rla},		{jr_s8},		{add_hl_de},	{ld_a_ade},		{dec_de},	{inc_e},	{dec_e},	{ld_e_d8},		{rra}, //10 -> 1f
-	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},		{not_done},	{jr_z_s8},		{add_hl_hl},	{ld_a_ahlp},	{dec_hl},	{inc_l},	{dec_l},	{ld_l_d8},		{cpf}, //20 -> 2f
+	{jr_nz_s8},	{ld_hl_d16},	{ld_ahlp_a},	{inc_hl}, 	{inc_h},	{dec_h},	{ld_h_d8},		{daa},		{jr_z_s8},		{add_hl_hl},	{ld_a_ahlp},	{dec_hl},	{inc_l},	{dec_l},	{ld_l_d8},		{cpl}, //20 -> 2f
 	{jr_nc_s8},	{ld_sp_d16},	{ld_ahln_a}, 	{inc_sp}, 	{inc_ahl},	{dec_ahl},	{ld_ahl_d8},	{scf},		{jr_c_s8},		{add_hl_sp},	{ld_a_ahln},	{dec_sp},	{inc_a},	{dec_a},	{ld_a_d8},		{ccf}, //30 -> 3f
 	{ld_b_b},	{ld_b_c},		{ld_b_d},		{ld_b_e},	{ld_b_h},	{ld_b_l},	{ld_b_ahl},		{ld_b_a},	{ld_c_b},		{ld_c_c},		{ld_c_d},		{ld_c_e},	{ld_c_h},	{ld_c_l},	{ld_c_ahl},		{ld_c_a}, //40 -> 4f
 	{ld_d_b},	{ld_d_c},		{ld_d_d},		{ld_d_e},	{ld_d_h},	{ld_d_l},	{ld_d_ahl},		{ld_d_a},	{ld_e_b},		{ld_e_c},		{ld_e_d},		{ld_e_e},	{ld_e_h},	{ld_e_l},	{ld_e_ahl},		{ld_e_a}, //50 -> 5f
@@ -44,45 +44,3 @@ t_op	g_bit_tab[OP_TAB_SIZE] =
 
 };
 
-int	op_cb(t_mem *mem)
-{
-	int size = -1;
-
-	size = g_bit_tab[read(mem->reg->pc + 1, mem)].f(mem);
-	return (size);
-}
-
-int	read_op_byte(t_mem *mem)
-{
-	int size = -1;
-	unsigned short val = read(mem->reg->pc, mem);
-
-	mem->last_cycle = mem->cycle;
-	size = g_op_tab[val].f(mem);
-//	if (val == 0x20)
-//		mem->cycle += 4;
-	mem->last_cycle = mem->cycle - mem->last_cycle;
-	mem->over_all_cycle += mem->last_cycle;
-	printf("%d[%d]\n", mem->last_cycle, mem->over_all_cycle);
-/*	if (mem->reg->pc == 0x42ba)
-	{
-		printf("%d, %d\n", mem->reg->a, *mem->io_reg->ff50);
-		read_mem_bytes(mem, 3);
-		exit(0);
-		}*/
-	return (size);
-}
-
-void read_mem_bytes(t_mem *mem, int size)
-{
-	int i = 0;
-
-	printf("[%u]		(0x%05hx -> 0x%05hx): ", mem->over_all_cycle, mem->reg->pc, (unsigned short)(mem->reg->pc + (size - 1)));
-	while (i < size)
-	{
-		printf("%02hhx ", read(mem->reg->pc + i++, mem));
-	}
-	while (i++ < 5)
-		printf("   ");
-	printf("|");
-}

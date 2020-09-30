@@ -51,7 +51,7 @@ void	map_io_registers(t_mem *mem)
 void	no_boot(t_mem *mem)
 {
 	map_io_registers(mem);
-	mem->reg->a = 0x1;
+	mem->reg->a = 0x11;
 	mem->reg->f = 0xb0;
 	mem->reg->bc = 0x0013;
 	mem->reg->de = 0x00d8;
@@ -117,7 +117,6 @@ void	get_boot(t_mem *mem)
 	map_io_registers(mem);
 //	if boot rom read 0
     *mem->io_reg->ff50 = 0;
-	mem->count = 0;
 //	print_i_o_registers(mem);
 }
 
@@ -199,7 +198,6 @@ void	defaults(t_mem *mem)
 	mem->halt = 0;
 	mem->timer->clock_freq = 4096;
 	mem->timer->timer_counter = 1024;
-	mem->over_all_cycle = 0;
 	int i;
 	for (i = 0; i < 0x8000; i++)
 		mem->vram[i] = 0;

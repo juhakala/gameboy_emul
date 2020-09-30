@@ -8,9 +8,7 @@ RESET := $(shell tput -Txterm sgr0)
 SRC = main.c initial_setup.c hexdumps.c \
 	read.c mbc_read_write.c lcd.c timer.c interrupts.c sdl.c
 
-OPS = not_done.c nop.c \
-	ld.c jr.c jp.c and_xor.c inc_dec.c call_push_pop_ret.c cp_and_or.c add_sub.c adc_sbc.c misc.c \
-	bit_cb.c rlc_rrc_cb.c res_set_cb.c
+OPS = processor.c ops.c bit_cb.c rlc_rrc_cb.c res_set_cb.c
 
 
 OBJ_S = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
