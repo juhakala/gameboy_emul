@@ -61,8 +61,6 @@ void	render_tiles(t_mem *mem)
 		ypos = *mem->io_reg->ff44 + *mem->io_reg->ff42;
 	tile_row = ((unsigned char)(ypos / 8)) * 32;
 	ypos %= 8;
-//	if (*mem->io_reg->ff44 > 1)
-//		return ;
 	for (i = 0; i < 160; i++)
 	{
 		if (win && i >= windowx)
@@ -78,17 +76,10 @@ void	render_tiles(t_mem *mem)
 			tile_location = tile_id * 16 + tile_data;
 		b1 = read(tile_location + ypos * 2, mem);
 		b2 = read(tile_location + ypos * 2 + 1, mem);
-//		if (i % 8 == 0)
-//			printf("%02x, %02x, i = %d, addr = %04x, ", b2, b1, i + y * 256, tile_location + ypos * 2);
 		color_bit = ((xpos % 8) - 7) * -1;
 		color_id = (CHECK_BIT(color_bit, b2) << 1) + CHECK_BIT(color_bit, b1);
-//		printf("%d, ", color_id);
-		unsigned int color = get_color(color_id * 2, mem);
-		mem->sdl->pixel_lcd[i + (y * 160)] = color;
-//		if (i % 8 == 7)
-//			printf("\n");
+		mem->sdl->pixel_lcd[i + (y * 160)] = get_color(color_id * 2, mem);
 	}
-//	exit(0);
 }
 
 void	draw_scanline(t_mem *mem)
@@ -174,10 +165,7 @@ void	update_graphics(t_mem *mem)
 			else if (*mem->io_reg->ff44 > 153)
 				*mem->io_reg->ff44 = 0;
 			else if (*mem->io_reg->ff44 < 144)
-			{
 				draw_scanline(mem);
-			}
-//			printf("here\n");
 			*mem->io_reg->ff44 += 1;
 		}
 	}

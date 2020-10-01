@@ -13,7 +13,6 @@ void	render_sdl(t_mem *mem)
 {
 	SDL_Event event;
 
-//	memset(mem->sdl->pixel_lcd, 125, 160 * 144 * sizeof(int));
 //	SDL_SetRenderDrawColor(mem->sdl->ren, 0, 0, 0, 0);
 //	SDL_RenderClear(mem->sdl->ren);
 	SDL_UpdateTexture(mem->sdl->text_lcd, NULL, mem->sdl->pixel_lcd, 160 * sizeof(int));

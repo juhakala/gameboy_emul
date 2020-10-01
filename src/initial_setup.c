@@ -115,9 +115,7 @@ void	get_boot(t_mem *mem)
 	memcpy(mem->boot, boot, 256);
 	mem->reg->pc = 0;
 	map_io_registers(mem);
-//	if boot rom read 0
     *mem->io_reg->ff50 = 0;
-//	print_i_o_registers(mem);
 }
 
 int		fetch_save(t_mem *mem)
@@ -140,31 +138,13 @@ int		get_header_info(t_mem *mem)
 {
 	if (mem->header->cart_type > 31 || mem->header->rom_size > 6 || mem->header->ram_size > 4)
 		return (1);
-/*  int nin_logo[48] = {0xce, 0xed, 0x66, 0x66, 0xcc, 0x0d, 0x00, 0x0b, 0x03, 0x73, 0x00, 0x83, 0x00, 0x0c, 0x00, 0x0d,
-                        0x00, 0x08, 0x11, 0x1f, 0x88, 0x89, 0x00, 0x0e, 0xdc, 0xcc, 0x6e, 0xe6, 0xdd, 0xdd, 0xd9, 0x99,
-                        0xbb, 0xbb, 0x67, 0x63, 0x6e, 0x0e, 0xec, 0xcc, 0xdd, 0xdc, 0x99, 0x9f, 0xbb, 0xb9, 0x33, 0x3e};
-    for (int i = 0; i < 48; i++)
-    {
-        if (mem->header->logo[i] != nin_logo[i])
-            return (1);
-    }
-*/
-	unsigned char res = 0;
-	for (int i = 0; i + 0x134 < 0x14d; i++)
-		res = res - mem->rom[i + 0x134] - 1;
-	if (res != mem->header->h_check_sum)
-		return (1);
-
 	int mbc_arr[32] = {0, 1, 1, 1,-1, 2, 2,-1, 0, 0,-1, 0, 0, 0,-1, 3,
 					   3, 3, 3, 3,-1,-1,-1,-1,-1, 5, 5, 5, 5, 5, 5, 0};
 	mem->memory->mbc = mbc_arr[mem->header->cart_type];
-
 	int rom_banks_arr[7] = {2, 4, 8, 16, 32, 64, 128};
 	mem->memory->rom_banks = rom_banks_arr[mem->header->rom_size];
-
 	int ram_banks_arr[5] = {0, 1, 1, 4, 16};
 	mem->memory->ram_banks = ram_banks_arr[mem->header->ram_size];
-
 	int ram_size_arr[6] = {0, 2048, 8192, 32768, 131072, 65536};
 	mem->memory->ram_size = ram_size_arr[mem->header->ram_size];
 	return (0);

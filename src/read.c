@@ -41,6 +41,4 @@ t_op	g_bit_tab[OP_TAB_SIZE] =
 	{set_2_b}, {set_2_c}, {set_2_d}, {set_2_e}, {set_2_h}, {set_2_l}, {set_2_ahl}, {set_2_a}, {set_3_b}, {set_3_c}, {set_3_d}, {set_3_e}, {set_3_h}, {set_3_l}, {set_3_ahl}, {set_3_a}, //d0 -> df
 	{set_4_b}, {set_4_c}, {set_4_d}, {set_4_e}, {set_4_h}, {set_4_l}, {set_4_ahl}, {set_4_a}, {set_5_b}, {set_5_c}, {set_5_d}, {set_5_e}, {set_5_h}, {set_5_l}, {set_5_ahl}, {set_5_a}, //e0 -> ef
 	{set_6_b}, {set_6_c}, {set_6_d}, {set_6_e}, {set_6_h}, {set_6_l}, {set_6_ahl}, {set_6_a}, {set_7_b}, {set_7_c}, {set_7_d}, {set_7_e}, {set_7_h}, {set_7_l}, {set_7_ahl}, {set_7_a}, //f0 -> ff
-
 };
-
