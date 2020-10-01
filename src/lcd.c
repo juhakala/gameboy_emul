@@ -116,7 +116,7 @@ void	set_lcd_status(t_mem *mem)
 	else
 	{
 		//mode2
-		if (mem->timer->scanline_counter > 376) //i think it should be just '>'
+		if (mem->timer->scanline_counter >= 376) //i think it should be just '>'
 		{
 			mode = 2;
 			SET_BIT(1, *mem->io_reg->ff41);
@@ -124,7 +124,7 @@ void	set_lcd_status(t_mem *mem)
 			reguest = CHECK_BIT(5, *mem->io_reg->ff41);
 		}
 		//mode3
-		else if (mem->timer->scanline_counter > 204) //i think it should be just '>'
+		else if (mem->timer->scanline_counter >= 204) //i think it should be just '>'
 		{
 			mode = 3;
 			SET_BIT(0, *mem->io_reg->ff41);

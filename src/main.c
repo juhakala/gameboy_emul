@@ -24,9 +24,15 @@ void	update_gameboy(t_mem *mem)
 	int size;
 
 	mem->cycle = 0;
+	static int addr = 0x100;
 	while (mem->cycle < max_cycles)
 	{
-		while (mem->halt == 1)
+/*		if (mem->reg->pc == addr)
+		{
+			debug_print(mem);
+			scanf("%x", &addr);
+			}*/
+		while (mem->halt == 1) //tmp for now
 			mem->halt = 0;
 		size = read_op_byte(mem);
 		mem->reg->pc += size;

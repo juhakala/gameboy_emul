@@ -2,50 +2,50 @@
 
 void	map_io_registers(t_mem *mem)
 {
-	mem->io_reg->ff00 = &mem->i_o_registers[0x0];
-	mem->io_reg->ff01 = &mem->i_o_registers[0x1];
-	mem->io_reg->ff02 = &mem->i_o_registers[0x2];
-	mem->io_reg->ff04 = &mem->i_o_registers[0x4];
-	mem->io_reg->ff05 = &mem->i_o_registers[0x5];
-	mem->io_reg->ff06 = &mem->i_o_registers[0x6];
-	mem->io_reg->ff07 = &mem->i_o_registers[0x7];
-	mem->io_reg->ff0f = &mem->i_o_registers[0xf];
-	mem->io_reg->ff10 = &mem->i_o_registers[0x10];
-	mem->io_reg->ff11 = &mem->i_o_registers[0x11];
-	mem->io_reg->ff12 = &mem->i_o_registers[0x12];
-	mem->io_reg->ff13 = &mem->i_o_registers[0x13];
-	mem->io_reg->ff14 = &mem->i_o_registers[0x14];
-	mem->io_reg->ff16 = &mem->i_o_registers[0x16];
-	mem->io_reg->ff17 = &mem->i_o_registers[0x17];
-	mem->io_reg->ff18 = &mem->i_o_registers[0x18];
-	mem->io_reg->ff19 = &mem->i_o_registers[0x19];
-	mem->io_reg->ff1a = &mem->i_o_registers[0x1a];
-	mem->io_reg->ff1b = &mem->i_o_registers[0x1b];
-	mem->io_reg->ff1c = &mem->i_o_registers[0x1c];
-	mem->io_reg->ff1d = &mem->i_o_registers[0x1d];
-	mem->io_reg->ff1e = &mem->i_o_registers[0x1e];
-	mem->io_reg->ff20 = &mem->i_o_registers[0x20];
-	mem->io_reg->ff21 = &mem->i_o_registers[0x21];
-	mem->io_reg->ff22 = &mem->i_o_registers[0x22];
-	mem->io_reg->ff23 = &mem->i_o_registers[0x23];
-	mem->io_reg->ff24 = &mem->i_o_registers[0x24];
-	mem->io_reg->ff25 = &mem->i_o_registers[0x25];
-	mem->io_reg->ff26 = &mem->i_o_registers[0x26];
-	mem->io_reg->ff30 = &mem->i_o_registers[0x30];
-	mem->io_reg->ff40 = &mem->i_o_registers[0x40];
-	mem->io_reg->ff41 = &mem->i_o_registers[0x41];
-	mem->io_reg->ff42 = &mem->i_o_registers[0x42];
-	mem->io_reg->ff43 = &mem->i_o_registers[0x43];
-	mem->io_reg->ff44 = &mem->i_o_registers[0x44];
-	mem->io_reg->ff45 = &mem->i_o_registers[0x45];
-	mem->io_reg->ff46 = &mem->i_o_registers[0x46];
-	mem->io_reg->ff47 = &mem->i_o_registers[0x47];
-	mem->io_reg->ff48 = &mem->i_o_registers[0x48];
-	mem->io_reg->ff49 = &mem->i_o_registers[0x49];
-	mem->io_reg->ff4a = &mem->i_o_registers[0x4a];
-	mem->io_reg->ff4b = &mem->i_o_registers[0x4b];
-	mem->io_reg->ff50 = &mem->i_o_registers[0x50];
-	mem->io_reg->ffff = &mem->interrupts;
+	mem->io_reg->ff00 = &mem->rest_ram[0x0 + 0x1f00];
+	mem->io_reg->ff01 = &mem->rest_ram[0x1 + 0x1f00];
+	mem->io_reg->ff02 = &mem->rest_ram[0x2 + 0x1f00];
+	mem->io_reg->ff04 = &mem->rest_ram[0x4 + 0x1f00];
+	mem->io_reg->ff05 = &mem->rest_ram[0x5 + 0x1f00];
+	mem->io_reg->ff06 = &mem->rest_ram[0x6 + 0x1f00];
+	mem->io_reg->ff07 = &mem->rest_ram[0x7 + 0x1f00];
+	mem->io_reg->ff0f = &mem->rest_ram[0xf + 0x1f00];
+	mem->io_reg->ff10 = &mem->rest_ram[0x10 + 0x1f00];
+	mem->io_reg->ff11 = &mem->rest_ram[0x11 + 0x1f00];
+	mem->io_reg->ff12 = &mem->rest_ram[0x12 + 0x1f00];
+	mem->io_reg->ff13 = &mem->rest_ram[0x13 + 0x1f00];
+	mem->io_reg->ff14 = &mem->rest_ram[0x14 + 0x1f00];
+	mem->io_reg->ff16 = &mem->rest_ram[0x16 + 0x1f00];
+	mem->io_reg->ff17 = &mem->rest_ram[0x17 + 0x1f00];
+	mem->io_reg->ff18 = &mem->rest_ram[0x18 + 0x1f00];
+	mem->io_reg->ff19 = &mem->rest_ram[0x19 + 0x1f00];
+	mem->io_reg->ff1a = &mem->rest_ram[0x1a + 0x1f00];
+	mem->io_reg->ff1b = &mem->rest_ram[0x1b + 0x1f00];
+	mem->io_reg->ff1c = &mem->rest_ram[0x1c + 0x1f00];
+	mem->io_reg->ff1d = &mem->rest_ram[0x1d + 0x1f00];
+	mem->io_reg->ff1e = &mem->rest_ram[0x1e + 0x1f00];
+	mem->io_reg->ff20 = &mem->rest_ram[0x20 + 0x1f00];
+	mem->io_reg->ff21 = &mem->rest_ram[0x21 + 0x1f00];
+	mem->io_reg->ff22 = &mem->rest_ram[0x22 + 0x1f00];
+	mem->io_reg->ff23 = &mem->rest_ram[0x23 + 0x1f00];
+	mem->io_reg->ff24 = &mem->rest_ram[0x24 + 0x1f00];
+	mem->io_reg->ff25 = &mem->rest_ram[0x25 + 0x1f00];
+	mem->io_reg->ff26 = &mem->rest_ram[0x26 + 0x1f00];
+	mem->io_reg->ff30 = &mem->rest_ram[0x30 + 0x1f00];
+	mem->io_reg->ff40 = &mem->rest_ram[0x40 + 0x1f00];
+	mem->io_reg->ff41 = &mem->rest_ram[0x41 + 0x1f00];
+	mem->io_reg->ff42 = &mem->rest_ram[0x42 + 0x1f00];
+	mem->io_reg->ff43 = &mem->rest_ram[0x43 + 0x1f00];
+	mem->io_reg->ff44 = &mem->rest_ram[0x44 + 0x1f00];
+	mem->io_reg->ff45 = &mem->rest_ram[0x45 + 0x1f00];
+	mem->io_reg->ff46 = &mem->rest_ram[0x46 + 0x1f00];
+	mem->io_reg->ff47 = &mem->rest_ram[0x47 + 0x1f00];
+	mem->io_reg->ff48 = &mem->rest_ram[0x48 + 0x1f00];
+	mem->io_reg->ff49 = &mem->rest_ram[0x49 + 0x1f00];
+	mem->io_reg->ff4a = &mem->rest_ram[0x4a + 0x1f00];
+	mem->io_reg->ff4b = &mem->rest_ram[0x4b + 0x1f00];
+	mem->io_reg->ff50 = &mem->rest_ram[0x50 + 0x1f00];
+	mem->io_reg->ffff = &mem->rest_ram[0xff + 0x1f00];
 }
 
 void	no_boot(t_mem *mem)
@@ -183,14 +183,8 @@ void	defaults(t_mem *mem)
 		mem->vram[i] = 0;
 	for (i = 0; i < 0x8000; i++)
 		mem->wram[i] = 0;
-	for (i = 0; i < 0x1e00; i++)
-		mem->eram[i] = 0;
-	for (i = 0; i < 0xa0; i++)
-		mem->oam[i] = 0;
-	for (i = 0; i < 0x80; i++)
-		mem->i_o_registers[i] = 0;
-	for (i = 0; i < 0x80; i++)
-		mem->hram[i] = 0;
+	for (i = 0; i < 0x2000; i++)
+		mem->rest_ram[i] = 0;
 }
 
 t_mem	*initial_setup(int ac, char **av)

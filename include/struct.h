@@ -135,11 +135,7 @@ typedef struct		s_mem
 	unsigned char	*ram; // done
 	unsigned char	vram[0x8000]; //done
 	unsigned char	wram[0x8000]; //done
-	unsigned char	eram[0x1e00]; //done
-	unsigned char	oam[0xa0];	//done
-	unsigned char	i_o_registers[0x80]; //done
-	unsigned char	hram[0x80]; //done
-	unsigned char	interrupts; //done
+	unsigned char	rest_ram[0x2000]; //echo, oam, io_regs, hram
 	unsigned char	master_interrupt; //done
 	unsigned char	halt;
 	
