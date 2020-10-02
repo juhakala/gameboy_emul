@@ -33,7 +33,6 @@ int     rlc_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -59,7 +58,6 @@ int     rlc_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -85,7 +83,6 @@ int     rlc_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -111,7 +108,6 @@ int     rlc_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -137,7 +133,6 @@ int     rlc_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -163,7 +158,6 @@ int     rlc_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -189,7 +183,6 @@ int     rlc_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -215,7 +208,6 @@ int     rlc_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -241,7 +233,6 @@ int     rrc_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -267,7 +258,6 @@ int     rrc_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -293,7 +283,6 @@ int     rrc_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -319,7 +308,6 @@ int     rrc_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -345,7 +333,6 @@ int     rrc_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -371,7 +358,6 @@ int     rrc_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -397,7 +383,6 @@ int     rrc_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -423,7 +408,6 @@ int     rrc_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -449,7 +433,6 @@ int     rl_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -475,7 +458,6 @@ int     rl_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -501,7 +483,6 @@ int     rl_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -527,7 +508,6 @@ int     rl_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -553,7 +533,6 @@ int     rl_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -579,7 +558,6 @@ int     rl_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -605,7 +583,6 @@ int     rl_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -631,7 +608,6 @@ int     rl_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -658,7 +634,6 @@ int     rr_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -684,7 +659,6 @@ int     rr_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -710,7 +684,6 @@ int     rr_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -736,7 +709,6 @@ int     rr_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -762,7 +734,6 @@ int     rr_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -788,7 +759,6 @@ int     rr_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -814,7 +784,6 @@ int     rr_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -840,7 +809,6 @@ int     rr_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -867,7 +835,6 @@ int     sla_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -893,7 +860,6 @@ int     sla_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -919,7 +885,6 @@ int     sla_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -945,7 +910,6 @@ int     sla_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -971,7 +935,6 @@ int     sla_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -997,7 +960,6 @@ int     sla_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1023,7 +985,6 @@ int     sla_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1049,7 +1010,6 @@ int     sla_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1075,7 +1035,6 @@ int     sra_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1101,7 +1060,6 @@ int     sra_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1127,7 +1085,6 @@ int     sra_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1153,7 +1110,6 @@ int     sra_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1179,7 +1135,6 @@ int     sra_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1205,7 +1160,6 @@ int     sra_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1231,7 +1185,6 @@ int     sra_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1257,7 +1210,6 @@ int     sra_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1279,7 +1231,6 @@ int     swap_b(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1300,7 +1251,6 @@ int     swap_c(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1321,7 +1271,6 @@ int     swap_d(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1342,7 +1291,6 @@ int     swap_e(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1363,7 +1311,6 @@ int     swap_h(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1384,7 +1331,6 @@ int     swap_l(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1405,7 +1351,6 @@ int     swap_ahl(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1426,7 +1371,6 @@ int     swap_a(t_mem *mem)
 	CLEAR_FLAG(6);
 	CLEAR_FLAG(5);
 	CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1452,7 +1396,6 @@ int     srl_b(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1478,7 +1421,6 @@ int     srl_c(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1504,7 +1446,6 @@ int     srl_d(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1530,7 +1471,6 @@ int     srl_e(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1556,7 +1496,6 @@ int     srl_h(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1582,7 +1521,6 @@ int     srl_l(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1608,7 +1546,6 @@ int     srl_ahl(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1634,6 +1571,5 @@ int     srl_a(t_mem *mem)
 		SET_FLAG(4);
 	else
 		CLEAR_FLAG(4);
-	mem->cycle += 8;
 	return (2);
 }

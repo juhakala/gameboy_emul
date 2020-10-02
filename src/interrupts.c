@@ -2,34 +2,34 @@
 #include "struct.h"
 #include "define.h"
 
-void	do_interrupt(int interrupt, t_mem *mem)
-{
-	mem->master_interrupt = 0;
-	CLEAR_BIT(interrupt, *mem->io_reg->ff0f);
-	
-	write(--mem->reg->sp, mem->reg->pc >> 8, mem);
-	write(--mem->reg->sp, mem->reg->pc & 0xff, mem);
-	if (interrupt == 0)
-		mem->reg->pc = 0x40;
-	else if (interrupt == 1)
-		mem->reg->pc = 0x48;
-	else if (interrupt == 2)
-		mem->reg->pc = 0x50;
-	else if (interrupt == 4)
-	mem->reg->pc = 0x60;
-}
-
 void	handle_interrupts(t_mem *mem)
 {
-	if (mem->master_interrupt == 1)
+	IME = 0;
+	write(--mem->reg->sp, mem->reg->pc >> 8, mem);
+	write(--mem->reg->sp, mem->reg->pc & 0xff, mem);
+	if (R_IF & R_IE & 1)
 	{
-		for (int i = 0; i < 5; i++)
-		{
-			if (CHECK_BIT(i, *mem->io_reg->ff0f) == 1)
-			{
-				if (CHECK_BIT(i, *mem->io_reg->ffff) == 1)
-					do_interrupt(i, mem);
-			}
-		}
+		mem->reg->pc = 0x40;
+		R_IF ^= 0x1;
+	}
+	else if (R_IF & R_IE & 2)
+	{
+		mem->reg->pc = 0x48;
+		R_IF ^= 0x2;
+	}
+	else if (R_IF & R_IE & 4)
+	{
+		mem->reg->pc = 0x50;
+		R_IF ^= 0x4;
+	}
+	else if (R_IF & R_IE & 8)
+	{
+		mem->reg->pc = 0x58;
+		R_IF ^= 0x8;
+	}
+	else if (R_IF & R_IE & 0x10)
+	{
+		mem->reg->pc = 0x60;
+		R_IF ^= 0x10;
 	}
 }

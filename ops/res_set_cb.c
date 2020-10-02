@@ -26,7 +26,6 @@ int		res_0_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(0, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -36,7 +35,6 @@ int		res_0_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "C", 2, mem);
 	mem->reg->bc = bit_x_x(0, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -46,7 +44,6 @@ int		res_0_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "D", 2, mem);
 	mem->reg->de = (bit_x_x(0, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -56,7 +53,6 @@ int		res_0_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "E", 2, mem);
 	mem->reg->de = bit_x_x(0, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -66,7 +62,6 @@ int		res_0_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(0, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -76,7 +71,6 @@ int		res_0_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "L", 2, mem);
 	mem->reg->hl = bit_x_x(0, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -86,7 +80,6 @@ int		res_0_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(0, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -96,7 +89,6 @@ int		res_0_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "0", "A", 2, mem);
 	mem->reg->a = bit_x_x(0, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -106,7 +98,6 @@ int		res_1_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(1, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -116,7 +107,6 @@ int		res_1_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "C", 2, mem);
 	mem->reg->bc = bit_x_x(1, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -126,7 +116,6 @@ int		res_1_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "D", 2, mem);
 	mem->reg->de = (bit_x_x(1, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -136,7 +125,6 @@ int		res_1_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "E", 2, mem);
 	mem->reg->de = bit_x_x(1, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -146,7 +134,6 @@ int		res_1_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(1, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -156,7 +143,6 @@ int		res_1_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "L", 2, mem);
 	mem->reg->hl = bit_x_x(1, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -166,7 +152,6 @@ int		res_1_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(1, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -176,7 +161,6 @@ int		res_1_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "1", "A", 2, mem);
 	mem->reg->a = bit_x_x(1, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -186,7 +170,6 @@ int		res_2_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(2, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -196,7 +179,6 @@ int		res_2_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "C", 2, mem);
 	mem->reg->bc = bit_x_x(2, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -206,7 +188,6 @@ int		res_2_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "D", 2, mem);
 	mem->reg->de = (bit_x_x(2, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -216,7 +197,6 @@ int		res_2_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "E", 2, mem);
 	mem->reg->de = bit_x_x(2, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -226,7 +206,6 @@ int		res_2_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(2, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -236,7 +215,6 @@ int		res_2_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "L", 2, mem);
 	mem->reg->hl = bit_x_x(2, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -246,7 +224,6 @@ int		res_2_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(2, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -256,7 +233,6 @@ int		res_2_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "2", "A", 2, mem);
 	mem->reg->a = bit_x_x(2, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -266,7 +242,6 @@ int		res_3_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(3, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -276,7 +251,6 @@ int		res_3_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "C", 2, mem);
 	mem->reg->bc = bit_x_x(3, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -286,7 +260,6 @@ int		res_3_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "D", 2, mem);
 	mem->reg->de = (bit_x_x(3, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -296,7 +269,6 @@ int		res_3_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "E", 2, mem);
 	mem->reg->de = bit_x_x(3, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -306,7 +278,6 @@ int		res_3_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(3, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -316,7 +287,6 @@ int		res_3_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "L", 2, mem);
 	mem->reg->hl = bit_x_x(3, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -326,7 +296,6 @@ int		res_3_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(3, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -336,7 +305,6 @@ int		res_3_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "3", "A", 2, mem);
 	mem->reg->a = bit_x_x(3, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -346,7 +314,6 @@ int		res_4_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(4, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -356,7 +323,6 @@ int		res_4_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "C", 2, mem);
 	mem->reg->bc = bit_x_x(4, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -366,7 +332,6 @@ int		res_4_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "D", 2, mem);
 	mem->reg->de = (bit_x_x(4, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -376,7 +341,6 @@ int		res_4_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "E", 2, mem);
 	mem->reg->de = bit_x_x(4, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -386,7 +350,6 @@ int		res_4_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(4, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -396,7 +359,6 @@ int		res_4_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "L", 2, mem);
 	mem->reg->hl = bit_x_x(4, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -406,7 +368,6 @@ int		res_4_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(4, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -416,7 +377,6 @@ int		res_4_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "4", "A", 2, mem);
 	mem->reg->a = bit_x_x(4, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -426,7 +386,6 @@ int		res_5_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(5, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -436,7 +395,6 @@ int		res_5_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "C", 2, mem);
 	mem->reg->bc = bit_x_x(5, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -446,7 +404,6 @@ int		res_5_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "D", 2, mem);
 	mem->reg->de = (bit_x_x(5, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -456,7 +413,6 @@ int		res_5_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "E", 2, mem);
 	mem->reg->de = bit_x_x(5, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -466,7 +422,6 @@ int		res_5_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(5, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -476,7 +431,6 @@ int		res_5_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "L", 2, mem);
 	mem->reg->hl = bit_x_x(5, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -486,7 +440,6 @@ int		res_5_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(5, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -496,7 +449,6 @@ int		res_5_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "5", "A", 2, mem);
 	mem->reg->a = bit_x_x(5, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -506,7 +458,6 @@ int		res_6_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(6, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -516,7 +467,6 @@ int		res_6_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "C", 2, mem);
 	mem->reg->bc = bit_x_x(6, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -526,7 +476,6 @@ int		res_6_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "D", 2, mem);
 	mem->reg->de = (bit_x_x(6, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -536,7 +485,6 @@ int		res_6_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "E", 2, mem);
 	mem->reg->de = bit_x_x(6, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -546,7 +494,6 @@ int		res_6_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(6, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -556,7 +503,6 @@ int		res_6_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "L", 2, mem);
 	mem->reg->hl = bit_x_x(6, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -566,7 +512,6 @@ int		res_6_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(6, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -576,7 +521,6 @@ int		res_6_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "6", "A", 2, mem);
 	mem->reg->a = bit_x_x(6, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -586,7 +530,6 @@ int		res_7_b(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(7, 0, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -596,7 +539,6 @@ int		res_7_c(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "C", 2, mem);
 	mem->reg->bc = bit_x_x(7, 0, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -606,7 +548,6 @@ int		res_7_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "D", 2, mem);
 	mem->reg->de = (bit_x_x(7, 0, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -616,7 +557,6 @@ int		res_7_e(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "E", 2, mem);
 	mem->reg->de = bit_x_x(7, 0, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -626,7 +566,6 @@ int		res_7_h(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(7, 0, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -636,7 +575,6 @@ int		res_7_l(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "L", 2, mem);
 	mem->reg->hl = bit_x_x(7, 0, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -646,7 +584,6 @@ int		res_7_ahl(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(7, 0, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -656,7 +593,6 @@ int		res_7_a(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "A", 2, mem);
 	mem->reg->a = bit_x_x(7, 0, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -666,7 +602,6 @@ int		set_0_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(0, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -676,7 +611,6 @@ int		set_0_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "C", 2, mem);
 	mem->reg->bc = bit_x_x(0, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -686,7 +620,6 @@ int		set_0_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "D", 2, mem);
 	mem->reg->de = (bit_x_x(0, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -696,7 +629,6 @@ int		set_0_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "E", 2, mem);
 	mem->reg->de = bit_x_x(0, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -706,7 +638,6 @@ int		set_0_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(0, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -716,7 +647,6 @@ int		set_0_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "L", 2, mem);
 	mem->reg->hl = bit_x_x(0, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -726,7 +656,6 @@ int		set_0_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(0, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -736,7 +665,6 @@ int		set_0_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "0", "A", 2, mem);
 	mem->reg->a = bit_x_x(0, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -746,7 +674,6 @@ int		set_1_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(1, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -756,7 +683,6 @@ int		set_1_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "C", 2, mem);
 	mem->reg->bc = bit_x_x(1, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -766,7 +692,6 @@ int		set_1_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "D", 2, mem);
 	mem->reg->de = (bit_x_x(1, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -776,7 +701,6 @@ int		set_1_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "E", 2, mem);
 	mem->reg->de = bit_x_x(1, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -786,7 +710,6 @@ int		set_1_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(1, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -796,7 +719,6 @@ int		set_1_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "L", 2, mem);
 	mem->reg->hl = bit_x_x(1, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -806,7 +728,6 @@ int		set_1_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(1, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -816,7 +737,6 @@ int		set_1_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "1", "A", 2, mem);
 	mem->reg->a = bit_x_x(1, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -826,7 +746,6 @@ int		set_2_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(2, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -836,7 +755,6 @@ int		set_2_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "C", 2, mem);
 	mem->reg->bc = bit_x_x(2, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -846,7 +764,6 @@ int		set_2_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "D", 2, mem);
 	mem->reg->de = (bit_x_x(2, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -856,7 +773,6 @@ int		set_2_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "E", 2, mem);
 	mem->reg->de = bit_x_x(2, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -866,7 +782,6 @@ int		set_2_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(2, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -876,7 +791,6 @@ int		set_2_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "L", 2, mem);
 	mem->reg->hl = bit_x_x(2, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -886,7 +800,6 @@ int		set_2_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(2, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -896,7 +809,6 @@ int		set_2_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "2", "A", 2, mem);
 	mem->reg->a = bit_x_x(2, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -906,7 +818,6 @@ int		set_3_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(3, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -916,7 +827,6 @@ int		set_3_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "C", 2, mem);
 	mem->reg->bc = bit_x_x(3, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -926,7 +836,6 @@ int		set_3_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "D", 2, mem);
 	mem->reg->de = (bit_x_x(3, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -936,7 +845,6 @@ int		set_3_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "E", 2, mem);
 	mem->reg->de = bit_x_x(3, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -946,7 +854,6 @@ int		set_3_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(3, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -956,7 +863,6 @@ int		set_3_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "L", 2, mem);
 	mem->reg->hl = bit_x_x(3, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -966,7 +872,6 @@ int		set_3_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(3, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -976,7 +881,6 @@ int		set_3_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "3", "A", 2, mem);
 	mem->reg->a = bit_x_x(3, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -986,7 +890,6 @@ int		set_4_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(4, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -996,7 +899,6 @@ int		set_4_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "C", 2, mem);
 	mem->reg->bc = bit_x_x(4, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1006,7 +908,6 @@ int		set_4_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "D", 2, mem);
 	mem->reg->de = (bit_x_x(4, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1016,7 +917,6 @@ int		set_4_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "E", 2, mem);
 	mem->reg->de = bit_x_x(4, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1026,7 +926,6 @@ int		set_4_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(4, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1036,7 +935,6 @@ int		set_4_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "L", 2, mem);
 	mem->reg->hl = bit_x_x(4, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1046,7 +944,6 @@ int		set_4_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(4, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1056,7 +953,6 @@ int		set_4_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "4", "A", 2, mem);
 	mem->reg->a = bit_x_x(4, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1066,7 +962,6 @@ int		set_5_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(5, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1076,7 +971,6 @@ int		set_5_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "C", 2, mem);
 	mem->reg->bc = bit_x_x(5, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1086,7 +980,6 @@ int		set_5_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "D", 2, mem);
 	mem->reg->de = (bit_x_x(5, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1096,7 +989,6 @@ int		set_5_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "E", 2, mem);
 	mem->reg->de = bit_x_x(5, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1106,7 +998,6 @@ int		set_5_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(5, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1116,7 +1007,6 @@ int		set_5_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "L", 2, mem);
 	mem->reg->hl = bit_x_x(5, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1126,7 +1016,6 @@ int		set_5_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(5, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1136,7 +1025,6 @@ int		set_5_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "5", "A", 2, mem);
 	mem->reg->a = bit_x_x(5, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1146,7 +1034,6 @@ int		set_6_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(6, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1156,7 +1043,6 @@ int		set_6_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "C", 2, mem);
 	mem->reg->bc = bit_x_x(6, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1166,7 +1052,6 @@ int		set_6_d(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "D", 2, mem);
 	mem->reg->de = (bit_x_x(6, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1176,7 +1061,6 @@ int		set_6_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "E", 2, mem);
 	mem->reg->de = bit_x_x(6, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1186,7 +1070,6 @@ int		set_6_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(6, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1196,7 +1079,6 @@ int		set_6_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "L", 2, mem);
 	mem->reg->hl = bit_x_x(6, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1206,7 +1088,6 @@ int		set_6_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(6, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1216,7 +1097,6 @@ int		set_6_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "6", "A", 2, mem);
 	mem->reg->a = bit_x_x(6, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1226,7 +1106,6 @@ int		set_7_b(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "B", 2, mem);
 	mem->reg->bc = (bit_x_x(7, 1, mem->reg->bc >> 8, mem) << 8) + (mem->reg->bc & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1236,7 +1115,6 @@ int		set_7_c(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "C", 2, mem);
 	mem->reg->bc = bit_x_x(7, 1, mem->reg->bc & 0x00ff, mem) + (mem->reg->bc & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1246,7 +1124,6 @@ int		set_7_d(t_mem *mem)
 	if (PRINT)
 		printing("RES", "7", "D", 2, mem);
 	mem->reg->de = (bit_x_x(7, 1, mem->reg->de >> 8, mem) << 8) + (mem->reg->de & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1256,7 +1133,6 @@ int		set_7_e(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "E", 2, mem);
 	mem->reg->de = bit_x_x(7, 1, mem->reg->de & 0x00ff, mem) + (mem->reg->de & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1266,7 +1142,6 @@ int		set_7_h(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "H", 2, mem);
 	mem->reg->hl = (bit_x_x(7, 1, mem->reg->hl >> 8, mem) << 8) + (mem->reg->hl & 0x00ff);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1276,7 +1151,6 @@ int		set_7_l(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "L", 2, mem);
 	mem->reg->hl = bit_x_x(7, 1, mem->reg->hl & 0x00ff, mem) + (mem->reg->hl & 0xff00);
-	mem->cycle += 8;
 	return (2);
 }
 
@@ -1286,7 +1160,6 @@ int		set_7_ahl(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "(HL)", 2, mem);
 	write(mem->reg->hl, bit_x_x(7, 1, read(mem->reg->hl, mem), mem), mem);
-	mem->cycle += 16;
 	return (2);
 }
 
@@ -1296,6 +1169,5 @@ int		set_7_a(t_mem *mem)
 	if (PRINT)
 		printing("SET", "7", "A", 2, mem);
 	mem->reg->a = bit_x_x(7, 1, mem->reg->a, mem);
-	mem->cycle += 8;
 	return (2);
 }

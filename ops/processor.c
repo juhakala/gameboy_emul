@@ -40,6 +40,25 @@ int		g_op_size[OP_TAB_SIZE] = {
 	2, 1, 2, 1, 0, 1, 2, 1, 2, 1, 3, 1, 0, 0, 2, 2
 };
 
+int		g_cb_cycle[OP_TAB_SIZE] = {
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8,
+	8, 8, 8, 8, 8, 8, 16, 8, 8, 8, 8, 8, 8, 8, 16, 8
+};
+
 char	*g_op_str[OP_TAB_SIZE] = {
 	"NOP",			"LD BC d16",	"LD (BC), A",		"INC BC",		"INC B",		"DEC B",	"LD B, d8",		"RLCA",		"LD (a16), SP",		"ADD HL, BC",	"LD A, (BC)",	"DEC BC",		"INC C",	"DEC C",		"LD C, d8",		"RRCA",
 	"STOP",			"LD DE, d16",	"LD (DE), A",		"INC DE",		"INC D",		"DEC D",	"LD D, d8",		"RLA",		"JR s8 (r)",		"ADD HL, DE",	"LD A, (DE)", 	"DEC DE",		"INC E",	"DEC E",		"LD E, d8",		"RRA",
@@ -90,8 +109,8 @@ int		read_op_byte(t_mem *mem)
 	if (PRINT)
 		printing(g_op_str[val], g_op_size[val], mem);
 	mem->last_cycle = g_op_cycle[val];
-	mem->cycle += mem->last_cycle;
 	size = g_op_tab[val].f(mem);
+	mem->cycle += mem->last_cycle;
 //	mem->over_all_cycle += mem->last_cycle;
 
 	return (size);

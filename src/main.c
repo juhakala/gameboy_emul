@@ -3,42 +3,62 @@
 
 void	debug_print(t_mem *mem)
 {
-	printf("op in pc = %02x\n", read(mem->reg->pc, mem));
-	printf("re pc = %04hx\n", mem->reg->pc);
-	printf("re sp = %04hx\n", mem->reg->sp);
-	printf("reg A = %02hhx\n", mem->reg->a);
-	printf("reg F = %02hhx\n", mem->reg->f);
-	printf("reg B = %02x\n", (mem->reg->bc >> 8) & 0xff);
-	printf("reg C = %02x\n", mem->reg->bc & 0xff);
-	printf("reg D = %02x\n", (mem->reg->de >> 8) & 0xff);
-	printf("reg E = %02x\n", mem->reg->de & 0xff);
-	printf("reg H = %02x\n", (mem->reg->hl >> 8) & 0xff);
-	printf("reg L = %02x\n", mem->reg->hl & 0xff);
-	printf("reg ff44 = %02x\n", *mem->io_reg->ff44);
+	printf("op in pc = %02x\n", read(PC, mem));
+	printf("re pc = %04hx\n", PC);
+	printf("re sp = %04hx\n", R_SP);
+	printf("reg A = %02hhx\n", R_A);
+	printf("reg F = %02hhx\n", R_F);
+	printf("reg B = %02x\n", (R_BC >> 8) & 0xff);
+	printf("reg C = %02x\n", R_BC & 0xff);
+	printf("reg D = %02x\n", (R_DE >> 8) & 0xff);
+	printf("reg E = %02x\n", R_DE & 0xff);
+	printf("reg H = %02x\n", (R_HL >> 8) & 0xff);
+	printf("reg L = %02x\n", R_HL & 0xff);
+}
+
+void	debug_check(t_mem *mem)
+{
+	static int addr = 0x100;
+	static char choose[5] = "addr";
+
+	if (!strcmp(choose, "step"))
+		addr--;
+	if ((addr < 1 && !strcmp(choose, "step")) || (mem->reg->pc == addr && !strcmp(choose, "addr")))
+	{
+		debug_print(mem);
+		scanf("%s", choose);
+		if (!strcmp(choose, "addr"))
+			scanf("%x", &addr);
+		else
+			scanf("%d", &addr);
+		printf("%s\n", choose);
+	}
 }
 
 
 void	update_gameboy(t_mem *mem)
 {
-	int max_cycles = 69905;
 	int size;
-
-	mem->cycle = 0;
-	static int addr = 0x100;
-	while (mem->cycle < max_cycles)
+	
+	int frame = 1
+	while (frame)
 	{
-/*		if (mem->reg->pc == addr)
+//		debug_check(mem);
+		if ((HALT || IME) && (R_IF & R_IE & 0x1f))
 		{
-			debug_print(mem);
-			scanf("%x", &addr);
-			}*/
-		while (mem->halt == 1) //tmp for now
-			mem->halt = 0;
-		size = read_op_byte(mem);
-		mem->reg->pc += size;
-		update_timer(mem);
+			HALT = 0;
+			if (IME)
+				handle_interrupts(mem);
+			mem->last_cycle = 4;
+		}
+		else
+		{
+			size = read_op_byte(mem);
+			PC += size;
+		}
+		mem->timer->cpu_count += mem->last_cycle;
 		update_graphics(mem);
-		handle_interrupts(mem);
+		update_timer(mem);
 	}
 	render_sdl(mem);
 }

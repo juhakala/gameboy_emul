@@ -1,95 +1,47 @@
 #include "z80.h"
-
-void	map_io_registers(t_mem *mem)
-{
-	mem->io_reg->ff00 = &mem->rest_ram[0x0 + 0x1f00];
-	mem->io_reg->ff01 = &mem->rest_ram[0x1 + 0x1f00];
-	mem->io_reg->ff02 = &mem->rest_ram[0x2 + 0x1f00];
-	mem->io_reg->ff04 = &mem->rest_ram[0x4 + 0x1f00];
-	mem->io_reg->ff05 = &mem->rest_ram[0x5 + 0x1f00];
-	mem->io_reg->ff06 = &mem->rest_ram[0x6 + 0x1f00];
-	mem->io_reg->ff07 = &mem->rest_ram[0x7 + 0x1f00];
-	mem->io_reg->ff0f = &mem->rest_ram[0xf + 0x1f00];
-	mem->io_reg->ff10 = &mem->rest_ram[0x10 + 0x1f00];
-	mem->io_reg->ff11 = &mem->rest_ram[0x11 + 0x1f00];
-	mem->io_reg->ff12 = &mem->rest_ram[0x12 + 0x1f00];
-	mem->io_reg->ff13 = &mem->rest_ram[0x13 + 0x1f00];
-	mem->io_reg->ff14 = &mem->rest_ram[0x14 + 0x1f00];
-	mem->io_reg->ff16 = &mem->rest_ram[0x16 + 0x1f00];
-	mem->io_reg->ff17 = &mem->rest_ram[0x17 + 0x1f00];
-	mem->io_reg->ff18 = &mem->rest_ram[0x18 + 0x1f00];
-	mem->io_reg->ff19 = &mem->rest_ram[0x19 + 0x1f00];
-	mem->io_reg->ff1a = &mem->rest_ram[0x1a + 0x1f00];
-	mem->io_reg->ff1b = &mem->rest_ram[0x1b + 0x1f00];
-	mem->io_reg->ff1c = &mem->rest_ram[0x1c + 0x1f00];
-	mem->io_reg->ff1d = &mem->rest_ram[0x1d + 0x1f00];
-	mem->io_reg->ff1e = &mem->rest_ram[0x1e + 0x1f00];
-	mem->io_reg->ff20 = &mem->rest_ram[0x20 + 0x1f00];
-	mem->io_reg->ff21 = &mem->rest_ram[0x21 + 0x1f00];
-	mem->io_reg->ff22 = &mem->rest_ram[0x22 + 0x1f00];
-	mem->io_reg->ff23 = &mem->rest_ram[0x23 + 0x1f00];
-	mem->io_reg->ff24 = &mem->rest_ram[0x24 + 0x1f00];
-	mem->io_reg->ff25 = &mem->rest_ram[0x25 + 0x1f00];
-	mem->io_reg->ff26 = &mem->rest_ram[0x26 + 0x1f00];
-	mem->io_reg->ff30 = &mem->rest_ram[0x30 + 0x1f00];
-	mem->io_reg->ff40 = &mem->rest_ram[0x40 + 0x1f00];
-	mem->io_reg->ff41 = &mem->rest_ram[0x41 + 0x1f00];
-	mem->io_reg->ff42 = &mem->rest_ram[0x42 + 0x1f00];
-	mem->io_reg->ff43 = &mem->rest_ram[0x43 + 0x1f00];
-	mem->io_reg->ff44 = &mem->rest_ram[0x44 + 0x1f00];
-	mem->io_reg->ff45 = &mem->rest_ram[0x45 + 0x1f00];
-	mem->io_reg->ff46 = &mem->rest_ram[0x46 + 0x1f00];
-	mem->io_reg->ff47 = &mem->rest_ram[0x47 + 0x1f00];
-	mem->io_reg->ff48 = &mem->rest_ram[0x48 + 0x1f00];
-	mem->io_reg->ff49 = &mem->rest_ram[0x49 + 0x1f00];
-	mem->io_reg->ff4a = &mem->rest_ram[0x4a + 0x1f00];
-	mem->io_reg->ff4b = &mem->rest_ram[0x4b + 0x1f00];
-	mem->io_reg->ff50 = &mem->rest_ram[0x50 + 0x1f00];
-	mem->io_reg->ffff = &mem->rest_ram[0xff + 0x1f00];
-}
+#include "define.h"
 
 void	no_boot(t_mem *mem)
 {
-	map_io_registers(mem);
-	mem->reg->a = 0x11;
-	mem->reg->f = 0xb0;
-	mem->reg->bc = 0x0013;
-	mem->reg->de = 0x00d8;
-	mem->reg->hl = 0x014d;
-	mem->reg->sp = 0xfffe;
-	*mem->io_reg->ff05 = 0x0; //tima
-	*mem->io_reg->ff06 = 0x0; //tma
-	*mem->io_reg->ff07 = 0x0; //tac
-	*mem->io_reg->ff10 = 0x80; //nr10
-	*mem->io_reg->ff11 = 0xbf; //nr11
-	*mem->io_reg->ff12 = 0xf3; //nr12
-	*mem->io_reg->ff14 = 0xbf; //nr14
-	*mem->io_reg->ff16 = 0x3f; //nr21
-	*mem->io_reg->ff17 = 0x0; //nr22
-	*mem->io_reg->ff19 = 0xbf; //nr24
-	*mem->io_reg->ff1a = 0x7f; //nr30
-	*mem->io_reg->ff1b = 0xff; //nr31
-	*mem->io_reg->ff1c = 0x9f; //nr32
-	*mem->io_reg->ff1e = 0xbf; //nr33
-	*mem->io_reg->ff20 = 0xff; //nr41
-	*mem->io_reg->ff21 = 0x00; //nr42
-	*mem->io_reg->ff22 = 0x0; //nr43
-	*mem->io_reg->ff23 = 0xbf; //nr44
-	*mem->io_reg->ff24 = 0x77; //nr50
-	*mem->io_reg->ff25 = 0xf3; //nr51
-	*mem->io_reg->ff26 = 0xf1; //nr52
-	*mem->io_reg->ff40 = 0x91; //LCDC
-	*mem->io_reg->ff42 = 0x0; //SCY
-	*mem->io_reg->ff43 = 0x0; //SCX
-	*mem->io_reg->ff45 = 0x0; //LYC
-	*mem->io_reg->ff47 = 0xfc; //BGP
-	*mem->io_reg->ff48 = 0xff; //OBP0
-	*mem->io_reg->ff49 = 0xff; //OBP1
-	*mem->io_reg->ff4a = 0x0; //WY
-	*mem->io_reg->ff4b = 0x0; //WX
-	*mem->io_reg->ffff = 0x0; //IE
-	*mem->io_reg->ff50 = 1; //no boot
-	mem->reg->pc = 0x100;
+	R_A = 0x01;
+	R_F = 0xb0;
+	R_BC = 0x0013;
+	R_DE = 0x00d8;
+	R_HL = 0x014d;
+	R_SP = 0xfffe;
+	R_TIMA = 0x0; //tima
+	R_TMA = 0x0; //tma
+	R_TAC = 0x0; //tac
+	R_NR10 = 0x80; //nr10
+	R_NR11 = 0xbf; //nr11
+	R_NR12 = 0xf3; //nr12
+	R_NR14 = 0xbf; //nr14
+	R_NR21 = 0x3f; //nr21
+	R_NR22 = 0x0; //nr22
+	R_NR24 = 0xbf; //nr24
+	R_NR30 = 0x7f; //nr30
+	R_NR31 = 0xff; //nr31
+	R_NR32 = 0x9f; //nr32
+	R_NR33 = 0xbf; //nr33
+	R_NR41 = 0xff; //nr41
+	R_NR42 = 0x00; //nr42
+	R_NR43 = 0x0; //nr43
+	R_NR44 = 0xbf; //nr44
+	R_NR50 = 0x77; //nr50
+	R_NR51 = 0xf3; //nr51
+	R_NR52 = 0xf1; //nr52
+	R_LCDC = 0x91; //LCDC
+	R_SCY = 0x0; //SCY
+	R_SCX = 0x0; //SCX
+	R_LYC = 0x0; //LYC
+	R_BGP = 0xfc; //BGP
+	R_OBP0 = 0xff; //OBP0
+	R_OBP1 = 0xff; //OBP1
+	R_WY = 0x0; //WY
+	R_WX = 0x0; //WX
+	R_IE = 0x0; //IE
+	BOOT = 1; //no boot
+	PC = 0x100;
 }
 
 void	get_boot(t_mem *mem)
@@ -113,9 +65,8 @@ void	get_boot(t_mem *mem)
 							   0xf5, 0x06, 0x19, 0x78, 0x86, 0x23, 0x05, 0x20, 0xfb, 0x86, 0x20, 0xfe, 0x3e, 0x01, 0xe0, 0x50};
 	mem->boot = (unsigned char*)malloc(sizeof(unsigned char) * 256);
 	memcpy(mem->boot, boot, 256);
-	mem->reg->pc = 0;
-	map_io_registers(mem);
-    *mem->io_reg->ff50 = 0;
+	PC = 0;
+	BOOT = 0;
 }
 
 int		fetch_save(t_mem *mem)
@@ -144,9 +95,9 @@ int		get_header_info(t_mem *mem)
 	int rom_banks_arr[7] = {2, 4, 8, 16, 32, 64, 128};
 	mem->memory->rom_banks = rom_banks_arr[mem->header->rom_size];
 	int ram_banks_arr[5] = {0, 1, 1, 4, 16};
-	mem->memory->ram_banks = ram_banks_arr[mem->header->ram_size];
+	mem->memory->cram_banks = ram_banks_arr[mem->header->ram_size];
 	int ram_size_arr[6] = {0, 2048, 8192, 32768, 131072, 65536};
-	mem->memory->ram_size = ram_size_arr[mem->header->ram_size];
+	mem->memory->cram_size = ram_size_arr[mem->header->ram_size];
 	return (0);
 }
 
@@ -170,14 +121,23 @@ int		read_to_mem(char **av, t_mem *mem)
 
 void	defaults(t_mem *mem)
 {
-	mem->memory->rom_bank = 1;
-	mem->memory->ram_bank = 1;
-	mem->memory->rom_ram_mode = 0;
-	mem->memory->ram_enable = 0;
-	mem->reg->f = 0;
 	mem->halt = 0;
-	mem->timer->clock_freq = 4096;
-	mem->timer->timer_counter = 1024;
+	mem->ime = 1;
+	mem->memory->lcd_mode = 0;
+	mem->memory->rom_bank = 1;
+	mem->memory->cram_bank = 1;
+	mem->memory->wram_bank = 1;
+	mem->memory->vram_bank = 0;
+	mem->memory->cram_enable = 0;
+	mem->memory->cram_mode = 0;
+	mem->reg->f = 0;
+
+	mem->timer->cpu_count = 0;
+	mem->timer->lcd_count = 0;
+	mem->timer->div_count = 0;
+	mem->timer->tima_count = 0;
+	mem->timer->tac_enable = 0;
+	mem->timer->tac_rate = 0;
 	int i;
 	for (i = 0; i < 0x8000; i++)
 		mem->vram[i] = 0;

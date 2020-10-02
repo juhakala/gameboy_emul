@@ -120,7 +120,7 @@ int rrca(t_mem *mem)
 int stop(t_mem *mem)
 {
 	mem->halt = 1;
-	mem->io_reg->ffff = 0;
+	*mem->io_reg->ffff = 0;
 	return (2);
 }
 
@@ -1512,6 +1512,7 @@ int jp_z_a16(t_mem *mem)
 // 0xcb
 int op_cb(t_mem *mem)
 {
+	mem->last_cycle = g_cb_cycle[read(mem->reg->pc + 1, mem)];
 	return (g_bit_tab[read(mem->reg->pc + 1, mem)].f(mem));
 }
 

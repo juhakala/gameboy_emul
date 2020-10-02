@@ -1,6 +1,11 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+//#include <stdint.h>
+
+#define u8 uint8_t
+#define u16 uint16_t
+#define u32 uint32_t
 /*
 ** GENERAL purpose registers
 ** 8 bit
@@ -34,51 +39,16 @@ typedef struct		s_sdl
 
 typedef struct		s_io_reg
 {
-	unsigned char	*ff00; //p1			r/w
-	unsigned char	*ff01; //sb			r/w
-	unsigned char	*ff02; //sc			r/w
-	unsigned char	*ff04; //div		r/w
-	unsigned char	*ff05; //tima		r/w
-	unsigned char	*ff06; //tma		r/w
-	unsigned char	*ff07; //tac		r/w
-	unsigned char	*ff0f; //if			r/w
-	unsigned char	*ff10; //nr10		r/w
-	unsigned char	*ff11; //nr11		r/w
-	unsigned char	*ff12; //nr12		r/w
-	unsigned char	*ff13; //nr13		w
-	unsigned char	*ff14; //nr14		r/w
-	unsigned char	*ff16; //nr21		r/w
-	unsigned char	*ff17; //nr22		r/w
-	unsigned char	*ff18; //nr23		w
-	unsigned char	*ff19; //nr24		r/w
-	unsigned char	*ff1a; //nr30		r/w
-	unsigned char	*ff1b; //nr31		r/w
-	unsigned char	*ff1c; //nr32		r/w
-	unsigned char	*ff1d; //nr33		w
-	unsigned char	*ff1e; //nr34		r/w
-	unsigned char	*ff20; //nr41		r/w
-	unsigned char	*ff21; //nr42		r/w
-	unsigned char	*ff22; //nr43		r/w
-	unsigned char	*ff23; //nr44		r/w
-	unsigned char	*ff24; //nr50		r/w
-	unsigned char	*ff25; //nr51		r/w
-	unsigned char	*ff26; //nr52		r/w			at reset = 0xf1
-	unsigned char	*ff30; //wave pattern ram 30 -> 3f
-	unsigned char	*ff40; //LCDL		r/w			at reset = 0x91
-	unsigned char	*ff41; //STAT		r/w
-	unsigned char	*ff42; //SCY		r/w
-	unsigned char	*ff43; //SCX		r/w
-	unsigned char	*ff44; //LY			r
-	unsigned char	*ff45; //LYC		r/w
-	unsigned char	*ff46; //DMA		w
-	unsigned char	*ff47; //BGP		r/w
-	unsigned char	*ff48; //OBPO		r/w
-	unsigned char	*ff49; //OBP1		r/w
-	unsigned char	*ff4a; //WY			r/w
-	unsigned char	*ff4b; //WX			r/w
-	unsigned char	*ff50; //boot lock	r/w
-	unsigned char	*ffff; //IE			interrupt enable flag
-
+	u8 r_p1;	u8 r_sb;	u8 r_sc;	u8 r_div;
+	u8 r_tima;	u8 r_tma;	u8 r_tac;	u8 r_if;
+	u8 r_nr10;	u8 r_nr11;	u8 r_nr12;	u8 r_nr14;
+	u8 r_nr21;	u8 r_nr22;	u8 r_nr24;	u8 r_nr30;
+	u8 r_nr31;	u8 r_nr32;	u8 r_nr33;	u8 r_nr41;
+	u8 r_nr42;	u8 r_nr43;	u8 r_nr44;	u8 r_nr50;
+	u8 r_nr51;	u8 r_nr52;	u8 r_lcdc;	u8 r_stat;
+	u8 r_scy;	u8 r_scx;	u8 r_ly;	u8 r_lyc;
+	u8 r_dma;	u8 r_bgp;	u8 r_obp0;	u8 r_obp1;
+	u8 r_wy;	u8 r_wx;	u8 r_ie;	u8 r_nr13;
 }					t_io_reg;
 
 typedef struct		s_reg
@@ -109,23 +79,39 @@ typedef struct		s_header
 
 typedef struct		s_mem_control
 {
-	int				mbc;
-	int				rom_size;
-	int				ram_size;
-	int				rom_banks;
-	int				ram_banks;
-	// controls
-	unsigned int	ram_enable;
-	unsigned int	rom_ram_mode;
-	unsigned int	rom_bank;
-	unsigned int	ram_bank;
+	u8				boot;
+	u8				halt;
+	u8				ime;
+	u8				keys;
+	u8				mbc;
+	u8				rom_size;
+	u8				cram;
+	u8				cram_size;
+	u8				ram_size;
+	u8				frame;
+	u8				rtc[5];
+	u8				lcd_mode;
+
+	u16				rom_bank;
+	u16				rom_banks;
+	u8				wram_bank;
+	u8				vram_bank;
+	u8				cram_bank;
+	u8				cram_banks;
+	u8				cram_enable;
+	u8				cram_mode;
+
 }					t_mem_control;
+
 
 typedef struct		s_timer
 {
-	int				clock_freq;
-	int				timer_counter;
-	int				scanline_counter;
+	u32				cpu_count;
+	u32				lcd_count;
+	u32				div_count;
+	u32				tima_count;
+	u8				tac_enable;
+	u8				tac_rate;
 }					t_timer;
 
 typedef struct		s_mem
@@ -136,8 +122,8 @@ typedef struct		s_mem
 	unsigned char	vram[0x8000]; //done
 	unsigned char	wram[0x8000]; //done
 	unsigned char	rest_ram[0x2000]; //echo, oam, io_regs, hram
-	unsigned char	master_interrupt; //done
 	unsigned char	halt;
+	unsigned char	ime;
 	
 	unsigned int	cycle;
 	unsigned int	last_cycle;
@@ -163,6 +149,7 @@ t_op				g_bit_tab[OP_TAB_SIZE];
 
 int					g_op_size[OP_TAB_SIZE];
 int					g_op_cycle[OP_TAB_SIZE];
+int					g_cb_cycle[OP_TAB_SIZE];
 char				*g_op_str[OP_TAB_SIZE];
 
 
