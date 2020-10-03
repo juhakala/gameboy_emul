@@ -40,10 +40,10 @@ void	update_gameboy(t_mem *mem)
 {
 	int size;
 	
-	int frame = 1
+	int frame = 1;
 	while (frame)
 	{
-//		debug_check(mem);
+		debug_check(mem);
 		if ((HALT || IME) && (R_IF & R_IE & 0x1f))
 		{
 			HALT = 0;
@@ -57,7 +57,7 @@ void	update_gameboy(t_mem *mem)
 			PC += size;
 		}
 		mem->timer->cpu_count += mem->last_cycle;
-		update_graphics(mem);
+		frame = update_graphics(mem);
 		update_timer(mem);
 	}
 	render_sdl(mem);

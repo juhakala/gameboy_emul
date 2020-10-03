@@ -1,8 +1,7 @@
-
 #include "z80.h"
 #include "struct.h"
 #include "define.h"
-
+/*
 unsigned int	get_color(int color_bit, unsigned char palette, t_mem *mem)
 {
 	unsigned int color = (((palette >> (color_bit + 1)) & 1) << 1) + ((palette >> color_bit) & 1);
@@ -208,7 +207,7 @@ void	set_lcd_status(t_mem *mem)
 	else
 		CLEAR_BIT(2, *mem->io_reg->ff41);
 }
-/*
+
 void	update_graphics(t_mem *mem)
 {
 	set_lcd_status(mem);
@@ -229,13 +228,20 @@ void	update_graphics(t_mem *mem)
 	}
 }
 */
-void	update_graphics(t_mem *mem)
+void	lcdstart(t_mem *mem)
 {
-	mem->lcd_count += mem->last_cycle;
-	if (mem->lcd_count > 456)
+	mem->memory->wy = R_WY;
+	mem->memory->wyc = 0;
+}
+
+int		update_graphics(t_mem *mem)
+{
+	int frame = 1;
+	mem->timer->lcd_count += mem->last_cycle;
+	if (mem->timer->lcd_count > 456)
 	{
-		mem->lcd_count -= 456;
-		if (R_LY == RLYC)
+		mem->timer->lcd_count -= 456;
+		if (R_LY == R_LYC)
 		{
 			R_STAT |= 4;
 			if (R_STAT & 0x40)
@@ -243,7 +249,7 @@ void	update_graphics(t_mem *mem)
 		}
 		else
 			R_STAT &= 0xfb;
-		RLY = (RLY + 1) % 154;
+		R_LY = (R_LY + 1) % 154;
 		if (R_LY == 144)
 		{
 			mem->memory->lcd_mode = 1;
@@ -259,3 +265,12 @@ void	update_graphics(t_mem *mem)
 			mem->memory->lcd_mode = 0;
 			if (R_STAT & 8)
 				R_IF |= 2;
+		}
+	}
+	else if (mem->memory->lcd_mode == 2 && mem->timer->lcd_count >= 284)
+	{
+		mem->memory->lcd_mode = 3;
+//		draw_scanline(mem);
+	}
+	return (frame);
+}

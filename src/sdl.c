@@ -7,6 +7,7 @@ void	quit_sdl(t_mem *mem)
 	SDL_Quit();
 	free(mem->sdl->pixel_lcd);
 	mem->sdl->pixel_lcd = NULL;
+	exit(0);
 }
 
 void	render_sdl(t_mem *mem)

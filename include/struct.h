@@ -101,6 +101,8 @@ typedef struct		s_mem_control
 	u8				cram_enable;
 	u8				cram_mode;
 
+	u8				wy;
+	u8				wyc;
 }					t_mem_control;
 
 

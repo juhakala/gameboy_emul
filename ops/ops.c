@@ -120,7 +120,6 @@ int rrca(t_mem *mem)
 int stop(t_mem *mem)
 {
 	mem->halt = 1;
-	*mem->io_reg->ffff = 0;
 	return (2);
 }
 
@@ -1646,7 +1645,7 @@ int reti(t_mem *mem)
 {
 	mem->reg->pc = read(mem->reg->sp++, mem);
 	mem->reg->pc += (read(mem->reg->sp++, mem) << 8);
-	mem->master_interrupt = 1;
+	IME  = 1;
 	return (1);
 }
 
@@ -1804,7 +1803,7 @@ int ld_a_ac(t_mem *mem)
 // 0xf3
 int di(t_mem *mem)
 {
-	mem->master_interrupt = 0;
+	IME = 0;
 	return (1);
 }
 
@@ -1868,7 +1867,7 @@ int ld_a_ad16(t_mem *mem)
 // 0xfb
 int ei(t_mem *mem)
 {
-	mem->master_interrupt = 1;
+	IME = 1;
 	return (1);
 }
 
