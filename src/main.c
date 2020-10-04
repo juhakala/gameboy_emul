@@ -14,6 +14,8 @@ void	debug_print(t_mem *mem)
 	printf("reg E = %02x\n", R_DE & 0xff);
 	printf("reg H = %02x\n", (R_HL >> 8) & 0xff);
 	printf("reg L = %02x\n", R_HL & 0xff);
+
+	printf("reg LY = %02x\n", R_LY);
 }
 
 void	debug_check(t_mem *mem)
@@ -43,7 +45,7 @@ void	update_gameboy(t_mem *mem)
 	int frame = 1;
 	while (frame)
 	{
-		debug_check(mem);
+//		debug_check(mem);
 		if ((HALT || IME) && (R_IF & R_IE & 0x1f))
 		{
 			HALT = 0;
@@ -70,7 +72,11 @@ int		main(int ac, char **av)
 	unsigned val;
 
 	if (ac < 2 || !(mem = initial_setup(ac, av)))
+	{
+		printf("./gameboy [rom]\n./gameboy [rom] [no_boot] for not bootstrap\n");
+		printf("change PRINT in include/define.h to 1, 2 or 3 to see cycles in standard output\n");
 		return (0);
+	}
 //tmp_testing
 	if (ac == 3 && !strcmp(av[2], "dump"))
 	{

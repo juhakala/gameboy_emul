@@ -1,7 +1,7 @@
 #include "z80.h"
 #include "struct.h"
 #include "define.h"
-/*
+
 unsigned int	get_color(int color_bit, unsigned char palette, t_mem *mem)
 {
 	unsigned int color = (((palette >> (color_bit + 1)) & 1) << 1) + ((palette >> color_bit) & 1);
@@ -18,7 +18,7 @@ unsigned int	get_color(int color_bit, unsigned char palette, t_mem *mem)
 
 void	render_sprites(t_mem *mem)
 {
-	unsigned char lcdControl = *mem->io_reg->ff40;
+	unsigned char lcdControl = R_LCDC;
 	int usebig = 0;
 	if (CHECK_BIT(2, lcdControl))
 		usebig = 1;
@@ -29,11 +29,10 @@ void	render_sprites(t_mem *mem)
 		unsigned char positionX = read(0xfe00 + index + 1, mem) - 8;
 		unsigned char tileLoc = read(0xfe00 + index + 2, mem);
 		unsigned char attributes = read(0xfe00 + index + 3, mem);
-
 		int yFlip = CHECK_BIT(6, attributes);
 		int xFlip = CHECK_BIT(5, attributes);
 
-		int scanline = *mem->io_reg->ff44;
+		int scanline = R_LY;
 		int height = 8;
 		if (usebig)
 			height = 16;
@@ -60,7 +59,7 @@ void	render_sprites(t_mem *mem)
 				int colorNum = CHECK_BIT(colorbit, data2);
 				colorNum <<= 1;
 				colorNum |= CHECK_BIT(colorbit, data1);
-				unsigned char  val = CHECK_BIT(4, attributes) ? *mem->io_reg->ff49 : *mem->io_reg->ff48;
+				unsigned char  val = CHECK_BIT(4, attributes) ? R_OBP1 : R_OBP0;
 				unsigned char color = get_color(colorNum, val, mem);
 				if (color == 0)
 					continue ;
@@ -77,24 +76,24 @@ void	render_sprites(t_mem *mem)
 
 unsigned short	get_memory_areas(t_mem *mem, unsigned short *tile_data, int *sign, int *win)
 {
-	if (CHECK_BIT(4, *mem->io_reg->ff40))
+	if (CHECK_BIT(4, R_LCDC))
 		*tile_data = 0x8000;
 	else
 	{
 		*tile_data = 0x8800;
 		*sign = 1;
 	}
-	if (CHECK_BIT(5, *mem->io_reg->ff40) && *mem->io_reg->ff4a <= *mem->io_reg->ff44)
+	if (CHECK_BIT(5, R_LCDC) && R_WY <= R_LY)
 	{
 		*win = 1;
-		if (CHECK_BIT(6, *mem->io_reg->ff40))
+		if (CHECK_BIT(6, R_LCDC))
 			return (0x9c00);
 		else
 			return (0x9800);
 	}
 	else
 	{
-		if (CHECK_BIT(3, *mem->io_reg->ff40))
+		if (CHECK_BIT(3, R_LCDC))
 			return (0x9c00);
 		else
 			return (0x9800);
@@ -107,16 +106,16 @@ void	render_tiles(t_mem *mem)
 	int i = 0;
 	unsigned short tile_location, tile_data, memory, tile_id_addr, tile_id;
 	int sign = 0, win = 0;
-	int y = *mem->io_reg->ff44, color_bit, color_id;
+	int y = R_LY, color_bit, color_id;
 
 	unsigned short tile_row, tile_col;
 	unsigned char b1, b2;
-	unsigned char xpos, ypos, scrollx = *mem->io_reg->ff43, windowx = *mem->io_reg->ff4b - 7;
+	unsigned char xpos, ypos, scrollx = R_SCX, windowx = R_WX - 7;
 	memory = get_memory_areas(mem, &tile_data, &sign, &win);
 	if (win)
-		ypos = *mem->io_reg->ff44 - *mem->io_reg->ff4a;
+		ypos = R_LY - R_WY;
 	else
-		ypos = *mem->io_reg->ff44 + *mem->io_reg->ff42;
+		ypos = R_LY + R_SCY;
 	tile_row = ((unsigned char)(ypos / 8)) * 32;
 	ypos %= 8;
 	for (i = 0; i < 160; i++)
@@ -136,98 +135,19 @@ void	render_tiles(t_mem *mem)
 		b2 = read(tile_location + ypos * 2 + 1, mem);
 		color_bit = ((xpos % 8) - 7) * -1;
 		color_id = (CHECK_BIT(color_bit, b2) << 1) + CHECK_BIT(color_bit, b1);
-		mem->sdl->pixel_lcd[i + (y * 160)] = get_color(color_id * 2, *mem->io_reg->ff47, mem);
+		mem->sdl->pixel_lcd[i + (y * 160)] = get_color(color_id * 2, R_BGP, mem);
 	}
 }
 
 void	draw_scanline(t_mem *mem)
 {
-	if (CHECK_BIT(0, *mem->io_reg->ff40))
+	if (CHECK_BIT(0, R_LCDC))
 		render_tiles(mem);
-	if (CHECK_BIT(1, *mem->io_reg->ff40))
+	if (CHECK_BIT(1, R_LCDC))
 		render_sprites(mem);
 }
 
-void	set_lcd_status(t_mem *mem)
-{
-	unsigned char mode;
-	unsigned char cur_mode;
-	unsigned char reguest = 0;
 
-	if (CHECK_BIT(7, *mem->io_reg->ff40) == 0)
-	{
-		mem->timer->scanline_counter = 0;
-		*mem->io_reg->ff44 = 0;
-		*mem->io_reg->ff41 &= 252;
-		SET_BIT(0, *mem->io_reg->ff41);
-		return ;
-	}
-	cur_mode = *mem->io_reg->ff41 & 0x3;
-	if (*mem->io_reg->ff44 >= 144)
-	{
-		mode = 1;
-		SET_BIT(0, *mem->io_reg->ff41);
-		CLEAR_BIT(1, *mem->io_reg->ff41);
-		reguest = CHECK_BIT(4, *mem->io_reg->ff41);
-	}
-	else
-	{
-		//mode2
-		if (mem->timer->scanline_counter <= 80) //i think it should be just '>'
-		{
-			mode = 2;
-			SET_BIT(1, *mem->io_reg->ff41);
-			CLEAR_BIT(0, *mem->io_reg->ff41);
-			reguest = CHECK_BIT(5, *mem->io_reg->ff41);
-		}
-		//mode3
-		else if (mem->timer->scanline_counter <= 252) //i think it should be just '>'
-		{
-			mode = 3;
-			SET_BIT(0, *mem->io_reg->ff41);
-			SET_BIT(1, *mem->io_reg->ff41);
-		}
-		//mode 0
-		else
-		{
-			mode = 0;
-			CLEAR_BIT(0, *mem->io_reg->ff41);
-			CLEAR_BIT(1, *mem->io_reg->ff41);
-			reguest = CHECK_BIT(3, *mem->io_reg->ff41);
-		}
-	}
-	if (reguest && (mode != cur_mode))
-		SET_BIT(1, *mem->io_reg->ff0f);
-	if (*mem->io_reg->ff44 == *mem->io_reg->ff45)
-	{
-		SET_BIT(2, *mem->io_reg->ff41);
-		if (CHECK_BIT(6, *mem->io_reg->ff41))
-			SET_BIT(1, *mem->io_reg->ff0f);
-	}
-	else
-		CLEAR_BIT(2, *mem->io_reg->ff41);
-}
-
-void	update_graphics(t_mem *mem)
-{
-	set_lcd_status(mem);
-	if (CHECK_BIT(7, *mem->io_reg->ff40) == 1)
-	{
-		mem->timer->scanline_counter += mem->last_cycle;
-		if (mem->timer->scanline_counter >= 456)
-		{
-			*mem->io_reg->ff44 += 1;
-			mem->timer->scanline_counter = 0;
-			if (*mem->io_reg->ff44 == 144)
-				SET_BIT(0, *mem->io_reg->ff0f);
-			else if (*mem->io_reg->ff44 > 153)
-				*mem->io_reg->ff44 = 0;
-			else if (*mem->io_reg->ff44 < 144)
-				draw_scanline(mem);
-		}
-	}
-}
-*/
 void	lcdstart(t_mem *mem)
 {
 	mem->memory->wy = R_WY;
@@ -238,6 +158,7 @@ int		update_graphics(t_mem *mem)
 {
 	int frame = 1;
 	mem->timer->lcd_count += mem->last_cycle;
+	
 	if (mem->timer->lcd_count > 456)
 	{
 		mem->timer->lcd_count -= 456;
@@ -267,10 +188,16 @@ int		update_graphics(t_mem *mem)
 				R_IF |= 2;
 		}
 	}
+	else if (mem->memory->lcd_mode == 0 && mem->timer->lcd_count >= 204)
+	{
+		mem->memory->lcd_mode = 2;
+		if (R_STAT & 0x20)
+			R_IF |= 2;
+	}
 	else if (mem->memory->lcd_mode == 2 && mem->timer->lcd_count >= 284)
 	{
 		mem->memory->lcd_mode = 3;
-//		draw_scanline(mem);
+		draw_scanline(mem);
 	}
 	return (frame);
 }

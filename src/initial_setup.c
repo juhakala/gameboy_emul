@@ -132,6 +132,9 @@ void	defaults(t_mem *mem)
 	mem->memory->cram_mode = 0;
 	mem->reg->f = 0;
 
+	R_LY = 0;
+	R_SCX = 0;
+	mem->memory->lcd_mode = 0;
 	mem->timer->cpu_count = 0;
 	mem->timer->lcd_count = 0;
 	mem->timer->div_count = 0;

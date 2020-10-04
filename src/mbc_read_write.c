@@ -133,6 +133,7 @@ int		write(unsigned short addr, unsigned char content, t_mem *mem)
 		printf("%c", R_SB);
 	if (mem->memory->mbc == 1)
 		write1(addr, content, mem);
+	write1(addr, content, mem);
 	return (0);
 }
 
@@ -250,5 +251,6 @@ unsigned char	read(unsigned short addr, t_mem *mem)
 {
 	if (mem->memory->mbc == 1)
 		return (read1(addr, mem));
+	return (read1(addr, mem));
 	return (0);
 }
