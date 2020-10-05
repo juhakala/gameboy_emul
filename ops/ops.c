@@ -233,7 +233,10 @@ int rra(t_mem *mem)
 int jr_nz_s8(t_mem *mem)
 {
 	if (CHECK_FLAG(7) == 0)
+	{
 		mem->reg->pc += (char)read(mem->reg->pc + 1, mem);
+		mem->last_cycle += 4;
+	}
 	return (2);
 }
 
@@ -314,7 +317,10 @@ int daa(t_mem *mem)
 int jr_z_s8(t_mem *mem)
 {
 	if (CHECK_FLAG(7) == 1)
+	{
 		mem->reg->pc += (char)read(mem->reg->pc + 1, mem);
+		mem->last_cycle += 4;
+	}
 	return (2);
 }
 
@@ -373,7 +379,10 @@ int cpl(t_mem *mem)
 int jr_nc_s8(t_mem *mem)
 {
 	if (CHECK_FLAG(4) == 0)
+	{
 		mem->reg->pc += (char)read(mem->reg->pc + 1, mem);
+		mem->last_cycle += 4;
+	}
 	return (2);
 }
 
@@ -449,7 +458,10 @@ int scf(t_mem *mem)
 int jr_c_s8(t_mem *mem)
 {
 	if (CHECK_FLAG(4) == 1)
+	{
 		mem->reg->pc += (char)read(mem->reg->pc + 1, mem);
+		mem->last_cycle += 4;
+	}
 	return (2);
 }
 
@@ -1410,6 +1422,7 @@ int ret_nz(t_mem *mem)
 	{
 		mem->reg->pc = read(mem->reg->sp++, mem);
 		mem->reg->pc += (read(mem->reg->sp++, mem) << 8);
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (1);
@@ -1427,7 +1440,10 @@ int pop_bc(t_mem *mem)
 int jp_nz_a16(t_mem *mem)
 {
 	if (CHECK_FLAG(7) == 0)
+	{
 		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
+		mem->last_cycle += 4;
+	}
 	return (3);
 }
 
@@ -1449,6 +1465,7 @@ int call_nz(t_mem *mem)
 		val = read(mem->reg->pc + 1, mem);
 		val += read(mem->reg->pc + 2, mem) << 8;
 		mem->reg->pc = val;
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (3);
@@ -1486,6 +1503,7 @@ int ret_z(t_mem *mem)
 	{
 		mem->reg->pc = read(mem->reg->sp++, mem);
 		mem->reg->pc += (read(mem->reg->sp++, mem) << 8);
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (1);
@@ -1504,7 +1522,10 @@ int ret(t_mem *mem)
 int jp_z_a16(t_mem *mem)
 {
 	if (CHECK_FLAG(7) == 1)
+	{
 		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
+		mem->last_cycle += 4;
+	}
 	return (3);
 }
 
@@ -1526,6 +1547,7 @@ int call_z(t_mem *mem)
 		val = read(mem->reg->pc + 1, mem);
 		val += read(mem->reg->pc + 2, mem) << 8;
 		mem->reg->pc = val;
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (3);
@@ -1566,6 +1588,7 @@ int ret_nc(t_mem *mem)
 	{
 		mem->reg->pc = read(mem->reg->sp++, mem);
 		mem->reg->pc += (read(mem->reg->sp++, mem) << 8);
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (1);
@@ -1583,7 +1606,10 @@ int pop_de(t_mem *mem)
 int jp_nc_a16(t_mem *mem)
 {
 	if (CHECK_FLAG(4) == 0)
+	{
 		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
+		mem->last_cycle += 4;
+	}
 	return (3);
 }
 
@@ -1598,6 +1624,7 @@ int call_nc(t_mem *mem)
 		val = read(mem->reg->pc + 1, mem);
 		val += read(mem->reg->pc + 2, mem) << 8;
 		mem->reg->pc = val;
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (3);
@@ -1635,6 +1662,7 @@ int ret_c(t_mem *mem)
 	{
 		mem->reg->pc = read(mem->reg->sp++, mem);
 		mem->reg->pc += (read(mem->reg->sp++, mem) << 8);
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (1);
@@ -1653,7 +1681,10 @@ int reti(t_mem *mem)
 int jp_c_a16(t_mem *mem)
 {
 	if (CHECK_FLAG(4) == 1)
+	{
 		mem->reg->pc = (read(mem->reg->pc + 1, mem) + (read(mem->reg->pc + 2, mem) << 8)) - 3;
+		mem->last_cycle += 4;
+	}
 	return (3);
 }
 
@@ -1668,6 +1699,7 @@ int call_c(t_mem *mem)
 		val = read(mem->reg->pc + 1, mem);
 		val += read(mem->reg->pc + 2, mem) << 8;
 		mem->reg->pc = val;
+		mem->last_cycle += 12;
 		return (0);
 	}
 	return (3);

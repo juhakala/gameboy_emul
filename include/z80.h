@@ -39,4 +39,7 @@ int				update_graphics(t_mem *mem);
 void			render_sdl(t_mem *mem);
 int				init_sdl(t_mem *mem);
 
+// debug.c
+void			debug_main(t_mem *mem);
+
 #endif

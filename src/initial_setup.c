@@ -156,7 +156,7 @@ t_mem	*initial_setup(int ac, char **av)
 
 	mem = (t_mem*)malloc(sizeof(t_mem));
 	mem->reg = (t_reg*)malloc(sizeof(t_reg));
-	mem->io_reg = (t_io_reg*)malloc(sizeof(t_io_reg));
+//	mem->io_reg = (t_io_reg*)malloc(sizeof(t_io_reg));
 	mem->header = (t_header*)malloc(sizeof(t_header));
 	mem->memory = (t_mem_control*)malloc(sizeof(t_mem_control));
 	mem->timer = (t_timer*)malloc(sizeof(t_timer));

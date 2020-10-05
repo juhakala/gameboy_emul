@@ -6,7 +6,7 @@ GREEN := $(shell tput -Txterm setaf 2)
 RESET := $(shell tput -Txterm sgr0)
 
 SRC = main.c initial_setup.c hexdumps.c \
-	read.c mbc_read_write.c lcd.c timer.c interrupts.c sdl.c
+	read.c mbc_read_write.c lcd.c timer.c interrupts.c sdl.c debug.c
 
 OPS = processor.c ops.c bit_cb.c rlc_rrc_cb.c res_set_cb.c
 
