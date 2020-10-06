@@ -8,20 +8,23 @@ and to learn more about coding virtual machines.
     - [x] update timer
     - [ ] update graphics
       - [x] tiles
-      - [ ] sprites
+      - [ ] sprites (done, but need to test more before happy with it)
     - [x] handle interrupts
     - [ ] render wit SDL
       - [x] lcd screen (play area, just make it nice)
       - [ ] debug lcd screen (whole video memory are)
-      - [ ] debug window for registers
+      - [ ] debug window for registers (atm prits in stdout, with step or addr selection)
   - [x] all ops (1.10 2:28)
   - [ ] memory bank controllers (mbc)
-    - [ ] 0 started
-    - [ ] 1 started
+    - [ ] 0
+    - [1] 1
     - [ ] 2
-    - [x] 3 (because of pokemon red uses mbc3)
+    - [ ] 3(90%) almost like 1 wit little modifications
     - [ ] 5
   - [ ] gameboy color palette ?
   ```
+
+	![](gameboy_boot_18-36-03.gif)
+	
   Testing with MacOS Catalina and Mojave
   Compiling with GCC
