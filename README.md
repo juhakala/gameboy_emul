@@ -24,7 +24,8 @@ and to learn more about coding virtual machines.
   - [ ] gameboy color palette ?
   ```
 
-	![](gameboy_boot_18-36-03.gif)
+![](gameboy_boot_18-36-03.gif)
+	
 	
   Testing with MacOS Catalina and Mojave
   Compiling with GCC
