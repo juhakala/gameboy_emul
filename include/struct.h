@@ -36,22 +36,7 @@ typedef struct		s_sdl
 	int				*pixel_lcd;
 	SDL_Rect		rect_lcd;
 }					t_sdl;
-/*
-typedef struct		s_io_reg
-{
-	u8 r_p1;	u8 r_sb;	u8 r_sc;	u8 r_div;
-	u8 r_tima;	u8 r_tma;	u8 r_tac;	u8 r_if;
-	u8 r_nr10;	u8 r_nr11;	u8 r_nr12;	u8 r_nr14;
-	u8 r_nr21;	u8 r_nr22;	u8 r_nr24;	u8 r_nr30;
-	u8 r_nr31;	u8 r_nr32;	u8 r_nr33;	u8 r_nr41;
-	u8 r_nr42;	u8 r_nr43;	u8 r_nr44;	u8 r_nr50;
-	u8 r_nr51;	u8 r_nr52;	u8 r_lcdc;	u8 r_stat;
-	u8 r_scy;	u8 r_scx;	u8 r_ly;	u8 r_lyc;
-	u8 r_dma;	u8 r_bgp;	u8 r_obp0;	u8 r_obp1;
-	u8 r_wy;	u8 r_wx;	u8 r_ie;	u8 r_nr13;
-	u8 r_nr23;	u8 r_nr34;
-}					t_io_reg;
-*/
+
 typedef struct		s_reg
 {
 	unsigned char	a;
@@ -132,7 +117,6 @@ typedef struct		s_mem
 	unsigned int	last_cycle;
 
 	t_reg			*reg;
-//	t_io_reg		*io_reg;
 	t_header		*header;
 	t_mem_control	*memory;
 	t_timer			*timer;
